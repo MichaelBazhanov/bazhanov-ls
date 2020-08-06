@@ -3,7 +3,7 @@ extends ./main.layout.pug
 block content
   .welcome-sections
     section.hero
-      .container
+      .container.hero-container
 
         header.header
 
@@ -11,16 +11,13 @@ block content
 
           +nav('menu', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
-          - var socials = ["insta","github","vk","envelope"]
-          ul.socials
-            each item in socials
-              li.socials__item
-                a(href="#").socials__link
-                  +icon(item, 'socials__icon')
+          +socials(["insta","github","vk","envelope"])
 
         .userinfo
-          .userinfo__title Личный сайт веб разработчика
+          .userinfo__title Личный сайт #[br] веб разработчика
           .userinfo__name Бажанов Михаил
 
         .hero__bottom-buttons
-          button.scroll-down-btn Скролл
+          button.scroll-down-btn
+            span Скролл
+            +icon('scroll-2', 'hero__scroll')

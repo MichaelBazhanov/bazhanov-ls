@@ -1,5 +1,6 @@
 {
   "text-color": "#fff",
+  "text-color-2": "rgba(255, 255, 255, 0.5);",
   "links-color": "#4b6fd7",
   "links-color-active": "#FF9A00",
   "links-color-hover": "#FF9A00",
