@@ -1,16 +1,26 @@
-include ./mixins.pug
+extends ./main.layout.pug
 
-<!DOCTYPE html>
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title Portfolio | main page
-  body
-    .wrapper
-      .maincontent
-        +image('content/user.jpg', 'user-pic')
-        +icon('link', 'link-class')
-        .icon-bg
-        +icon('vk', 'link-class')
+block content
+  .welcome-sections
+    section.hero
+      .container
+
+        header.header
+
+          a(href="#").logo БМ
+
+          +nav('menu', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
+
+          - var socials = ["insta","github","vk","envelope"]
+          ul.socials
+            each item in socials
+              li.socials__item
+                a(href="#").socials__link
+                  +icon(item, 'socials__icon')
+
+        .userinfo
+          .userinfo__title Личный сайт веб разработчика
+          .userinfo__name Бажанов Михаил
+
+        .hero__bottom-buttons
+          button.scroll-down-btn Скролл
