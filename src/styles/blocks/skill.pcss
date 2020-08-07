@@ -7,7 +7,7 @@
 	fill: transparent;
 	/* нижний круг */
 	&--layer-under {
-		stroke: #eaeaea;
+		stroke: #E9E9E9;
 		stroke-width: 5px;
 	}
 	/* верхний круг */
@@ -27,4 +27,24 @@
 	color: rgba($text-color, .5);
 	padding: 14px;
 	text-align: center;
+}
+.values__widget {
+	margin-top: 80px;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 8.333333%;
+}
+.skills-row__title {
+	font-weight: bold;
+	font-size: 24px;
+}
+.skills-row__list {
+	display: flex;
+	margin-top: 40px;
+	margin-bottom: 55px;
+}
+.skills-row__item {
+	&:not(:first-child) {
+		margin-left: 65px;
+	}
 }

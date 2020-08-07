@@ -56,7 +56,8 @@ block content
   .middle-section
 
     section.values
-      .container
+      .values__img
+      .container.values__container
         .values__title
           .values__title-text Чем я могу быть полезен вам
           .values__title-content
@@ -80,9 +81,44 @@ block content
                               circle(cx='50' cy='50' r='40').skill__circle.skill__circle--layer-under
                               circle(cx='50' cy='50' r='40' stroke="url(#gradient)" transform="rotate(180 50 50)").skill__circle.skill__circle--layer-above
                               linearGradient(id='gradient' x1="0%" y1="0%" x2="100%" y2="0%" )
-                                stop(offset="0%" stop-color="#0500f2")
-                                stop(offset="100%" stop-color="#8f00ef")
+                                stop(offset="0%" stop-color="#D0731B")
+                                stop(offset="100%" stop-color="#DC9322")
                             .skill__title #{skill}
+
+    section.works
+      .container.works__container
+        section.title Мои работы
+        .works__content
+          .works-preview
+
+            .works-preview__pictures(data-slide="2")
+              +image('content/slider-0.jpg', 'works-preview__img')
+              .works-preview__thumbs
+                ul.thumbs
+                  - for (var i = 0; i < 4; i++)
+                    li(class=`thumbs__item `+ ( (i == 0) ? `thumbs__item-active ` : '') )
+                      a(href="#").thumbs__link
+                        +image(`content/slider-${i}.jpg`, 'thumbs__pic')
+              .works-preview__btns
+                .square-btns
+                  button(type="button").square-btns__item.square-btns__item-next
+                    +icon('arrow', 'arrow-next-class')
+                  button(type="button").square-btns__item.square-btns__item-prev
+                    +icon('arrow', 'arrow-prev-class')
+
+            .works-preview__info
+              - var tags = ['HTML','CSS','Javascript',]
+              ul.tags.tags-container
+                each tag in tags
+                  li.tags__item
+                    .tag #{tag}
+              .works-preview__title Сайт школы #[br] образования
+              .works-preview__desc
+                p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
+              a(href="#").iconed-link
+                +icon('iconed', 'iconed-class')
+                span Посмотреть сайт
+
 
 
 
