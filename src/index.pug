@@ -2,6 +2,7 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
+
     section.hero
       .container.hero-container
 
@@ -21,3 +22,67 @@ block content
           button.scroll-down-btn
             span Скролл
             +icon('scroll-2', 'hero__scroll')
+    section.about
+      .container.about__container
+
+        .about__user
+
+          .user
+            .user__avatar
+              .user__avatar-style
+                +image('content/user.jpg', 'user__avatar-pic')
+
+                -
+                  var userInfo = [
+                    ['Проживаю:','Владимир'],
+                    ['Возраст:','32'],
+                    ['Родился:','15 ноября 1987'],
+                  ]
+
+            table.user__data
+              each item in userInfo
+                tr.user__data-row
+                  td.user__data-title #{item[0]}
+                  td.user__data-content #{item[1]}
+
+        .about__content
+          .about__desc Привет, меня зовут
+          .about__title Михаил Бажанов
+          .about__text-info
+            | Я занимаюсь разработкой современных сайтов и приложений. Мне нравится делать интересные и современные проекты.
+          .about__ps
+            | Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+
+  .middle-section
+
+    section.values
+      .container
+        .values__title
+          .values__title-text Чем я могу быть полезен вам
+          .values__title-content
+            p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+        .values__widget
+          -
+            var skillsCategories = [
+              ['Front-end',['HTML5','CSS3','Javascript','Jquery и Vue.js',]],
+              ['Workflow',['GIT','Terminal','Gulp','Webpack',]],
+            ]
+          ul.skills
+            each category in skillsCategories
+              li.skills__item
+                .skills__row
+                  .skills-row__title #{category[0]}
+                    ul.skills-row__list
+                      each skill in category[1]
+                        li.skills-row__item
+                          .skill
+                            svg(viewBox='0 0 100 100').skill__circle-shape
+                              circle(cx='50' cy='50' r='40').skill__circle.skill__circle--layer-under
+                              circle(cx='50' cy='50' r='40' stroke="url(#gradient)" transform="rotate(180 50 50)").skill__circle.skill__circle--layer-above
+                              linearGradient(id='gradient' x1="0%" y1="0%" x2="100%" y2="0%" )
+                                stop(offset="0%" stop-color="#0500f2")
+                                stop(offset="100%" stop-color="#8f00ef")
+                            .skill__title #{skill}
+
+
+

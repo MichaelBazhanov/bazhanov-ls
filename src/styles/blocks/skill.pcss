@@ -1,0 +1,30 @@
+.skill {
+	position: relative;
+	width: 166px;
+	height: 166px;
+}
+.skill__circle {
+	fill: transparent;
+	/* нижний круг */
+	&--layer-under {
+		stroke: #eaeaea;
+		stroke-width: 5px;
+	}
+	/* верхний круг */
+	&--layer-above {
+		stroke-width: 12px;
+		stroke-dasharray: 250;
+		stroke-dashoffset: 50;
+	}
+}
+.skill__title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-weight: bold;
+	font-size: 18px;
+	color: rgba($text-color, .5);
+	padding: 14px;
+	text-align: center;
+}
