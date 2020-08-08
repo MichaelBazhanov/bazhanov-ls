@@ -1,7 +1,7 @@
 {
-  "name": "LoftSchool",
+  "name": "ls-advanced-boilerplate",
   "version": "1.0.0",
-  "description": "lesson LoftSchool",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode=development --hot",
@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "keywords": [],
-  "author": "Michael Bazhanov <michaelbazhanov33@gmail.com>",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.5",

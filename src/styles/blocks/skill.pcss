@@ -1,50 +1,38 @@
 .skill {
-	position: relative;
-	width: 166px;
-	height: 166px;
+  position: relative;
+  width: 166px;
+  height: 166px;
+
+  @include tablets {
+    width: 135px;
+    height: 135px;
+  }
 }
+
 .skill__circle {
-	fill: transparent;
-	/* нижний круг */
-	&--layer-under {
-		stroke: #E9E9E9;
-		stroke-width: 5px;
-	}
-	/* верхний круг */
-	&--layer-above {
-		stroke-width: 12px;
-		stroke-dasharray: 250;
-		stroke-dashoffset: 50;
-	}
+  fill: transparent;
+  &_under {
+    stroke: #eaeaea;
+    stroke-width: 5px;
+  }
+  &_above {
+    stroke-width: 12px;
+    stroke-dasharray: 251;
+    stroke-dashoffset: 100;
+  }
 }
-.skill__title {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-weight: bold;
-	font-size: 18px;
-	color: rgba($text-color, .5);
-	padding: 14px;
-	text-align: center;
-}
-.values__widget {
-	margin-top: 80px;
-	display: flex;
-	justify-content: flex-end;
-	padding-right: 8.333333%;
-}
-.skills-row__title {
-	font-weight: bold;
-	font-size: 24px;
-}
-.skills-row__list {
-	display: flex;
-	margin-top: 40px;
-	margin-bottom: 55px;
-}
-.skills-row__item {
-	&:not(:first-child) {
-		margin-left: 65px;
-	}
+
+.skill__circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: 18px;
+  color: rgba($text-color, .5);
+  padding: 14px;
+
+  @include phones {
+    font-size: 16px;
+  }
 }
