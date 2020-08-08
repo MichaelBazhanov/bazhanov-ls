@@ -1,90 +1,38 @@
 .values {
-  margin-bottom: 114px;
+	/* background: $bg-1 url('~images/bg/hands.png') 50% 50% / contain no-repeat; */
+	background-color: $bg-1;
+	/* background-image: url('~images/bg/hands.png');
+	background-size: 662px 983px;
+	background-position: 0% 18%;
+	background-repeat: no-repeat; */
+	position: relative;
 
-  @include phones {
-    margin-bottom: 75px;
-  }
 }
-
 .values__container {
-  position: relative;
-  @include tablets {
-    padding-bottom: 350px;
-  }
-  &:before {
-    content: "";
-    position: absolute;
-    background: url('~images/decor/bag.jpg') left bottom / contain no-repeat;
-    display: block;
-    bottom: 5%;
-    height: 79%;
-    width: 69%;
-    left: -20%;
-    @include tablets {
-      bottom: 0;
-      left: 50%;
-      height: 300px;
-      transform: translateX(-50%);
-      background-position: center center;
-    }
-
-    @include phones {
-      width: 100%;
-    }
-  }
+	padding-top: 144px;
 }
-
-.values__wrapper {
-  position: relative;
-}
-
 .values__title {
-  margin-bottom: 82px;
-  display: flex;
-  justify-content: center;
+	position: relative;
+	max-width: 600px;
+	text-align: left;
+	margin: 0 auto;
 }
-
-.values__title-container {
-  width: 38%;
-  margin-left: 6%;
-  @include desktop {
-    width: 42%;
-    margin-left: 0;
-  }
-  @include tablets {
-    width: 68%;
-    text-align: center;
-  }
-  @include phones {
-    width: 100%;
-    margin-left: 0;
-    text-align: left;
-  }
-}
-
 .values__title-text {
-  font-size: 30px;
-  font-weight: 700;
-  margin-bottom: 55px;
+	font-weight: bold;
+	font-size: 30px;
+	margin-bottom: 50px;
 }
-
-.values__content {
-  color: rgba($text-color, .5);
-  font-weight: 600;
-  line-height: 1.8;
+.values__title-content {
+	color: rgba($text-color, .8);
 }
-
+.values__img {
+	position: absolute;
+	left: 0;
+	top: 144px;
+	width: 662px;
+	height: 983px;
+	background: url('~images/bg/hands.png') 50% 50% / cover no-repeat;
+}
 .values__widget {
-  display: flex;
-  justify-content: flex-end;
-  @include tablets {
-    justify-content: center;
-  }
-}
-
-.values__widget-container {
-  width: 66%;
-  @include tablets {
-    width: 95%;
-  }
+	position: relative;
 }
