@@ -6,8 +6,8 @@ mixin icon(name, className)
 mixin image(path, className)
   img(src=require(`images/${path}`).default class=className)
 
-mixin nav(className, items, activeItem)
-  nav(class=`${className}`)
+mixin nav(className, allClass, items, activeItem)
+  nav(class=`${className} ${allClass}`)
     ul(class=`${className}__list`)
       each item, index in items
         li(class=`${className}__item `+ ( (index == activeItem) ? `${className}__item-active` : '') )
