@@ -26,13 +26,13 @@ mixin socials(items)
     each item in items
       li.socials__item
         if item === 'insta'
-          a(href=`${'#'}`).socials__link
+          a(href=`${'#'}` target="_blank", rel="noopener noreferrer").socials__link
             +icon(item, 'socials__icon')
         if item === 'github'
           a(href="https://github.com/MichaelBazhanov", target="_blank", rel="noopener noreferrer").socials__link
             +icon(item, 'socials__icon')
         if item === 'vk'
-          a(href=`${'#'}`).socials__link
+          a(href=`${'#'}` target="_blank", rel="noopener noreferrer").socials__link
             +icon(item, 'socials__icon')
         if item === 'envelope'
           a(href=`${item === 'envelope' ? 'mailto:michaelbazhanov33@gmail.com' : '#'}`).socials__link
