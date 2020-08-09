@@ -1,0 +1,56 @@
+.about__container {
+	display: flex;
+	justify-content: center;
+	padding-top: 160px;
+	padding-bottom: 270px;
+}
+.about__user {
+	/* width: 25%; */
+	width: 360px;
+
+	@include desktop {
+		width: 40%;
+	}
+}
+.about__content {
+	/* width: 41.666667%; */
+	width: 600px;
+	padding-left: 50px;
+
+	@include desktop {
+		width: 60%;;
+	}
+}
+
+.about__desc {
+	font-weight: 600;
+	font-size: 16px;
+	margin-bottom: 20px;
+	color: rgba($text-color, .8);
+}
+.about__title {
+	font-weight: 700;
+	font-size: 36px;
+	margin-bottom: 30px;
+	color: $text-color;
+}
+.about__text-info {
+	font-weight: 600;
+	margin-bottom: 80px;
+	color: rgba($text-color, .8);
+}
+.about__ps {
+	font-weight: 600;
+	color: rgba($text-color, .8);
+	font-style: italic;
+	position: relative;
+	&:after {
+		content: "*";
+		position: absolute;
+		left: -50px;
+		top: -16px;
+		color: $text-color-4;
+		font-style: italic;
+		font-size: 48px;
+	}
+}

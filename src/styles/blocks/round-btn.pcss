@@ -1,0 +1,38 @@
+.round-btn {
+	width: 53px;
+	height: 53px;
+	border: 2px solid $text-color;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:not(:first-child) {
+		margin-left: 28px;
+	}
+
+	.round-btn__left-class {
+		transform: rotate(180deg);
+		width: 10px;
+		fill: $text-color;
+		transition: fill .3s;
+	}
+	.round-btn__right-class {
+		width: 10px;
+		fill: $text-color;
+		transition: fill .3s;
+	}
+
+	transition: border-color .3s;
+	&:hover {
+		border-color: $links-color-hover;
+		.round-btn__left-class,
+		.round-btn__right-class {
+			fill: $links-color-hover;
+		}
+	}
+}
