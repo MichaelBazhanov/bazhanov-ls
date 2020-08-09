@@ -1,15 +1,25 @@
 .about__container {
 	display: flex;
 	justify-content: center;
-	margin-top: 160px;
+	padding-top: 160px;
 	padding-bottom: 270px;
 }
 .about__user {
-	width: 25%;
+	/* width: 25%; */
+	width: 360px;
+
+	@include desktop {
+		width: 40%;
+	}
 }
 .about__content {
-	width: 41.666667%;
+	/* width: 41.666667%; */
+	width: 600px;
 	padding-left: 50px;
+
+	@include desktop {
+		width: 60%;;
+	}
 }
 
 .about__desc {

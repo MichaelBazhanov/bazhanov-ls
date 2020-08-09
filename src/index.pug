@@ -8,21 +8,23 @@ block content
 
         header.header
 
-          a(href="#").logo БМ
+          .logo БМ
 
           +nav('menu', '', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
           +socials(["insta","github","vk","envelope"])
+
 
         .userinfo
           .userinfo__title Личный сайт #[br] веб разработчика
           .userinfo__name Бажанов Михаил
 
         .hero__bottom-buttons
-          button.scroll-down-btn
+          a(href="#about",).scroll-down-btn
             span Скролл
             +icon('scroll-2', 'hero__scroll')
-    section.about
+
+    section.about#about
       .container.about__container
 
         .about__user
@@ -55,8 +57,9 @@ block content
 
   .middle-section
 
-    section.values
+    section.values#values
       .values__img
+        +image('content/user.jpg', 'user-pic')
       .container.values__container
         .values__title
           .values__title-text Чем я могу быть полезен вам
@@ -85,7 +88,7 @@ block content
                                 stop(offset="100%" stop-color="#DC9322")
                             .skill__title #{skill}
 
-    section.works
+    section.works#works
       .container.works__container
         section.title Мои работы
         .works__content
@@ -121,7 +124,7 @@ block content
 
   .bottom-section
 
-    section.reviews
+    section.reviews#reviews
       .container.reviews__container
         .slider
           .slider__header
