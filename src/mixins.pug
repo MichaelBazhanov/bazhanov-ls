@@ -11,11 +11,29 @@ mixin nav(className, allClass, items, activeItem)
     ul(class=`${className}__list`)
       each item, index in items
         li(class=`${className}__item `+ ( (index == activeItem) ? `${className}__item-active` : '') )
-          a(class=`${className}__link` href='#')= item
+          if index == 0
+            a(class=`${className}__link` href='#about')= item
+          else if index == 1
+            a(class=`${className}__link` href='#values')= item
+          else if index == 2
+            a(class=`${className}__link` href='#works')= item
+          else if  index == 3
+            a(class=`${className}__link` href='#reviews')= item
 
 mixin socials(items)
   ul.socials
+    //- ["insta","github","vk","envelope"]
     each item in items
       li.socials__item
-        a(href="#").socials__link
-          +icon(item, 'socials__icon')
+        if item === 'insta'
+          a(href=`${'#'}` target="_blank", rel="noopener noreferrer").socials__link
+            +icon(item, 'socials__icon')
+        if item === 'github'
+          a(href="https://github.com/MichaelBazhanov", target="_blank", rel="noopener noreferrer").socials__link
+            +icon(item, 'socials__icon')
+        if item === 'vk'
+          a(href=`${'#'}` target="_blank", rel="noopener noreferrer").socials__link
+            +icon(item, 'socials__icon')
+        if item === 'envelope'
+          a(href=`${item === 'envelope' ? 'mailto:michaelbazhanov33@gmail.com' : '#'}`).socials__link
+            +icon(item, 'socials__icon')

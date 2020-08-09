@@ -2,35 +2,37 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
-
+    +image('bg/hero.jpg', 'welcome-sections__bg')
 
     section.hero
       .container.hero-container
 
         header.header
 
-          a(href="#").logo БМ
+          .logo БМ
 
           +nav('menu', '', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
           +socials(["insta","github","vk","envelope"])
+
 
         .userinfo
           .userinfo__title Личный сайт #[br] веб разработчика
           .userinfo__name Бажанов Михаил
 
         .hero__bottom-buttons
-          button.scroll-down-btn
+          a(href="#about",).scroll-down-btn
             span Скролл
             +icon('scroll-2', 'hero__scroll')
-    section.about
+
+    section.about#about
       .container.about__container
 
         .about__user
 
           .user
             .user__avatar
-              .user__avatar-style
+              .user__avatar-style.user__avatar-style--pos
                 +image('content/user.jpg', 'user__avatar-pic')
 
                 -
@@ -56,8 +58,8 @@ block content
 
   .middle-section
 
-    section.values
-      .values__img
+    section.values#values
+
       .container.values__container
         .values__title
           .values__title-text Чем я могу быть полезен вам
@@ -85,8 +87,10 @@ block content
                                 stop(offset="0%" stop-color="#D0731B")
                                 stop(offset="100%" stop-color="#DC9322")
                             .skill__title #{skill}
+        .values__img
+          +image('bg/hands.png', 'values-pic')
 
-    section.works
+    section.works#works
       .container.works__container
         section.title Мои работы
         .works__content
@@ -98,8 +102,8 @@ block content
                 ul.thumbs
                   - for (var i = 0; i < 4; i++)
                     li(class=`thumbs__item `+ ( (i == 0) ? `thumbs__item-active ` : '') )
-                      a(href="#").thumbs__link
-                        +image(`content/slider-${i}.jpg`, 'thumbs__pic')
+                      button(type="button" data-index=`${i}`).thumbs__link
+                          +image(`content/slider-${i}.jpg`, 'thumbs__pic')
               .works-preview__btns
                 .square-btns
                   button(type="button").square-btns__item.square-btns__item-next
@@ -122,7 +126,8 @@ block content
 
   .bottom-section
 
-    section.reviews
+    section.reviews#reviews
+      +image('bg/leaves.jpg', 'reviews__bg')
       .container.reviews__container
         .slider
           .slider__header
@@ -140,8 +145,10 @@ block content
 
                   .user-display
                     .user-display__avatar
-                      .user-display__avatar-style
-                        +image('content/dmitriy.jpg', 'user--display__pic')
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/dmitriy.jpg', 'user__avatar-pic')
+                      //- .user-display__avatar-style
+                      //-   +image('content/dmitriy.jpg', 'user--display__pic')
                     .user-display__data
                       .user-display__name Ковальчук Дмитрий
                       .user-display__occ Основатель Loftschool
@@ -153,11 +160,24 @@ block content
 
                   .user-display
                     .user-display__avatar
-                      .user-display__avatar-style
-                        +image('content/vladimir.jpg', 'user--display__pic')
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/vladimir.jpg', 'user__avatar-pic')
                     .user-display__data
                       .user-display__name Владимир Сабанцев
                       .user-display__occ Преподаватель
+
+            li.slider__item
+              .quote
+                .quote__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cum, doloribus amet. Laboriosam repellendus quidem odit quam ipsam iste.
+                .quote__user
+
+                  .user-display
+                    .user-display__avatar
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/stelios.jpg', 'user__avatar-pic')
+                    .user-display__data
+                      .user-display__name Stelios Baglaridis
+                      .user-display__occ Наставник
 
   footer.footer
       .container.footer__container
@@ -170,6 +190,7 @@ block content
             .footer__data-text Личный сайт веб - разработчика
 
         .footer__data
+
           +nav('menu', 'footer__data-menu', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
           .footer__data-content
@@ -179,11 +200,7 @@ block content
               .footer__data-socials
                 ul.socials.socials--round-borders
 
-                  - var socials = ['insta', 'vk', 'github', 'envelope'];
-                    each item in socials
-                      li.socials__item
-                        a(href="#").socials__link
-                          +icon(item, 'socials__icon')
+                  +socials(["insta","github","vk","envelope"])
 
             .footer__data-col
               .text-quote
