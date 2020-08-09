@@ -2,6 +2,7 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
+    +image('bg/hero.jpg', 'welcome-sections__bg')
 
     section.hero
       .container.hero-container
@@ -31,7 +32,7 @@ block content
 
           .user
             .user__avatar
-              .user__avatar-style
+              .user__avatar-style.user__avatar-style--pos
                 +image('content/user.jpg', 'user__avatar-pic')
 
                 -
@@ -126,6 +127,7 @@ block content
   .bottom-section
 
     section.reviews#reviews
+      +image('bg/leaves.jpg', 'reviews__bg')
       .container.reviews__container
         .slider
           .slider__header
@@ -143,8 +145,10 @@ block content
 
                   .user-display
                     .user-display__avatar
-                      .user-display__avatar-style
-                        +image('content/dmitriy.jpg', 'user--display__pic')
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/dmitriy.jpg', 'user__avatar-pic')
+                      //- .user-display__avatar-style
+                      //-   +image('content/dmitriy.jpg', 'user--display__pic')
                     .user-display__data
                       .user-display__name Ковальчук Дмитрий
                       .user-display__occ Основатель Loftschool
@@ -156,8 +160,8 @@ block content
 
                   .user-display
                     .user-display__avatar
-                      .user-display__avatar-style
-                        +image('content/vladimir.jpg', 'user--display__pic')
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/vladimir.jpg', 'user__avatar-pic')
                     .user-display__data
                       .user-display__name Владимир Сабанцев
                       .user-display__occ Преподаватель
@@ -169,8 +173,8 @@ block content
 
                   .user-display
                     .user-display__avatar
-                      .user-display__avatar-style
-                        +image('content/stelios.jpg', 'user--display__pic')
+                      .user__avatar-style.user__avatar-style--user-display
+                        +image('content/stelios.jpg', 'user__avatar-pic')
                     .user-display__data
                       .user-display__name Stelios Baglaridis
                       .user-display__occ Наставник
