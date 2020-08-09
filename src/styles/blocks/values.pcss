@@ -27,19 +27,22 @@
 .values__title-content {
 	color: rgba($text-color, .8);
 }
-/* .values__img {
+.values__bg {
+	z-index: -1;
 	position: absolute;
+	top: 0;
 	left: 0;
-	top: 144px;
-	width: 662px;
-	height: 983px;
-	background: url('~images/bg/hands.png') 50% 50% / cover no-repeat;
-} */
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	object-position: top;
+	object-fit: cover;
+}
 .values__img {
 	position: absolute;
 	left: 0;
 	top: 15%;
-
 }
 .values__widget {
 	position: relative;
