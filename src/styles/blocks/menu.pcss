@@ -2,6 +2,10 @@
 	display: flex;
 	align-items: center;
 
+	@include tablets {
+		display: none;
+	}
+
 	.menu__item-active {
 		.menu__link {
 			position: relative;

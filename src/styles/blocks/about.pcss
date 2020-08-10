@@ -3,22 +3,33 @@
 	justify-content: center;
 	padding-top: 160px;
 	padding-bottom: 270px;
+
+	@include phones {
+		flex-direction: column;
+	}
+
 }
 .about__user {
-	/* width: 25%; */
 	width: 360px;
 
 	@include desktop {
 		width: 40%;
 	}
+	@include phones {
+		width: 100%;
+	}
 }
 .about__content {
-	/* width: 41.666667%; */
 	width: 600px;
 	padding-left: 50px;
 
 	@include desktop {
 		width: 60%;;
+	}
+	@include phones {
+		width: 100%;
+		padding-left: 0;
+		padding-top: 55px;
 	}
 }
 
@@ -52,5 +63,8 @@
 		color: $text-color-4;
 		font-style: italic;
 		font-size: 48px;
+		@include phones {
+			left: -30px;
+		}
 	}
 }
