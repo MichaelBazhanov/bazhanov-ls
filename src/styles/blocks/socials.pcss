@@ -1,4 +1,7 @@
 .socials {
+	@include phones {
+		display: none;
+	}
 	display: flex;
 	align-items: center;
 
@@ -6,6 +9,9 @@
 		&:not(:first-child) {
 			margin-left: 30px;
 		}
+	}
+	.socials__link {
+		display: flex;
 	}
 
 	.socials__icon {

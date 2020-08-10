@@ -1,25 +1,19 @@
-/* .top-header {
-	background-color: #3a4151;
-	position: relative;
-	width: 30px;
-	height: 30px;
-	background: #3a4151;
-} */
-
+.burger-menu {
+	display: none;
+}
 .burger-menu {
 	position: relative;
 	cursor: pointer;
-	/* width:100%; */
-	/* height:45px; */
 	width: 30px;
 	height: 30px;
+	justify-content: center;
+	align-items: center;
+
+	@include tablets {
+		display: flex;
+	}
 
 	.burger {
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		/* margin-left: 18px;
-		margin-top: 30px; */
 		cursor: pointer;
 		&, &::before, &::after {
 			border-radius:2px;
@@ -27,7 +21,7 @@
 			z-index:100;
 			width: 24px;
 			height: 4px;
-			background: white;
+			background: $text-color;
 			transition: all 0.3s;
 		}
 
@@ -36,9 +30,6 @@
 			display: block;
 		}
 
-		/* pour créer le hamburger, on décale les deux
-		 * barres de 8px
-		 */
 		&::before {
 			margin-top: -8px;
 		}
@@ -49,19 +40,18 @@
 	}
 
 	&:hover {
-		&:before {
-			/* width:160px; */
+		/* &:before {
 			transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		}
+		} */
 		.burger {
-			transform: rotate(45deg) translate3d(0,0,0);
+			transform: rotate(45deg) translate3d(0,0,0);;
 			&::before {
 				margin-top: 0px;
-				transform: rotate(-90deg) translate3d(0,0,0);
+				transform: rotate(-90deg) translate3d(0,0,0);;
 			}
 			&::after {
 				margin-top: 0px;
-				transform: rotate(0deg) translate3d(0,0,0);
+				transform: rotate(0deg) translate3d(0,0,0);;
 			}
 		}
 	}

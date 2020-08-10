@@ -1,3 +1,8 @@
+.about {
+	@include tablets {
+		font-size: 14px;
+	}
+}
 .about__container {
 	display: flex;
 	justify-content: center;
@@ -38,6 +43,10 @@
 	font-size: 16px;
 	margin-bottom: 20px;
 	color: rgba($text-color, .8);
+
+	@include tablets {
+		font-size: 14px;
+	}
 }
 .about__title {
 	font-weight: 700;

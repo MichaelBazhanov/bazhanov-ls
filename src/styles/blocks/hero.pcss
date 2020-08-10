@@ -9,6 +9,10 @@
 .hero__bottom-buttons {
 	display: flex;
 	justify-content: center;
+	@include tablets {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 .scroll-down-btn {
 	display: flex;
