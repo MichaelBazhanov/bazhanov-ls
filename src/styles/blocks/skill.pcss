@@ -1,7 +1,18 @@
 .skill {
 	position: relative;
-	width: 166px;
-	height: 166px;
+	width: 140px;
+	height: 140px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		width: 115px;
+		height: 115px;
+	}
 }
 .skill__circle {
 	fill: transparent;
@@ -27,24 +38,83 @@
 	color: rgba($text-color, .5);
 	padding: 14px;
 	text-align: center;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		font-size: 15px;
+		line-height: 20px;
+	}
 }
-.values__widget {
-	margin-top: 80px;
-	display: flex;
-	justify-content: flex-end;
-	padding-right: 8.333333%;
-}
+
 .skills-row__title {
 	font-weight: bold;
 	font-size: 24px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		text-align: center;
+	}
+	@include phones {
+		font-size: 18px;
+		line-height: 25px;
+	}
+}
+.skills-row__list--pos {
+	@include desktopHd {
+	}
+	@include desktop {
+		margin-bottom: 0px !important;
+	}
+	@include tablets {
+		margin-bottom: 0px !important;
+	}
+	@include phones {
+		margin-bottom: 30px !important;
+	}
 }
 .skills-row__list {
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	margin-top: 40px;
-	margin-bottom: 55px;
+	margin-bottom: 65px;
 	margin-left: -32px;
 	margin-right: -32px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		margin-left: -17px;
+		margin-right: -1px;
+	}
+	@include phones {
+		margin-left: -11px;
+		margin-right: -11px;
+	}
 }
 .skills-row__item {
+
 	padding: 0 32px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		padding: 0 17px;
+		margin-bottom: 20px;
+	}
+	@include phones {
+		padding: 0 11px;
+	}
 }

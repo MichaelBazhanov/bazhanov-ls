@@ -79,7 +79,7 @@ block content
               ['Workflow',['GIT','Terminal','Gulp','Webpack',]],
             ]
           ul.skills
-            each category in skillsCategories
+            each category, index in skillsCategories
               li.skills__item
                 .skills__row
                   .skills-row__title #{category[0]}
@@ -87,8 +87,8 @@ block content
                       linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" style="width:0; height:0; position: absolute;")
                         stop(offset="0%" stop-color="#D0731B")
                         stop(offset="100%" stop-color="#DC9322")
-
-                    ul.skills-row__list
+                    //- li(class=`${className}__item `+ ( (index == activeItem) ? `${className}__item-active` : '') )
+                    ul(class=`skills-row__list ` +  ( (index == 1) ? `skills-row__list--pos` : ''))
                       each skill in category[1]
                         li.skills-row__item
                           .skill
@@ -97,8 +97,12 @@ block content
                               circle(cx='50' cy='50' r='40' stroke="url(#gradient)" transform="rotate(180 50 50)").skill__circle.skill__circle--layer-above
                             .skill__title #{skill}
 
-        .values__img
-          +image('bg/hands.png', 'values-pic')
+        .values__img34
+          +image2('bg/hands1200.png', 'bg/hands1800.png', 'values-pic34')
+      .values__img12
+        +image2('bg/hands320.png', 'bg/hands768.png', 'values-pic12')
+        //- +image('bg/hands.png', 'values-pic')
+        //- +image4('bg/hands320.png', 'bg/hands768.png', 'bg/hands1200.png', 'bg/hands1800.png',  'values-pic')
 
     section.works#works
       .container.works__container
@@ -157,8 +161,6 @@ block content
                     .user-display__avatar
                       .user__avatar-style.user__avatar-style--user-display
                         +image('content/dmitriy.jpg', 'user__avatar-pic')
-                      //- .user-display__avatar-style
-                      //-   +image('content/dmitriy.jpg', 'user--display__pic')
                     .user-display__data
                       .user-display__name Ковальчук Дмитрий
                       .user-display__occ Основатель Loftschool
