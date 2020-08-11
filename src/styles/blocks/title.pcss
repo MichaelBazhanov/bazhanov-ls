@@ -2,6 +2,18 @@
 	font-weight: bold;
 	font-size: 36px;
 	color: $title-color;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		font-size: 30px;
+	}
+	@include phones {
+		text-align: center;
+		font-size: 24px;
+	}
 }
 .title--color {
 	color: $text-color;

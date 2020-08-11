@@ -4,6 +4,21 @@
 .reviews__container {
 	padding-top: 140px;
 	padding-bottom: 200px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		padding-top: 160px;
+		padding-bottom: 195px;
+	}
+	@include tablets {
+		padding-top: 120px;
+		padding-bottom: 145px;
+	}
+	@include phones {
+		padding-top: 70px;
+		padding-bottom: 60px;
+	}
 }
 .reviews__bg {
 	z-index: -1;

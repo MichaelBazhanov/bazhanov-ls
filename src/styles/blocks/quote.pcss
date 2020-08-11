@@ -5,6 +5,18 @@
 	flex-direction: column;
 	height: 100%;
 
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		padding-left: 0%;
+	}
+	@include phones {
+	}
+
+
+
 	&:before {
 		content: "";
 		display: block;
@@ -15,6 +27,16 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+
+		@include desktopHd {
+		}
+		@include desktop {
+		}
+		@include tablets {
+			display: none;
+		}
+		@include phones {
+		}
 	}
 }
 .quote__text {

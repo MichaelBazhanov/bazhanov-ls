@@ -1,13 +1,50 @@
 .works__container {
 	margin-top: 200px;
 	margin-bottom: 210px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		margin-top: 145px;
+		margin-bottom: 115px;
+	}
+	@include tablets {
+		margin-top: 120px;
+		margin-bottom: 115px;
+	}
+	@include phones {
+		margin-top: 90px;
+		margin-bottom: 100px;
+	}
 }
 .works__content {
 	margin-top: 80px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		margin-top: 48px;
+	}
+	@include phones {
+		/* margin-top: 24px; */
+		margin-top: 40px;
+	}
 }
 .works-preview {
 	display: flex;
 	justify-content: space-between;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		flex-direction: column;
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }
 .works-preview__img {
 	width: 100%;
@@ -20,15 +57,78 @@
 	font-size: 30px;
 	color: $title-color;
 	margin-bottom: 35px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		font-size: 30px;
+		line-height: 41px;
+		margin-bottom: 12px;
+		text-align: center;
+	}
+	@include tablets {
+		font-size: 30px;
+		line-height: 41px;
+		margin-bottom: 12px;
+		text-align: center;
+	}
+	@include phones {
+		font-size: 24px;
+		line-height: 30px;
+		margin-bottom: 10px;
+		text-align: left;
+	}
 }
 .works-preview__desc {
 	color: $tag-color;
 	margin-bottom: 46px;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 30px;
+
+
+	@include desktopHd {
+	}
+	@include desktop {
+		width: 60%;
+    	margin: 0 auto;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	@include tablets {
+		width: 60%;
+    	margin: 0 auto;
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	@include phones {
+		font-size: 14px;
+		line-height: 24px;
+		margin: 0;
+		margin-bottom: 35px;
+		text-align: left;
+	}
 }
 .works-preview__pictures {
 	position: relative;
 	width: 66.666667%;
 	height: 549px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		width: 90%;
+		height: 360px;
+	}
+	@include tablets {
+		width: 90%;
+		height: 360px;
+	}
+	@include phones {
+		width: 100%;
+		height: 158px;
+		transform: scale(1.17)
+	}
 
 	&:before {
 		content: attr(data-slide);
@@ -42,22 +142,72 @@
 		/* color: rgba($text-color, .5); */
 		color: $text-color-2;
 		z-index: -1;
-		transform: translateX(130px)
+		transform: translateX(130px);
+
+		@include desktopHd {
+		}
+		@include desktop {
+		}
+		@include tablets {
+		}
+		@include phones {
+			display: none;
+		}
 	}
 }
 .works-preview__thumbs {
 	position: absolute;
 	right: 0;
 	bottom: 60px;
+	width: 100%;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		display: none;
+	}
 }
 .works-preview__btns {
 	position: absolute;
 	left: 100%;
 	bottom: 60px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		bottom: 0px;
+		transform: translateX(-100%);
+	}
 }
 
 .works-preview__info {
 	width: 25%;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		/* margin-top: 55px; */
+		margin-top: 85px;
+		width: 100%;
+	}
+	@include tablets {
+		/* margin-top: 55px; */
+		margin-top: 85px;
+		width: 100%;
+	}
+	@include phones {
+		/* margin-top: 60px; */
+		margin-top: 85px;
+		width: 100%;
+	}
 }
 .arrow-next-class,
 .arrow-prev-class {
