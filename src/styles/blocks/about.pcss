@@ -1,16 +1,43 @@
 .about {
+	position: relative;
 	@include tablets {
 		font-size: 14px;
 	}
+}
+.about__bg {
+	display: none;
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	object-position: center;
+	object-fit: cover;
+	@include desktop {
+		display: block;
+	}
+
 }
 .about__container {
 	display: flex;
 	justify-content: center;
 	padding-top: 160px;
 	padding-bottom: 270px;
+	margin-top: 400px;
 
+	@include desktop {
+		margin-top: 0px;
+	}
+	@include tablets {
+		padding-top: 8px;
+		padding-bottom: 150px;
+	}
 	@include phones {
 		flex-direction: column;
+		padding-bottom: 128px;
 	}
 
 }
@@ -34,7 +61,7 @@
 	@include phones {
 		width: 100%;
 		padding-left: 0;
-		padding-top: 55px;
+		padding-top: 45px;
 	}
 }
 
@@ -58,6 +85,9 @@
 	font-weight: 600;
 	margin-bottom: 80px;
 	color: rgba($text-color, .8);
+	@include phones {
+		margin-bottom: 60px;
+	}
 }
 .about__ps {
 	font-weight: 600;

@@ -37,3 +37,18 @@ mixin socials(items)
         if item === 'envelope'
           a(href=`${item === 'envelope' ? 'mailto:michaelbazhanov33@gmail.com' : '#'}`).socials__link
             +icon(item, 'socials__icon')
+
+mixin image4(path1, path2, path3, path4, className)
+  - var img1 = require(`images/${path1}`).default
+  - var img2 = require(`images/${path2}`).default
+  - var img3 = require(`images/${path3}`).default
+  - var img4 = require(`images/${path4}`).default
+    img(src=`${img1}` alt="img" class=className srcset=`${img1} 320w, ${img2} 768w, ${img3} 1200w, ${img4} 1800w`)
+
+mixin image2(path21, path22, className2)
+  - var img21 = require(`images/${path21}`).default
+  - var img22 = require(`images/${path22}`).default
+    img(src=`${img21}` alt="img" class=className2 srcset=`${img21} 320w, ${img22} 768w`)
+
+
+

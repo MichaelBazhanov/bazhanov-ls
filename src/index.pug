@@ -2,9 +2,11 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
-    +image('bg/hero.jpg', 'welcome-sections__bg')
+    //- +image4('bg/hero320.jpg', 'bg/hero768.jpg', 'bg/hero1200.jpg', 'bg/hero1800.jpg',  'welcome-sections__bg')
+    +image2('bg/hero1200.jpg', 'bg/hero1800.jpg', 'welcome-sections__bg')
 
     section.hero
+      +image2('bg/hero320.jpg', 'bg/hero768.jpg', 'hero__bg')
       .container.hero-container
 
         header.header
@@ -15,7 +17,6 @@ block content
 
           +socials(["insta","github","vk","envelope"])
 
-          //- .top-header
           .burger-menu
             .burger
 
@@ -30,6 +31,7 @@ block content
             +icon('scroll-2', 'hero__scroll')
 
     section.about#about
+      +image2('bg/about320.jpg', 'bg/about768.jpg', 'about__bg')
       .container.about__container
 
         .about__user
