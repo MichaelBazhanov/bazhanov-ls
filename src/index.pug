@@ -73,29 +73,7 @@ block content
           .values__title-content
             p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
         .values__widget
-          -
-            var skillsCategories = [
-              ['Front-end',['HTML5','CSS3','Javascript','Jquery и Vue.js',]],
-              ['Workflow',['GIT','Terminal','Gulp','Webpack',]],
-            ]
-          ul.skills
-            each category, index in skillsCategories
-              li.skills__item
-                .skills__row
-                  .skills-row__title #{category[0]}
-                    svg(style="width:0; height:0; position: absolute;" aria-hidden="true")
-                      linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" style="width:0; height:0; position: absolute;")
-                        stop(offset="0%" stop-color="#D0731B")
-                        stop(offset="100%" stop-color="#DC9322")
-                    //- li(class=`${className}__item `+ ( (index == activeItem) ? `${className}__item-active` : '') )
-                    ul(class=`skills-row__list ` +  ( (index == 1) ? `skills-row__list--pos` : ''))
-                      each skill in category[1]
-                        li.skills-row__item
-                          .skill
-                            svg(viewBox='0 0 100 100').skill__circle-shape
-                              circle(cx='50' cy='50' r='40').skill__circle.skill__circle--layer-under
-                              circle(cx='50' cy='50' r='40' stroke="url(#gradient)" transform="rotate(180 50 50)").skill__circle.skill__circle--layer-above
-                            .skill__title #{skill}
+          #skills-component
 
         .values__img34
           +image2('bg/hands1200.png', 'bg/hands1800.png', 'values-pic34')
