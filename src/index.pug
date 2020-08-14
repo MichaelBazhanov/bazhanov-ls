@@ -91,53 +91,7 @@ block content
     section.reviews#reviews
       +image('bg/leaves.jpg', 'reviews__bg')
       .container.reviews__container
-        .slider
-          .slider__header
-            section.title.title--color Что обо мне говорят
-            .slider__buttons
-              button(type="button").round-btn
-                +icon('arrow', 'round-btn__left-class')
-              button(type="button").round-btn
-                +icon('arrow', 'round-btn__right-class')
-          ul.slider__content
-            li.slider__item
-              .quote
-                .quote__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-                .quote__user
-
-                  .user-display
-                    .user-display__avatar
-                      .user__avatar-style.user__avatar-style--user-display
-                        +image('content/dmitriy.jpg', 'user__avatar-pic')
-                    .user-display__data
-                      .user-display__name Ковальчук Дмитрий
-                      .user-display__occ Основатель Loftschool
-
-            li.slider__item
-              .quote
-                .quote__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
-                .quote__user
-
-                  .user-display
-                    .user-display__avatar
-                      .user__avatar-style.user__avatar-style--user-display
-                        +image('content/vladimir.jpg', 'user__avatar-pic')
-                    .user-display__data
-                      .user-display__name Владимир Сабанцев
-                      .user-display__occ Преподаватель
-
-            //- li.slider__item
-            //-   .quote
-            //-     .quote__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cum, doloribus amet. Laboriosam repellendus quidem odit quam ipsam iste.
-            //-     .quote__user
-
-            //-       .user-display
-            //-         .user-display__avatar
-            //-           .user__avatar-style.user__avatar-style--user-display
-            //-             +image('content/stelios.jpg', 'user__avatar-pic')
-            //-         .user-display__data
-            //-           .user-display__name Stelios Baglaridis
-            //-           .user-display__occ Наставник
+        #slider-component
 
   footer.footer
       .container.footer__container
