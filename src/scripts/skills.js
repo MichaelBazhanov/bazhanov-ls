@@ -51,26 +51,3 @@ new Vue({
 
 	},
 })
-// /---------------------
-// new Vue({
-// 	el: '#skills-component',
-// 	template: '#skills-list',
-// 	components: {
-// 		skillsRow: {
-// 			template: '#skills-row',
-// 			components: {
-// 				skillsItem: {
-// 					template: '#skills-item',
-// 					data() {
-// 						return {
-// 							title: 'Заголовок'
-// 						}
-// 					},
-// 					mounted() {
-// 						this.title = this.title + '1234567890'
-// 					}
-// 				},
-// 			}
-// 		},
-// 	}
-// })
