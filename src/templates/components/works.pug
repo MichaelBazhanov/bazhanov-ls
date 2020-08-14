@@ -3,6 +3,7 @@ script(type="text/x-template")#preview-container
 		display(
 			:currentWork='currentWork'
 			:works='works'
+			:currentIndex='currentIndex'
 			@slide='slide'
 		)
 		info(
@@ -10,12 +11,12 @@ script(type="text/x-template")#preview-container
 		)
 
 script(type="text/x-template")#preview-display
-	.works-preview__pictures(data-slide="2")
+	.works-preview__pictures(:data-slide="currentIndex + 1")
 		img(:src="currentWork.photo", alt="currentWork.title").works-preview__img
 		.works-preview__thumbs
 			thumbs(
 				:currentWork='currentWork'
-				:works='works'
+				:works='reverseWorks'
 			)
 		.works-preview__btns
 			btns(
@@ -47,7 +48,9 @@ script(type="text/x-template")#preview-btns
 
 script(type="text/x-template")#preview-info
 	.works-preview__info
-		tag
+		tag(
+			:tags="tagsArray"
+		)
 		.works-preview__title {{ currentWork.title }}
 			.works-preview__desc
 				p {{ currentWork.desc }}
@@ -56,8 +59,8 @@ script(type="text/x-template")#preview-info
 				span Посмотреть сайт
 
 script(type="text/x-template")#preview-tags
-	- var tags = ['HTML','CSS','Javascript',]
-		ul.tags.tags-container
-			each tag in tags
-				li.tags__item
-					.tag #{tag}
+	//- - var tags = ['HTML','CSS','Javascript',]
+	ul.tags.tags-container
+		//- each tag in tags
+		li.tags__item(v-for=" tag in tags")
+			.tag {{ tag }}

@@ -11,7 +11,7 @@
 	{
 		"id": 2,
 		"title": "2 Сайт школы образования",
-		"skills": "HTML, CSS, Javascript",
+		"skills": "HTML, CSS",
 		"photo": "slider-1.jpg",
 		"link": "//yandex.ru",
 		"desc": "тот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!"
@@ -19,7 +19,7 @@
 	{
 		"id": 3,
 		"title": "3 Сайт школы образования",
-		"skills": "HTML, CSS, Javascript",
+		"skills": "CSS, Javascript",
 		"photo": "slider-2.jpg",
 		"link": "//rambler.ru",
 		"desc": "тот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!"
@@ -27,7 +27,7 @@
 	{
 		"id": 4,
 		"title": "4 Сайт школы образования",
-		"skills": "HTML, CSS, Javascript",
+		"skills": "HTML, Javascript",
 		"photo": "slider-3.jpg",
 		"link": "//rambler.ru",
 		"desc": "тот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!"
@@ -35,7 +35,7 @@
 	{
 		"id": 5,
 		"title": "5 Сайт школы образования",
-		"skills": "HTML, CSS, Javascript",
+		"skills": "Javascript",
 		"photo": "slider-4.jpg",
 		"link": "//rambler.ru",
 		"desc": "тот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!"

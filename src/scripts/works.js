@@ -8,17 +8,29 @@ const btns = {
 	template: '#preview-btns',
 }
 const display = {
-	props: ['currentWork','works'],
+	props: ['currentWork','works', 'currentIndex'],
 	template: '#preview-display',
 	components: {thumbs, btns},
+	computed: {
+		reverseWorks() {
+			const works = [...this.works];
+			return works.slice(0, 4).reverse()
+		}
+	}
 }
 const tag = {
+	props: ['tags'],
 	template: '#preview-tags',
 }
 const info = {
 	props: ['currentWork'],
 	template: '#preview-info',
-	components: {tag}
+	components: {tag},
+	computed: {
+		tagsArray() {
+			return this.currentWork.skills.split(',');
+		}
+	}
 }
 
 new Vue({
@@ -28,11 +40,29 @@ new Vue({
 	data() {
 		return {
 			works: [],
-			currentWork: {},
+			// currentWork: {}, //ЗАМЕНИЛИ
 			currentIndex: 0,
 		}
 	},
+	computed: {
+		// это свойство внутри компонента определяется как обычное свойство в DATA
+		currentWork() {
+			return this.works[0]
+			//при изменении currentWork будет пересчитываться works
+		}
+	},
+	watch: {
+		//шпионаж за currentIndex в DATA
+		currentIndex(value) {
+			this.makeInfiniteLoopFofNdx(value)
+		}
+	},
 	methods: {
+		makeInfiniteLoopFofNdx(index) {
+			const worksNumber = this.works.length - 1; //общее кол-во
+			if (index < 0) this.currentIndex = worksNumber;
+			if (index > worksNumber ) this.currentIndex = 0;
+		},
 		requireImagesToArray(data) {
 			return data.map((item)=> {
 				const requireImage = require(`../images/content/${item.photo}`).default;
@@ -42,12 +72,17 @@ new Vue({
 			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
+			const lastItem = this.works[this.works.length - 1];
 			switch (direction) {
 				case 'next':
-					console.log('next')
+					this.works.push(this.works[0]);
+					this.works.shift();
+					this.currentIndex++;
 					break;
 				case 'prev':
-					console.log('prev');
+					this.works.unshift(lastItem);
+					this.works.pop();
+					this.currentIndex--;
 					break;
 			}
 		}
@@ -55,6 +90,6 @@ new Vue({
 	created() {
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
-		this.currentWork = this.works[this.currentIndex];
+		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
 	}
 })
