@@ -1,22 +1,38 @@
 .footer {
 	background: $bg-footer-color;
 	line-height: 1.7;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		padding-top: 50px;
+		padding-bottom: 115px;
+	}
 	@include tablets {
-		padding: 50px 0;
+		padding-bottom: 85px;
+	}
+	@include phones {
 	}
 }
 
 .footer__container {
-	padding: 88px 0;
+	/* padding: 88px 0; */
 	display: flex;
 	justify-content: space-between;
-	@include phones {
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
 		flex-direction: column;
+	}
+	@include phones {
 	}
 }
 
 .footer__copyright {
-	/* flex: 1 1 350px; */
+	text-align: left;
 	width: 25%;
 	display: flex;
 	color: rgba($text-color, .3);
@@ -28,10 +44,11 @@
 		width: 20%;
 	}
 	@include tablets {
-		width: 30%;
+		text-align: center;
+		width: 100%;
 	}
 	@include phones {
-		width: 100%;
+		text-align: left;
 		margin-bottom: 30px;
 	}
 }
@@ -82,14 +99,17 @@
 .footer__data {
 	width: 66%;
 	padding-top: 7px;
+
 	@include desktop {
-		width: 75%;
+		width: 78%;
 	}
 	@include tablets {
-		width: 60%;
+		text-align: center;
+		align-self: center;
 	}
 	@include phones {
 		width: 100%;
+		text-align: left;
 	}
 }
 
@@ -104,6 +124,7 @@
 
 		@include tablets {
 			flex-wrap: wrap;
+			justify-content: center;
 		}
 	}
 	.menu__item {
@@ -118,9 +139,16 @@
 	display: flex;
 	justify-content: space-between;
 
+	@include desktopHd {
+	}
+	@include desktop {
+	}
 	@include tablets {
+		padding-left: 0;
 		flex-direction: column;
 		justify-content: space-between;
+	}
+	@include phones {
 	}
 }
 
@@ -130,13 +158,17 @@
 	@include tablets {
 		width: 100%;
 		margin-bottom: 60px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	@include phones {
 		margin-bottom: 45px;
 
 		&:last-child {
-		margin-bottom: 0;
+			margin-bottom: 0;
 		}
 	}
 }
