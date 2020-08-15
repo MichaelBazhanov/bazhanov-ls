@@ -4,6 +4,18 @@
 	transition: color .3s;
 	color: $iconed-color;
 	text-decoration: none;
+	font-weight: bold;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		justify-content: center;
+	}
+	@include tablets {
+		justify-content: center;
+	}
+	@include phones {
+	}
 
 	&:hover {
 		text-decoration: underline;
@@ -12,6 +24,21 @@
 		margin-left: 20px;
 		font-weight: bold;
 		font-size: 18px;
+
+		@include desktopHd {
+		}
+		@include desktop {
+			font-size: 18px;
+			line-height: 25px;
+		}
+		@include tablets {
+			font-size: 14px;
+			line-height: 19px;
+		}
+		@include phones {
+			font-size: 14px;
+			line-height: 19px;
+		}
 	}
 }
 .iconed-class {

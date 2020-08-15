@@ -1,6 +1,7 @@
 .thumbs {
 	position: relative;
 	display: flex;
+	justify-content: flex-end;
 }
 .thumbs__item-active {
 	transition: all .3s;
@@ -16,6 +17,18 @@
 	height: 100px;
 	transition: all .3s;
 	position: relative;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		width: 120px;
+		height: 68px;
+	}
+	@include tablets {
+
+	}
+	@include phones {
+	}
 
 	&:not(.thumbs__item-active):before {
 		cursor: pointer;

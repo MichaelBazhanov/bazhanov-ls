@@ -1,5 +1,18 @@
 .tags {
 	display: flex;
+	justify-content: flex-start;
+
+
+	@include desktopHd {
+	}
+	@include desktop {
+		justify-content: center
+	}
+	@include tablets {
+		justify-content: center;
+	}
+	@include phones {
+	}
 }
 .tags__item {
 	padding: 14px 22px;
@@ -17,4 +30,14 @@
 }
 .tags-container {
 	margin-bottom: 35px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		margin-bottom: 22px;
+	}
 }

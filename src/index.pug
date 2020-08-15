@@ -2,18 +2,23 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
-    +image('bg/hero.jpg', 'welcome-sections__bg')
+    //- +image4('bg/hero320.jpg', 'bg/hero768.jpg', 'bg/hero1200.jpg', 'bg/hero1800.jpg',  'welcome-sections__bg')
+    +image2('bg/hero1200.jpg', 'bg/hero1800.jpg', 'welcome-sections__bg')
 
     section.hero
+      +image2('bg/hero320.jpg', 'bg/hero768.jpg', 'hero__bg')
       .container.hero-container
 
         header.header
 
           .logo БМ
 
-          +nav('menu', '', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
+          +nav('menu', 'menu--page-header', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
-          +socials(["insta","github","vk","envelope"])
+          +socials(["insta","github","vk","envelope"], 'socials--right socials--page-header')
+
+          .burger-menu
+            .burger
 
 
         .userinfo
@@ -26,6 +31,7 @@ block content
             +icon('scroll-2', 'hero__scroll')
 
     section.about#about
+      +image2('bg/about320.jpg', 'bg/about768.jpg', 'about__bg')
       .container.about__container
 
         .about__user
@@ -67,121 +73,25 @@ block content
           .values__title-content
             p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
         .values__widget
-          -
-            var skillsCategories = [
-              ['Front-end',['HTML5','CSS3','Javascript','Jquery и Vue.js',]],
-              ['Workflow',['GIT','Terminal','Gulp','Webpack',]],
-            ]
-          ul.skills
-            each category in skillsCategories
-              li.skills__item
-                .skills__row
-                  .skills-row__title #{category[0]}
-                    svg(style="width:0; height:0; position: absolute;" aria-hidden="true")
-                      linearGradient(id="gradient" x1="0%" y1="0%" x2="100%" y2="0%" style="width:0; height:0; position: absolute;")
-                        stop(offset="0%" stop-color="#D0731B")
-                        stop(offset="100%" stop-color="#DC9322")
+          #skills-component
 
-                    ul.skills-row__list
-                      each skill in category[1]
-                        li.skills-row__item
-                          .skill
-                            svg(viewBox='0 0 100 100').skill__circle-shape
-                              circle(cx='50' cy='50' r='40').skill__circle.skill__circle--layer-under
-                              circle(cx='50' cy='50' r='40' stroke="url(#gradient)" transform="rotate(180 50 50)").skill__circle.skill__circle--layer-above
-                            .skill__title #{skill}
-
-        .values__img
-          +image('bg/hands.png', 'values-pic')
+        .values__img34
+          +image2('bg/hands1200.png', 'bg/hands1800.png', 'values-pic34')
+      .values__img12
+        +image2('bg/hands320.png', 'bg/hands768.png', 'values-pic12')
 
     section.works#works
       .container.works__container
         section.title Мои работы
         .works__content
-          .works-preview
-
-            .works-preview__pictures(data-slide="2")
-              +image('content/slider-0.jpg', 'works-preview__img')
-              .works-preview__thumbs
-                ul.thumbs
-                  - for (var i = 0; i < 4; i++)
-                    li(class=`thumbs__item `+ ( (i == 0) ? `thumbs__item-active ` : '') )
-                      button(type="button" data-index=`${i}`).thumbs__link
-                          +image(`content/slider-${i}.jpg`, 'thumbs__pic')
-              .works-preview__btns
-                .square-btns
-                  button(type="button").square-btns__item.square-btns__item-next
-                    +icon('arrow', 'arrow-next-class')
-                  button(type="button").square-btns__item.square-btns__item-prev
-                    +icon('arrow', 'arrow-prev-class')
-
-            .works-preview__info
-              - var tags = ['HTML','CSS','Javascript',]
-              ul.tags.tags-container
-                each tag in tags
-                  li.tags__item
-                    .tag #{tag}
-              .works-preview__title Сайт школы #[br] образования
-              .works-preview__desc
-                p Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 2 месяца только самых тяжелых испытаний и бессонных ночей!
-              a(href="#"  target="_blank", rel="noopener noreferrer").iconed-link
-                +icon('iconed', 'iconed-class')
-                span Посмотреть сайт
+          #works-component
 
   .bottom-section
 
     section.reviews#reviews
       +image('bg/leaves.jpg', 'reviews__bg')
       .container.reviews__container
-        .slider
-          .slider__header
-            section.title.title--color Что обо мне говорят
-            .slider__buttons
-              button(type="button").round-btn
-                +icon('arrow', 'round-btn__left-class')
-              button(type="button").round-btn
-                +icon('arrow', 'round-btn__right-class')
-          ul.slider__content
-            li.slider__item
-              .quote
-                .quote__text Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!
-                .quote__user
-
-                  .user-display
-                    .user-display__avatar
-                      .user__avatar-style.user__avatar-style--user-display
-                        +image('content/dmitriy.jpg', 'user__avatar-pic')
-                      //- .user-display__avatar-style
-                      //-   +image('content/dmitriy.jpg', 'user--display__pic')
-                    .user-display__data
-                      .user-display__name Ковальчук Дмитрий
-                      .user-display__occ Основатель Loftschool
-
-            li.slider__item
-              .quote
-                .quote__text Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах
-                .quote__user
-
-                  .user-display
-                    .user-display__avatar
-                      .user__avatar-style.user__avatar-style--user-display
-                        +image('content/vladimir.jpg', 'user__avatar-pic')
-                    .user-display__data
-                      .user-display__name Владимир Сабанцев
-                      .user-display__occ Преподаватель
-
-            li.slider__item
-              .quote
-                .quote__text Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cum, doloribus amet. Laboriosam repellendus quidem odit quam ipsam iste.
-                .quote__user
-
-                  .user-display
-                    .user-display__avatar
-                      .user__avatar-style.user__avatar-style--user-display
-                        +image('content/stelios.jpg', 'user__avatar-pic')
-                    .user-display__data
-                      .user-display__name Stelios Baglaridis
-                      .user-display__occ Наставник
+        #slider-component
 
   footer.footer
       .container.footer__container
@@ -204,7 +114,7 @@ block content
               .footer__data-socials
                 ul.socials.socials--round-borders
 
-                  +socials(["insta","github","vk","envelope"])
+                  +socials(["insta","github","vk","envelope"], 'socials--pos')
 
             .footer__data-col
               .text-quote

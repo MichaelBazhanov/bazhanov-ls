@@ -1,0 +1,37 @@
+[
+	{
+		"id": 0,
+		"text": "Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!",
+		"name": "Ковальчук Дмитрий",
+		"occ": "Основатель Loftschool",
+		"pic": "dmitriy.jpg"
+	},
+	{
+		"id": 1,
+		"text": "Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах",
+		"name": "Владимир Сабанцев",
+		"occ": "Преподаватель",
+		"pic": "vladimir.jpg"
+	},
+	{
+		"id": 2,
+		"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cum, doloribus amet. Laboriosam repellendus quidem odit quam ipsam iste.",
+		"name": "Stelios Baglaridis",
+		"occ": "Наставник",
+		"pic": "stelios.jpg"
+	},
+	{
+		"id": 3,
+		"text": "Этот код выдержит любые испытания. Только пожалуйста, не загружайте сайт на слишком старых браузерах",
+		"name": "Владимир Сабанцев",
+		"occ": "Преподаватель",
+		"pic": "vladimir.jpg"
+	},
+	{
+		"id": 4,
+		"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, cum, doloribus amet. Laboriosam repellendus quidem odit quam ipsam iste.",
+		"name": "Stelios Baglaridis",
+		"occ": "Наставник",
+		"pic": "stelios.jpg"
+	}
+]
