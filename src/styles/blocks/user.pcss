@@ -1,12 +1,12 @@
 .user {
+	font-weight: 600;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	@include tablets {
-		align-items: start;
+		align-items: center;
 	}
 	@include phones {
-		align-items: center;
 	}
 
 }
@@ -40,4 +40,20 @@
 .user__data {
 	width: 100%;
 	font-weight: 600;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		max-width: 250px;
+	}
+	@include phones {
+	}
+}
+.user__data-title {
+	color: rgba($text-color, 0.3);
+}
+.user__data-content {
+
 }
