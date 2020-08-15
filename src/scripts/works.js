@@ -3,6 +3,16 @@ import Vue from "vue";
 const thumbs = {
 	props: ['currentWork','works'],
 	template: '#preview-thumbs',
+	methods: {
+		changeActiveItem(el) {
+			console.log(el.target)
+			let active = this.$refs['thumbs__item-active'];
+			active.forEach(element => {
+				element.classList.remove('thumbs__item-active');
+			});
+			el.target.classList.add('thumbs__item-active')
+		}
+	}
 }
 const btns = {
 	template: '#preview-btns',
@@ -14,7 +24,8 @@ const display = {
 	computed: {
 		reverseWorks() {
 			const works = [...this.works];
-			return works.slice(0, 4).reverse()
+			// return works.slice(0, 4).reverse()
+			return works.slice(0, 4)
 		}
 	}
 }
@@ -40,16 +51,16 @@ new Vue({
 	data() {
 		return {
 			works: [],
-			// currentWork: {}, //ЗАМЕНИЛИ
+			currentWork: 0, //ЗАМЕНИЛИ
 			currentIndex: 0,
 		}
 	},
 	computed: {
 		// это свойство внутри компонента определяется как обычное свойство в DATA
-		currentWork() {
-			return this.works[0]
-			//при изменении currentWork будет пересчитываться works
-		}
+		// currentWork() {
+		// 	return this.works[0]
+		// 	//при изменении currentWork будет пересчитываться works
+		// }
 	},
 	watch: {
 		//шпионаж за currentIndex в DATA
@@ -85,11 +96,29 @@ new Vue({
 					this.currentIndex--;
 					break;
 			}
+		},
+		activeSlideClick(id) {
+			console.log(id)
+			let idUp = id - 1;
+			this.currentIndex = idUp;
+			this.currentWork = this.works[idUp];
+
+			// console.log(el.target)
+			// console.log('currentIndex ', this.currentIndex);
+			// console.log('currentWork ', this.currentWork);
+			// console.log('works ', this.works[idUp]);
+			// ------------------
+			// let active = this.$refs['thumbs__item-active'];
+			// console.log(active)
+			// active.forEach(element => {
+			// 	element.classList.remove('thumbs__item-active');
+			// });
+			// el.target.classList.add('thumbs__item-active')
 		}
 	},
 	created() {
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
-		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+		this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
 	}
 })
