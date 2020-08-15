@@ -37,12 +37,12 @@ script(type="text/x-template")#preview-btns
 	.square-btns
 		button(
 			type="button"
-			@click="$emit('slide','next')"
+			@click="$emit('slide','prev')"
 			).square-btns__item.square-btns__item-next
 			+icon('arrow', 'arrow-next-class')
 		button(
 			type="button"
-			@click="$emit('slide','prev')"
+			@click="$emit('slide','next')"
 			).square-btns__item.square-btns__item-prev
 			+icon('arrow', 'arrow-prev-class')
 

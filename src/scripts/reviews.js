@@ -12,8 +12,30 @@ new Vue({
 		return {
 			reviews: [],
 			sliderOptions: {
-				slidesPerView: 2
-			}
+				slidesPerView: 1,
+				spaceBetween: 0,
+				height: '200px',
+				// autoHeight: true,
+				breakpoints: {
+					// when window width is >= 320px
+					320: {
+						slidesPerView: 1,
+						spaceBetween: 60
+					},
+					768: {
+						slidesPerView: 2,
+						spaceBetween: 60
+					},
+					1200: {
+						slidesPerView: 2,
+						spaceBetween: 60
+					},
+					1800: {
+						slidesPerView: 2,
+						spaceBetween: 60
+					},
+				}
+			},
 		}
 	},
 	methods: {
