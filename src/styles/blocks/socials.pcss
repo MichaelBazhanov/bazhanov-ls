@@ -1,9 +1,18 @@
 .socials {
-	@include phones {
-		display: none;
-	}
 	display: flex;
 	align-items: center;
+
+	&--page-header {
+		@include desktopHd {
+		}
+		@include desktop {
+		}
+		@include tablets {
+			display: none;
+		}
+		@include phones {
+		}
+	}
 
 	.socials__item {
 		&:not(:first-child) {
@@ -54,6 +63,25 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+		}
+	}
+
+
+
+	&--right {
+
+		@include desktopHd {
+		}
+		@include desktop {
+			margin-left: auto;
+			margin-right: 12%;
+
+		}
+		@include tablets {
+
+		}
+		@include phones {
+
 		}
 	}
 

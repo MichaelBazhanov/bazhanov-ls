@@ -20,8 +20,8 @@ mixin nav(className, allClass, items, activeItem)
           else if  index == 3
             a(class=`${className}__link` href='#reviews')= item
 
-mixin socials(items)
-  ul.socials
+mixin socials(items, allClass)
+  ul(class=`socials ${allClass}`)
     //- ["insta","github","vk","envelope"]
     each item in items
       li.socials__item

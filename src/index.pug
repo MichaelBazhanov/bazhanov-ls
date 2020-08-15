@@ -13,9 +13,9 @@ block content
 
           .logo БМ
 
-          +nav('menu', '', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
+          +nav('menu', 'menu--page-header', ["Обо мне","Навыки","Работа","Отзывы"], 3 )
 
-          +socials(["insta","github","vk","envelope"])
+          +socials(["insta","github","vk","envelope"], 'socials--right socials--page-header')
 
           .burger-menu
             .burger
@@ -114,7 +114,7 @@ block content
               .footer__data-socials
                 ul.socials.socials--round-borders
 
-                  +socials(["insta","github","vk","envelope"])
+                  +socials(["insta","github","vk","envelope"], '')
 
             .footer__data-col
               .text-quote

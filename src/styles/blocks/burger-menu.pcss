@@ -1,7 +1,5 @@
 .burger-menu {
 	display: none;
-}
-.burger-menu {
 	position: relative;
 	cursor: pointer;
 	width: 30px;
@@ -9,8 +7,14 @@
 	justify-content: center;
 	align-items: center;
 
-	@include tablets {
+	@include desktopHd {
+	}
+	@include desktop {
 		display: flex;
+	}
+	@include tablets {
+	}
+	@include phones {
 	}
 
 	.burger {
