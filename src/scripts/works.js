@@ -5,8 +5,16 @@ const thumbs = {
 	template: '#preview-thumbs',
 	methods: {
 		changeActiveItem(el) {
-			console.log(el.target)
+			// ---
+			console.log(works)
+			console.log([...this.works])
+			// const works = [...this.works];
+			// ---
+			// console.log(this.currentWork)
+
+			// console.log(el.target)
 			let active = this.$refs['thumbs__item-active'];
+			// console.log(active)
 			active.forEach(element => {
 				element.classList.remove('thumbs__item-active');
 			});
@@ -23,6 +31,7 @@ const display = {
 	components: {thumbs, btns},
 	computed: {
 		reverseWorks() {
+			console.log(this.works)
 			const works = [...this.works];
 			// return works.slice(0, 4).reverse()
 			return works.slice(0, 4)
@@ -98,7 +107,7 @@ new Vue({
 			}
 		},
 		activeSlideClick(id) {
-			console.log(id)
+			console.log('В главном компоненте: ',id)
 			let idUp = id - 1;
 			this.currentIndex = idUp;
 			this.currentWork = this.works[idUp];
@@ -114,6 +123,8 @@ new Vue({
 			// 	element.classList.remove('thumbs__item-active');
 			// });
 			// el.target.classList.add('thumbs__item-active')
+			// console.log(this.$refs)
+
 		}
 	},
 	created() {

@@ -32,7 +32,7 @@ script(type="text/x-template")#preview-thumbs
 			:key="slide.id"
 			:class="{'thumbs__item-active' : currentWork.id === slide.id}"
 			ref='thumbs__item-active'
-			@click="$emit('activeSlideClick', slide.id), changeActiveItem($event)"
+			@click.self="$emit('activeSlideClick', slide.id), changeActiveItem($event)"
 		)
 			button(type="button" :data-index='slide.id').thumbs__link
 				img(:src="slide.photo", :alt="slide.title").thumbs__pic

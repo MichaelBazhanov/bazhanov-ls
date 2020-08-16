@@ -14,8 +14,8 @@ new Vue({
 			sliderOptions: {
 				slidesPerView: 1,
 				spaceBetween: 0,
-				height: '200px',
-				// autoHeight: true,
+				// height: '200px',
+				autoHeight: true,
 				breakpoints: {
 					// when window width is >= 320px
 					320: {
@@ -40,14 +40,25 @@ new Vue({
 	},
 	methods: {
 		slide(direction) {
-			console.log(direction)
 			const slider = this.$refs["slider__content"].$swiper;
+
+
 			switch (direction) {
 				case 'next':
 					slider.slideNext();
+					// if (slider.isEnd) {
+					// 	console.log('isEnd')
+					// } else {
+					// 	slider.slideNext();
+					// }
+					// if (slider.isBeginning) {
+					// 	console.log('isBeginning')
+					// }
+
 					break;
 				case 'prev':
 					slider.slidePrev();
+
 					break;
 			}
 		},
@@ -62,5 +73,29 @@ new Vue({
 	created() {
 		const data = require('../data/reviews.json')
 		this.reviews = this.requireImagesToArray(data);
+	},
+	mounted() {
+		//Получаем все рефы этого компонента
+		let ref = this.$refs;
+
+		//Получаем сам слайдер
+		const slider = this.$refs["slider__content"].$swiper;
+
+		//Добавляем начальный класс на кнопку
+		ref.prevBtn.classList.add('round-btn--disabled');
+
+		//Обработка события смены
+		slider.on('slideChange', function () {
+			if (slider.isEnd) {
+				ref.nextBtn.classList.add('round-btn--disabled');
+			} else {
+				ref.nextBtn.classList.remove('round-btn--disabled');
+			}
+			if (slider.isBeginning) {
+				ref.prevBtn.classList.add('round-btn--disabled');
+			} else {
+				ref.prevBtn.classList.remove('round-btn--disabled');
+			}
+		});
 	}
 })
