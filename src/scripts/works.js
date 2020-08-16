@@ -4,21 +4,15 @@ const thumbs = {
 	props: ['currentWork','works'],
 	template: '#preview-thumbs',
 	methods: {
-		changeActiveItem(el) {
-			// ---
-			console.log(works)
-			console.log([...this.works])
-			// const works = [...this.works];
-			// ---
-			// console.log(this.currentWork)
+		changeActiveItem() {
+			console.log('thumbs -> works ', this.works)
+			console.log('thumbs -> currentWork ', this.currentWork)
 
-			// console.log(el.target)
 			let active = this.$refs['thumbs__item-active'];
-			// console.log(active)
 			active.forEach(element => {
 				element.classList.remove('thumbs__item-active');
 			});
-			el.target.classList.add('thumbs__item-active')
+			// el.target.classList.add('thumbs__item-active')
 		}
 	}
 }
@@ -31,7 +25,9 @@ const display = {
 	components: {thumbs, btns},
 	computed: {
 		reverseWorks() {
-			console.log(this.works)
+			console.log('reverseWorks ',this.works)
+			console.log('reverseWorks ', [...this.works])
+
 			const works = [...this.works];
 			// return works.slice(0, 4).reverse()
 			return works.slice(0, 4)
@@ -60,7 +56,7 @@ new Vue({
 	data() {
 		return {
 			works: [],
-			currentWork: 0, //ЗАМЕНИЛИ
+			currentWork: [], //ЗАМЕНИЛИ
 			currentIndex: 0,
 		}
 	},
@@ -94,15 +90,15 @@ new Vue({
 		slide(direction) {
 			const lastItem = this.works[this.works.length - 1];
 			switch (direction) {
-				case 'next':
+				case 'prev':
 					this.works.push(this.works[0]);
 					this.works.shift();
-					this.currentIndex++;
+					this.currentIndex--;
 					break;
-				case 'prev':
+				case 'next':
 					this.works.unshift(lastItem);
 					this.works.pop();
-					this.currentIndex--;
+					this.currentIndex++;
 					break;
 			}
 		},
@@ -111,6 +107,7 @@ new Vue({
 			let idUp = id - 1;
 			this.currentIndex = idUp;
 			this.currentWork = this.works[idUp];
+
 
 			// console.log(el.target)
 			// console.log('currentIndex ', this.currentIndex);
@@ -131,5 +128,7 @@ new Vue({
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
 		this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+		console.log('created() => currentWork',this.currentWork )
+		console.log('created() => currentIndex',this.currentIndex )
 	}
 })
