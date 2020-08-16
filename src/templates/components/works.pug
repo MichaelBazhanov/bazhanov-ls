@@ -34,8 +34,10 @@ script(type="text/x-template")#preview-thumbs
 			ref='thumbs__item-active'
 			@click.self="$emit('activeSlideClick', slide.id), changeActiveItem()"
 		)
-			button(type="button" :data-index='slide.id').thumbs__link
-				img(:src="slide.photo", :alt="slide.title").thumbs__pic
+			div slide.id = {{slide.id}}
+			div currentWork.id = {{currentWork.id}}
+			//- button(type="button" :data-index='slide.id').thumbs__link
+			//- 	img(:src="slide.photo", :alt="slide.title").thumbs__pic
 
 script(type="text/x-template")#preview-btns
 	.square-btns

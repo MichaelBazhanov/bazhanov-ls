@@ -12,7 +12,6 @@ const thumbs = {
 			active.forEach(element => {
 				element.classList.remove('thumbs__item-active');
 			});
-			// el.target.classList.add('thumbs__item-active')
 		}
 	}
 }
@@ -70,6 +69,7 @@ new Vue({
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
+			console.log('Vue -> currentIndex ', value)
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -88,6 +88,9 @@ new Vue({
 			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
+			this.currentIndex++;
+			// console.log('--------------------');
+			// console.log(this.works);
 			const lastItem = this.works[this.works.length - 1];
 			switch (direction) {
 				case 'prev':
@@ -106,22 +109,12 @@ new Vue({
 			console.log('В главном компоненте: ',id)
 			let idUp = id - 1;
 			this.currentIndex = idUp;
-			this.currentWork = this.works[idUp];
-
+			this.currentWork = this.works[this.currentIndex];
 
 			// console.log(el.target)
 			// console.log('currentIndex ', this.currentIndex);
-			// console.log('currentWork ', this.currentWork);
+			console.log('VUE2 => currentWork ', this.currentWork);
 			// console.log('works ', this.works[idUp]);
-			// ------------------
-			// let active = this.$refs['thumbs__item-active'];
-			// console.log(active)
-			// active.forEach(element => {
-			// 	element.classList.remove('thumbs__item-active');
-			// });
-			// el.target.classList.add('thumbs__item-active')
-			// console.log(this.$refs)
-
 		}
 	},
 	created() {
