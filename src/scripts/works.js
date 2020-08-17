@@ -5,14 +5,16 @@ const thumbs = {
 	template: '#preview-thumbs',
 	methods: {
 		changeActiveItem() {
-			// console.log('thumbs -> works ', this.works)
-			// console.log('thumbs -> currentWork ', this.currentWork)
-
 			let active = this.$refs['thumbs__item-active'];
 			active.forEach(element => {
 				element.classList.remove('thumbs__item-active');
 			});
 		}
+	},
+	mounted() {
+		//отправляем реф thumbs вверх
+		let thumbs = this.$refs['thumbs'];
+		this.$emit('thumbs', thumbs);
 	}
 }
 const btns = {
@@ -57,6 +59,8 @@ new Vue({
 		return {
 			works: [],
 			currentIndex: 0,
+			thumbLink: [],
+			numberNext: 120,
 		}
 	},
 	computed: {
@@ -64,12 +68,14 @@ new Vue({
 		currentWork() {
 			return this.works[this.currentIndex]
 			//при изменении currentWork будет пересчитываться works
+		},
+		quantityWorks() {//количество элементов в WORKS
+			return this.works.length - 1;
 		}
 	},
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
-			console.log('Vue -> currentIndex ', value)
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -88,18 +94,76 @@ new Vue({
 			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
-			console.log(direction)
-			const lastItem = this.works[this.works.length - 1];
+
 			switch (direction) {
 				case 'prev':
-					this.currentIndex--;
+					this.prev();
 					break;
 				case 'next':
-					this.currentIndex++;
+					this.next();
 					break;
 				default:
-					this.currentIndex = direction;
+					this.click(direction)
 			}
+		},
+		click(direction) {
+			console.log(direction)
+			this.currentIndex = direction;
+			if (this.currentIndex == this.quantityWorks) {
+
+			}
+		},
+		next() {
+			console.log(this.numberNext)
+			let thumbs = this.thumbLink;
+			let thumbsChild = this.thumbLink.childNodes;
+			// console.log(thumbs)
+			// console.log(thumbsChild)
+			let thumbWidth = this.thumbLink.firstElementChild.getBoundingClientRect().width;
+			this.currentIndex++;
+			console.log('this.currentIndex ', this.currentIndex)
+			console.log('this.quantityWorks', this.quantityWorks)
+
+			//ГЛАВНОЕ УСЛОВИЕ
+			if (this.currentIndex == this.quantityWorks) {
+				console.log('Я последний next')
+
+				this.numberNext = this.numberNext - 120;
+				if (this.numberNext == -480) {
+					console.log('___ -480 to 0 ___')
+					this.numberNext = 0;
+				}
+
+				thumbs.style.transform = `translate3d(${this.numberNext},0px,0px)`;
+
+				//задержка анимации
+				// setTimeout(()=>{
+					let first = this.thumbLink.firstElementChild;
+					this.thumbLink.firstElementChild.remove();
+					this.thumbLink.appendChild(first);
+				// 	//-------------------------------------------------
+				// 	thumbsChild.forEach(element => {
+				// 		element.classList.remove('thumbs__item-active');
+				// 	});
+				// },0)
+			} else if (this.currentIndex > this.quantityWorks){
+				console.log('NEXT => this.currentIndex > this.quantityWorks');
+
+
+
+			} else if (this.currentIndex < this.quantityWorks){
+				// console.log('Я последний next +++++++')
+			}
+		},
+		prev() {
+			this.currentIndex--;
+			if (this.currentIndex < 0) {
+				console.log('Я последний prev')
+			}
+		},
+		thumbs(el) {
+			this.thumbLink = el;
+			console.log(this.thumbLink)
 		},
 		activeSlideClick(id) {
 			console.log('В главном компоненте: ',id)
@@ -117,7 +181,10 @@ new Vue({
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
 		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
-		// console.log('created() => currentWork',this.currentWork )
-		// console.log('created() => currentIndex',this.currentIndex )
-	}
+	},
+	// mounted() {
+	// 	//определяем ширину itemThumbs
+	// 	let widthThumbs = this.$refs['thumbs__item-active'];
+	// 	console.log(widthThumbs)
+	// }
 })
