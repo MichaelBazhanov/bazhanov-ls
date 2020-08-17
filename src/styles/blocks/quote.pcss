@@ -6,6 +6,7 @@
 	height: 100%;
 	user-select: none;
 
+
 	@include desktopHd {
 	}
 	@include desktop {
@@ -14,6 +15,9 @@
 	}
 	@include tablets {
 		padding-left: 0%;
+		margin: 0 auto;
+		max-width: 380px;
+
 
 	}
 	@include phones {
@@ -60,10 +64,19 @@
 		line-height: 24px;
 	}
 	@include tablets {
+		padding-bottom: 15px;
 	}
 	@include phones {
 	}
 }
 .quote__user {
-	margin-top: auto;
+	@include desktopHd {
+	}
+	@include desktop {
+		margin-top: auto;
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }
