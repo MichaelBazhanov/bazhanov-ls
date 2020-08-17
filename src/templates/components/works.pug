@@ -5,7 +5,6 @@ script(type="text/x-template")#preview-container
 			:works='works'
 			:currentIndex='currentIndex'
 			@slide='slide'
-			@activeSlideClick='activeSlideClick'
 		)
 		info(
 			:currentWork='currentWork'
@@ -18,7 +17,7 @@ script(type="text/x-template")#preview-display
 			thumbs(
 				:currentWork='currentWork'
 				:works='reverseWorks'
-				@activeSlideClick="$emit('activeSlideClick', $event)"
+				@slide="$emit('slide', $event)"
 			)
 		.works-preview__btns
 			btns(
@@ -28,14 +27,12 @@ script(type="text/x-template")#preview-display
 script(type="text/x-template")#preview-thumbs
 	ul.thumbs
 		li.thumbs__item(
-			v-for='slide in works'
+			v-for='(slide,index) in works'
 			:key="slide.id"
 			:class="{'thumbs__item-active' : currentWork.id === slide.id}"
 			ref='thumbs__item-active'
-			@click.self="$emit('activeSlideClick', slide.id), changeActiveItem()"
+			@click.self="$emit('slide', index), changeActiveItem()"
 		)
-			//- div slide.id = {{slide.id}}
-			//- div currentWork.id = {{currentWork.id}}
 			button(type="button" :data-index='slide.id').thumbs__link
 				img(:src="slide.photo", :alt="slide.title").thumbs__pic
 

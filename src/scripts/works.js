@@ -5,8 +5,8 @@ const thumbs = {
 	template: '#preview-thumbs',
 	methods: {
 		changeActiveItem() {
-			console.log('thumbs -> works ', this.works)
-			console.log('thumbs -> currentWork ', this.currentWork)
+			// console.log('thumbs -> works ', this.works)
+			// console.log('thumbs -> currentWork ', this.currentWork)
 
 			let active = this.$refs['thumbs__item-active'];
 			active.forEach(element => {
@@ -24,8 +24,8 @@ const display = {
 	components: {thumbs, btns},
 	computed: {
 		reverseWorks() {
-			console.log('reverseWorks ',this.works)
-			console.log('reverseWorks ', [...this.works])
+			// console.log('reverseWorks ',this.works)
+			// console.log('reverseWorks ', [...this.works])
 
 			const works = [...this.works];
 			// return works.slice(0, 4).reverse()
@@ -55,16 +55,15 @@ new Vue({
 	data() {
 		return {
 			works: [],
-			currentWork: [], //ЗАМЕНИЛИ
 			currentIndex: 0,
 		}
 	},
 	computed: {
 		// это свойство внутри компонента определяется как обычное свойство в DATA
-		// currentWork() {
-		// 	return this.works[0]
-		// 	//при изменении currentWork будет пересчитываться works
-		// }
+		currentWork() {
+			return this.works[this.currentIndex]
+			//при изменении currentWork будет пересчитываться works
+		}
 	},
 	watch: {
 		//шпионаж за currentIndex в DATA
@@ -88,40 +87,36 @@ new Vue({
 			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
-			this.currentIndex++;
-			// console.log('--------------------');
-			// console.log(this.works);
+			console.log(direction)
 			const lastItem = this.works[this.works.length - 1];
 			switch (direction) {
 				case 'prev':
-					this.works.push(this.works[0]);
-					this.works.shift();
 					this.currentIndex--;
 					break;
 				case 'next':
-					this.works.unshift(lastItem);
-					this.works.pop();
 					this.currentIndex++;
 					break;
+				default:
+					this.currentIndex = direction;
 			}
 		},
 		activeSlideClick(id) {
 			console.log('В главном компоненте: ',id)
 			let idUp = id - 1;
 			this.currentIndex = idUp;
-			this.currentWork = this.works[this.currentIndex];
+			this.currentWork = this.works[idUp];
 
 			// console.log(el.target)
 			// console.log('currentIndex ', this.currentIndex);
-			console.log('VUE2 => currentWork ', this.currentWork);
+			// console.log('VUE2 => currentWork ', this.currentWork);
 			// console.log('works ', this.works[idUp]);
 		}
 	},
 	created() {
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
-		this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
-		console.log('created() => currentWork',this.currentWork )
-		console.log('created() => currentIndex',this.currentIndex )
+		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+		// console.log('created() => currentWork',this.currentWork )
+		// console.log('created() => currentIndex',this.currentIndex )
 	}
 })
