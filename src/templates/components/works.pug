@@ -25,16 +25,17 @@ script(type="text/x-template")#preview-display
 			)
 
 script(type="text/x-template")#preview-thumbs
-	ul.thumbs
-		li.thumbs__item(
-			v-for='(slide,index) in works'
-			:key="slide.id"
-			:class="{'thumbs__item-active' : currentWork.id === slide.id}"
-			ref='thumbs__item-active'
-			@click.self="$emit('slide', index), changeActiveItem()"
-		)
-			button(type="button" :data-index='slide.id').thumbs__link
-				img(:src="slide.photo", :alt="slide.title").thumbs__pic
+	.thumbs__wrapper(style="width: calc(120px * 4);")
+		ul.thumbs(style="width: calc(120px * 5); transform: translate3d(120px, 0px, 0px);")
+			li.thumbs__item(
+				v-for='(slide,index) in works'
+				:key="slide.id"
+				:class="{'thumbs__item-active' : currentWork.id === slide.id}"
+				ref='thumbs__item-active'
+				@click.self="$emit('slide', index), changeActiveItem()"
+			)
+				button(type="button" :data-index='slide.id').thumbs__link
+					img(:src="slide.photo", :alt="slide.title").thumbs__pic
 
 script(type="text/x-template")#preview-btns
 	.square-btns

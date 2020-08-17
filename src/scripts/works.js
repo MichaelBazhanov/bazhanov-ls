@@ -29,7 +29,8 @@ const display = {
 
 			const works = [...this.works];
 			// return works.slice(0, 4).reverse()
-			return works.slice(0, 4)
+			// return works.slice(0, 4)
+			return works
 		}
 	}
 }
