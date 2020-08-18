@@ -18,10 +18,11 @@
 
 		@include desktopHd {
 			padding: 13px;
-		}
-		@include desktop {
 			width: 34px;
 			height: 34px;
+		}
+		@include desktop {
+
 		}
 		@include tablets {
 		}
@@ -38,4 +39,9 @@
 	&__item-prev {
 		transform: rotate(180deg);
 	}
+}
+.square-btns__item:disabled {
+	opacity: .5;
+	user-select: none;
+	cursor: not-allowed;
 }

@@ -1,31 +1,38 @@
 .thumbs__wrapper {
-	width: 300px;
-	height: 68px;
 	position: relative;
     display: block;
     overflow: hidden;
     margin: 0;
-    padding: 0;
+	padding: 0;
+	float: right;
+	width: 712px;
+
+	@include desktopHd {
+		width: 480px;
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }
 .thumbs {
-	/* display: flex; */
-	position: absolute;
-    right: 0;
-	bottom: 0;
-	/* overflow: hidden; */
+	position: relative;
+	overflow: hidden;
 	transition: all 1s;
+	width: 1068px;
 	height: 100px;
 
 	@include desktopHd {
+		width: 720px;
+		height: 68px;
 	}
 	@include desktop {
-		height: 68px;
 	}
 	@include tablets {
-		height: 68px;
 	}
 	@include phones {
-		height: 68px;
 	}
 }
 .thumbs__item-active {
@@ -53,9 +60,9 @@
 	transition: all .3s;
 
 	@include desktopHd {
+		width: 120px;
 	}
 	@include desktop {
-		width: 120px;
 	}
 	@include tablets {
 	}
