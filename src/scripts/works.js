@@ -119,39 +119,55 @@ new Vue({
 			let thumbsChild = this.thumbLink.childNodes;
 			// console.log(thumbs)
 			// console.log(thumbsChild)
-			let thumbWidth = this.thumbLink.firstElementChild.getBoundingClientRect().width;
+			// let thumbWidth = this.thumbLink.firstElementChild.getBoundingClientRect().width;
 			this.currentIndex++;
 			console.log('this.currentIndex ', this.currentIndex)
 			console.log('this.quantityWorks', this.quantityWorks)
 
 			//ГЛАВНОЕ УСЛОВИЕ
-			if (this.currentIndex == this.quantityWorks) {
+			if (this.currentIndex == this.quantityWorks) { // 4==4
 				console.log('Я последний next')
+				// this.numberNext = this.numberNext - 120;
+				// if (this.numberNext == -480) {
+				// 	console.log('___ -480 to 0 ___')
+				// 	this.numberNext = 0;
+				// }
+				thumbs.style.transform = `translate3d(0px,0px,0px)`;
 
-				this.numberNext = this.numberNext - 120;
-				if (this.numberNext == -480) {
-					console.log('___ -480 to 0 ___')
-					this.numberNext = 0;
-				}
-
-				thumbs.style.transform = `translate3d(${this.numberNext},0px,0px)`;
-
-				//задержка анимации
-				// setTimeout(()=>{
-					let first = this.thumbLink.firstElementChild;
-					this.thumbLink.firstElementChild.remove();
-					this.thumbLink.appendChild(first);
-				// 	//-------------------------------------------------
-				// 	thumbsChild.forEach(element => {
-				// 		element.classList.remove('thumbs__item-active');
-				// 	});
-				// },0)
-			} else if (this.currentIndex > this.quantityWorks){
+			} else if (this.currentIndex > this.quantityWorks){ // 5 > 4
 				console.log('NEXT => this.currentIndex > this.quantityWorks');
 
+				setTimeout(()=>{ console.log(thumbsChild[0])
+					let first = this.thumbLink.firstElementChild;
+					// this.thumbLink.firstElementChild.remove();
+					this.thumbLink.appendChild(first);
+				}, 1000)
 
+				// setTimeout(()=>{ console.log('склонировали')
+				// 	let first = this.thumbLink.firstElementChild;
+				// 	let clone = first.cloneNode(true);
+				// 	this.thumbLink.appendChild(clone);
+				// }, 1000)
+				// setTimeout(()=>{ console.log('translate3d')
+				// 	thumbs.style.transform = `translate3d(0px,0px,0px)`;
+				// }, 2000)
+				// setTimeout(()=>{ console.log('удаляем первый')
+				// 	let first = this.thumbLink.firstElementChild;
+				// 	this.thumbLink.firstElementChild.remove();
+				// 	// this.thumbLink.appendChild(first);
+				// }, 3000)
 
-			} else if (this.currentIndex < this.quantityWorks){
+				// setTimeout(()=>{
+				// 	thumbs.style.transform = `translate3d(-120px,0px,0px)`;
+				// }, 3000)
+
+				// // 	//-------------------------------------------------
+				// // 	thumbsChild.forEach(element => {
+				// // 		element.classList.remove('thumbs__item-active');
+				// // 	});
+				// thumbs.style.transform = `translate3d(0px,0px,0px)`;
+
+			} else if (this.currentIndex < this.quantityWorks){ // 1.2.3 < 4
 				// console.log('Я последний next +++++++')
 			}
 		},

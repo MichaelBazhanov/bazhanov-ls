@@ -34,6 +34,7 @@ script(type="text/x-template")#preview-thumbs
 			li.thumbs__item(
 				v-for='(slide,index) in works'
 				:key="slide.id"
+				:id="slide.id"
 				:class="{'thumbs__item-active' : currentWork.id === slide.id}"
 				ref='thumbs__item-active'
 				@click.self="$emit('slide', index), changeActiveItem()"
