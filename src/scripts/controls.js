@@ -62,7 +62,7 @@ new Vue({
 			text: "myText",
 			yesNo: false,
 			group: ["red", "blue"],
-			oneOf: "master"
+			oneOf: "visa"
 		}
 	},
 })

@@ -60,6 +60,8 @@ script(type="text/x-template")#check-group
 					v-model="inner"
 					@change="expose"
 				)
+				//- тут следует помнить что value мы меняем в массиве
+				//- который потом эмитим вверх
 				span Red
 		div
 			label
@@ -83,7 +85,7 @@ script(type="text/x-template")#check-group
 		div(style="color: red;")
 			pre {{inner}}
 
-//- кастомная группа radiobutton c подпиской на кастомное coбытие 'change'
+//- кастомная группа radiobutton c подпиской на кастомное coбытие 'handleChange'
 script(type="text/x-template")#radio
 	div
 		div
@@ -108,5 +110,3 @@ script(type="text/x-template")#radio
 				)
 				span master
 
-		div(style="color: blue;")
-			//- pre {{inner}}
