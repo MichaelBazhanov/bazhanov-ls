@@ -1,11 +1,44 @@
+.thumbs__wrapper {
+	position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+	padding: 0;
+	float: right;
+	width: 712px;
+
+	@include desktopHd {
+		width: 480px;
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
+}
 .thumbs {
 	position: relative;
-	display: flex;
-	justify-content: flex-end;
+	overflow: hidden;
+	transition: all 1s;
+	width: 1068px;
+	height: 100px;
+
+	@include desktopHd {
+		width: 720px;
+		height: 68px;
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }
 .thumbs__item-active {
-	transition: all .3s;
-	box-shadow: 0 0 0 3px $links-color-active;
+	transition: all 0.3s;
+	/* box-shadow: 0 0 0 3px $links-color-active; */
+	border: 3px solid $links-color-active;
 	z-index: 1;
 
 	.thumbs__link:hover {
@@ -13,19 +46,25 @@
 	}
 }
 .thumbs__item {
-	width: 178px;
-	height: 100px;
-	transition: all .3s;
+	float: left;
+    height: 100%;
+	min-height: 1px;
+	display: block;
 	position: relative;
 
+	width: 178px;
+	/* min-width: 178px;
+	height: 100px;
+	position: relative; */
+
+	transition: all .3s;
+
 	@include desktopHd {
+		width: 120px;
 	}
 	@include desktop {
-		width: 120px;
-		height: 68px;
 	}
 	@include tablets {
-
 	}
 	@include phones {
 	}

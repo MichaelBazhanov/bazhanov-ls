@@ -3,9 +3,9 @@ script(type="text/x-template")#slider-container
 		.slider__header
 			section.title.title--color Что обо мне говорят
 			.slider__buttons
-				button(type="button" @click="slide('prev')").round-btn
+				button(ref='prevBtn' type="button" @click="slide('prev')").round-btn
 					+icon('arrow', 'round-btn__left-class')
-				button(type="button" @click="slide('next')").round-btn
+				button(ref='nextBtn' type="button" @click="slide('next')").round-btn
 					+icon('arrow', 'round-btn__right-class')
 		swiper(ref='slider__content', :options='sliderOptions').slider__content
 			swiper-slide(v-for="review in reviews" :key="review.id")

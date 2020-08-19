@@ -1,11 +1,13 @@
 script(type="text/x-template")#preview-container
 	.works-preview
 		display(
+			:isEnd='isEnd'
+			:isBegin='isBegin'
 			:currentWork='currentWork'
 			:works='works'
 			:currentIndex='currentIndex'
 			@slide='slide'
-			@activeSlideClick='activeSlideClick'
+			@thumbs='thumbs'
 		)
 		info(
 			:currentWork='currentWork'
@@ -18,34 +20,42 @@ script(type="text/x-template")#preview-display
 			thumbs(
 				:currentWork='currentWork'
 				:works='reverseWorks'
-				@activeSlideClick="$emit('activeSlideClick', $event)"
+				@slide="$emit('slide', $event)"
+				@thumbs="$emit('thumbs', $event)"
 			)
 		.works-preview__btns
 			btns(
+				:isEnd='isEnd'
+				:isBegin='isBegin'
 				@slide="$emit('slide', $event)"
 			)
 
 script(type="text/x-template")#preview-thumbs
-	ul.thumbs
-		li.thumbs__item(
-			v-for='slide in works'
-			:key="slide.id"
-			:class="{'thumbs__item-active' : currentWork.id === slide.id}"
-			ref='thumbs__item-active'
-			@click="$emit('activeSlideClick', slide.id), changeActiveItem($event)"
-		)
-			button(type="button" :data-index='slide.id').thumbs__link
-				img(:src="slide.photo", :alt="slide.title").thumbs__pic
+	.thumbs__wrapper
+		ul.thumbs.clearfix(
+			ref='thumbs'
+			style="transform: translate3d(0px, 0px, 0px);")
+			li.thumbs__item(
+				v-for='(slide,index) in works'
+				:key="slide.id"
+				:class="{'thumbs__item-active' : currentWork.id === slide.id}"
+				ref='thumbs__item-active'
+				@click.self="$emit('slide', index), changeActiveItem()"
+			)
+				button(type="button").thumbs__link
+					img(:src="slide.photo", :alt="slide.title").thumbs__pic
 
 script(type="text/x-template")#preview-btns
 	.square-btns
 		button(
 			type="button"
+			:disabled='isEnd'
 			@click="$emit('slide','next')"
 			).square-btns__item.square-btns__item-next
 			+icon('arrow', 'arrow-next-class')
 		button(
 			type="button"
+			:disabled='isBegin'
 			@click="$emit('slide','prev')"
 			).square-btns__item.square-btns__item-prev
 			+icon('arrow', 'arrow-prev-class')

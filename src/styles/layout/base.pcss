@@ -117,3 +117,11 @@ img {
 
 ::-webkit-resizer { /* 7 - изменение размеров */
 }
+
+.clearfix	{
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

@@ -4,28 +4,31 @@ const thumbs = {
 	props: ['currentWork','works'],
 	template: '#preview-thumbs',
 	methods: {
-		changeActiveItem(el) {
-			console.log(el.target)
+		changeActiveItem() {
 			let active = this.$refs['thumbs__item-active'];
 			active.forEach(element => {
 				element.classList.remove('thumbs__item-active');
 			});
-			el.target.classList.add('thumbs__item-active')
 		}
+	},
+	mounted() {
+		//отправляем реф thumbs вверх
+		let thumbs = this.$refs['thumbs'];
+		this.$emit('thumbs', thumbs);
 	}
 }
 const btns = {
+	props: ['isEnd', 'isBegin'],
 	template: '#preview-btns',
 }
 const display = {
-	props: ['currentWork','works', 'currentIndex'],
+	props: ['currentWork','works', 'currentIndex', 'isEnd', 'isBegin'],
 	template: '#preview-display',
 	components: {thumbs, btns},
 	computed: {
 		reverseWorks() {
 			const works = [...this.works];
-			// return works.slice(0, 4).reverse()
-			return works.slice(0, 4)
+			return works
 		}
 	}
 }
@@ -51,20 +54,30 @@ new Vue({
 	data() {
 		return {
 			works: [],
-			currentWork: 0, //ЗАМЕНИЛИ
 			currentIndex: 0,
+			thumbLink: [],
 		}
 	},
 	computed: {
 		// это свойство внутри компонента определяется как обычное свойство в DATA
-		// currentWork() {
-		// 	return this.works[0]
-		// 	//при изменении currentWork будет пересчитываться works
-		// }
+		currentWork() {
+			return this.works[this.currentIndex]
+			//при изменении currentWork будет пересчитываться works
+		},
+		quantityWorks() {//количество элементов в WORKS
+			return this.works.length - 1;
+		},
+		isEnd() {
+			return this.currentIndex ===  this.works.length - 1;
+		},
+		isBegin() {
+			return this.currentIndex ===  0;
+		}
 	},
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
+			console.log(value,'-------------------')
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -83,42 +96,81 @@ new Vue({
 			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
-			const lastItem = this.works[this.works.length - 1];
+
 			switch (direction) {
-				case 'next':
-					this.works.push(this.works[0]);
-					this.works.shift();
-					this.currentIndex++;
-					break;
 				case 'prev':
-					this.works.unshift(lastItem);
-					this.works.pop();
-					this.currentIndex--;
+					this.prev();
 					break;
+				case 'next':
+					this.next();
+					break;
+				default:
+					this.click(direction)
 			}
 		},
+		click(direction) {
+			console.log(direction)
+			this.currentIndex = direction;
+			if (this.currentIndex == this.quantityWorks) {
+
+			}
+		},
+		next() {
+			let thumbs = this.thumbLink;
+			this.currentIndex++;
+			// console.log('this.currentIndex ', this.currentIndex)
+			// console.log('this.quantityWorks', this.quantityWorks)
+
+			//ГЛАВНОЕ УСЛОВИЕ
+			if (this.currentIndex == this.quantityWorks) { // 4==4
+				console.log('Я последний next')
+				if (this.media(1800)) {
+					thumbs.style.transform = `translate3d(-178px,0px,0px)`;
+				} else {
+					thumbs.style.transform = `translate3d(-120px,0px,0px)`;
+				}
+			}
+		},
+		prev() {
+			let thumbs = this.thumbLink;
+			this.currentIndex--;
+			// //ГЛАВНОЕ УСЛОВИЕ
+			if (this.currentIndex === 0) { //0 == 0
+				console.log('Я последний prev')
+				thumbs.style.transform = `translate3d(0px,0px,0px)`;
+			}
+		},
+		thumbs(el) {
+			this.thumbLink = el;
+			console.log(this.thumbLink)
+		},
 		activeSlideClick(id) {
-			console.log(id)
+			console.log('В главном компоненте: ',id)
 			let idUp = id - 1;
 			this.currentIndex = idUp;
 			this.currentWork = this.works[idUp];
-
-			// console.log(el.target)
-			// console.log('currentIndex ', this.currentIndex);
-			// console.log('currentWork ', this.currentWork);
-			// console.log('works ', this.works[idUp]);
-			// ------------------
-			// let active = this.$refs['thumbs__item-active'];
-			// console.log(active)
-			// active.forEach(element => {
-			// 	element.classList.remove('thumbs__item-active');
-			// });
-			// el.target.classList.add('thumbs__item-active')
+		},
+		media(px) {
+			if (window.matchMedia(`(min-width: ${px}px)`).matches) { //1800px
+				console.log('после 1800px')
+				return true
+			} else {
+				console.log('до 1800px')
+				return false
+			}
 		}
 	},
 	created() {
 		const data = require('../data/works.json')
 		this.works = this.requireImagesToArray(data);
-		this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
-	}
+		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+	},
+	// mounted() {
+	// 	//слежка Window.matchMedia()
+	// 	if (window.matchMedia("(min-width: 768px)").matches) {
+	// 		console.log('после 768')
+	// 	} else {
+	// 		console.log('до 768')
+	// 	}
+	// }
 })
