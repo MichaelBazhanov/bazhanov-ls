@@ -1,0 +1,112 @@
+script(type="text/x-template")#controls
+	div
+		inputComp(
+			v-model="text"
+		)
+			//- :value="text"
+			//- @input="text = $event.data"
+		div {{text}}
+
+		hr
+
+		checkComp(
+			v-model="yesNo"
+		)
+		div {{yesNo}}
+
+		hr
+
+		checkGroup(
+			v-model="group"
+		)
+		pre {{group}}
+
+		hr
+
+		radioComp(
+			v-model="oneOf"
+		)
+		pre {{oneOf}}
+
+
+//- кастомный input c подпиской на кастомное coбытие 'input'
+script(type="text/x-template")#input
+	div
+		input(
+			type="text"
+			:value="value"
+			@input="$emit('input', $event.target.value)"
+		)
+
+//- кастомный checkbox c подпиской на кастомное coбытие 'change'
+script(type="text/x-template")#checkbox
+	div
+		label
+			input(
+				type="checkbox"
+				:checked="checked"
+				@change="$emit('change', $event.target.checked)"
+				)
+			span Да/Нет
+
+//- кастомная группа checkbox c подпиской на кастомное coбытие 'change'
+script(type="text/x-template")#check-group
+	div
+		div
+			label
+				input(
+					type="checkbox"
+					value="red"
+					v-model="inner"
+					@change="expose"
+				)
+				span Red
+		div
+			label
+				input(
+					type="checkbox"
+					value="green"
+					v-model="inner"
+					@change="expose"
+				)
+				span Green
+		div
+			label
+				input(
+					type="checkbox"
+					value="blue"
+					v-model="inner"
+					@change="expose"
+				)
+				span Blue
+
+		div(style="color: red;")
+			pre {{inner}}
+
+//- кастомная группа radiobutton c подпиской на кастомное coбытие 'change'
+script(type="text/x-template")#radio
+	div
+		div
+			label
+				input(
+					type="radio"
+					value="visa"
+					name="payment"
+					@change="handleChange"
+					:checked="value === 'visa'"
+				)
+				//- :checked="value" по идеи для смены обращение через ref (dom.value = value)
+				span visa
+		div
+			label
+				input(
+					type="radio"
+					value="master"
+					name="payment"
+					@change="handleChange"
+					:checked="value === 'master'"
+				)
+				span master
+
+		div(style="color: blue;")
+			//- pre {{inner}}
