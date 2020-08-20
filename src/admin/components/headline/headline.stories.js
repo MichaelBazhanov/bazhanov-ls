@@ -16,7 +16,7 @@ export const defaultView = () => ({
 			@change="onChange"
 			title="Панель управления"
 		>
-			<h2>323232323</h2>
+			<h2>это тестовый текст</h2>
 		</headline>
 	`,
 	components: { headline },

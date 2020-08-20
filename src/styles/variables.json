@@ -15,6 +15,7 @@
   "bg-footer-color": "#222427",
   "errors-color": "#cd1515",
   "bg-head-color": "#43436B",
+  "nav-color": "#383BCF",
 
   "bp-desktop-hd": "1800px",
   "bp-desktop": "1200px",

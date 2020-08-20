@@ -1,10 +1,10 @@
 <template>
 	<div class="headline-component">
-		<div class="container">
+		<div class="container container-headline">
 			<slot />
 			<div class="title">{{title}}</div>
 			<div class="btns">
-				<button type="button" class="btn" @click="$emit('change', 'message')">Сообщения</button>
+				<!-- <button type="button" class="btn" @click="$emit('change', 'message')">Сообщения</button> -->
 				<button type="button" class="btn" @click="$emit('change', 'logout')">Выйти</button>
 			</div>
 		</div>
@@ -17,6 +17,7 @@
 export default {
 	props: {
 		title: String,
+		default: 'Панель администрирования'
 	}
 }
 </script>

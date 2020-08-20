@@ -1,0 +1,52 @@
+.navigation-component {
+}
+.list {
+	display: flex;
+}
+.item.active {
+	.link {
+		color: $nav-color;
+		position: relative;
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 0px;
+			transition: background-color ease .5s, height ease .5s;
+			height: 3px;
+			background-color: $nav-color;
+		}
+	}
+}
+.link {
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 22px;
+	padding: 30px;
+	text-decoration: none;
+	display: block;
+	transition: color ease .5s;
+
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 0px;
+		transition: background-color ease .5s, height ease .5s;
+		background-color: transparent;
+	}
+
+	&:hover {
+		position: relative;
+		color: $nav-color;
+		&:after {
+			height: 3px;
+			background-color: $nav-color;
+		}
+	}
+
+}
