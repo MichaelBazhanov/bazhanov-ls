@@ -9,7 +9,7 @@
       <div class="text" v-text="title"></div>
       <slot name="title" v-if="!!title === false"></slot>
     </div>
-    <div class="content content_plain">
+    <div class="content">
       <slot name="content"></slot>
     </div>
   </div>
