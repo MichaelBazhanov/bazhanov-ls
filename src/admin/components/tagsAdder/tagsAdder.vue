@@ -3,6 +3,7 @@
 		<app-input
 			title="добавление тега"
 			v-model="currentTags"
+			@input="$emit('change', currentTags)"
 		/>
 		<ul class="tags">
 			<li class="tag"
@@ -13,6 +14,7 @@
 			<tag
 				interactive
 				:title="tag"
+				@click="removeTag(tag)"
 			/>
 			</li>
 		</ul>
@@ -26,8 +28,18 @@ import tag from "../tag";
 export default {
 	data() {
 		return {
-			currentTags: "One, Two, Three"
+			currentTags: this.tags
 		}
+	},
+	props: {
+		tags: {
+			type: String,
+			default: ""
+		}
+	},
+	model: {
+		prop: "tags",
+		event: "change"
 	},
 	components: {
 		appInput,
@@ -36,6 +48,19 @@ export default {
 	computed: {
 		tagsArray() {//превращаем строку в массив
 			return this.currentTags.trim().split(', ');
+		}
+	},
+	methods: {
+		removeTag(tag) {
+			const tags = [...this.tagsArray]; //копируем массив из computed
+			const tagNdx = tags.indexOf(tag); //находим индекс который нужно удалить
+
+			if (tagNdx < 0) return; //если не найден то возврат
+
+			tags.splice(tagNdx, 1); //удаляем один индекс начиная с 1 ого
+			this.currentTags = tags.join(', '); //создаем из наших тего массив и отдаем в текущий
+
+			this.$emit('change', this.currentTags);//проброс данных родительнсому компоненту
 		}
 	}
 }

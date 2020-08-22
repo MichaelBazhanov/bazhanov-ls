@@ -8,8 +8,16 @@ export default {
 export const defaultView = () => ({
 	components: { tagsAdder },
 	template: `
-		<tagsAdder />
+		<!-- <div> -->
+		<!-- <pre>{{tags}} проверка данных исходящих от v-model</pre> -->
+			<tagsAdder v-model="tags"/>
+		<!-- </div> -->
 	`,
+	data() {
+		return {
+			tags: "One, Two, Three, four"
+		}
+	}
 });
 
 defaultView.story = {

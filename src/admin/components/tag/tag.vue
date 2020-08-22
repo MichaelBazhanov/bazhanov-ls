@@ -6,12 +6,15 @@
       grayscale
       symbol="cross"
       class="tag-close"
-      v-on="$listener"
-      @click="$emit('remove', $event )"
+      v-on="$listeners"
     />
   </div>
 
-  <div class="tag" v-else >
+  <div
+  class="tag"
+  v-else
+  v-on="$listeners"
+  >
     {{title}}
   </div>
 
