@@ -2,7 +2,9 @@ import category from "./category.vue";
 import { action } from "@storybook/addon-actions";
 
 const methods = {
-	onRemove: action(onRemove)
+	onRemove: action("onRemove"),
+	onRemoveSkill: action("onRemoveSkill"),
+	onEditSkill: action("onEditSkill")
 };
 
 export default {
@@ -24,6 +26,8 @@ export const defaultView = () => ({
 			:title="title"
 			:skills="skills"
 			@remove="onRemove"
+			@remove-skill="onRemoveSkill"
+			@edit-skill="onEditSkill"
 		/>
 	`,
 	data() {
@@ -37,15 +41,4 @@ export const defaultView = () => ({
 
 defaultView.story = {
 	name: "Стандартный вид",
-};
-//======================
-export const test = () => ({
-	components: {category},
-	template: `
-		тест не выводит
-	`,
-});
-
-test.story = {
-	name: "Стандартный вид1111111",
 };
