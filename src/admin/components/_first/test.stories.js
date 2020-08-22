@@ -19,7 +19,7 @@ export const defaultView = () => ({
 			:title="title"
 			alt="User name"
 			src="https://picsum.photos/300/300"
-		>
+		/>
 	`,
 })
 defaultView.story = {
@@ -33,7 +33,7 @@ export const activeView = () => ({
 			alt="User name"
 			src="https://picsum.photos/300/300"
 			active
-		>
+		/>
 	`,
 	components: { test },
 })

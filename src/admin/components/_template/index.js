@@ -1,1 +1,1 @@
-export {default} from "./_template.vue";
+export {default} from "./template.vue";

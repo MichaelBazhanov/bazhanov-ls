@@ -1,14 +1,14 @@
-import _template from "./_template.vue";
+import temp from "./template.vue";
 
 export default {
-	title: "_template",
-	components: { _template },
+	title: "temp",
+	components: { temp },
 };
 
 export const defaultView = () => ({
-	components: { _template },
+	components: { temp },
 	template: `
-		<_template />
+		<temp />
 	`,
 });
 
