@@ -19,8 +19,10 @@ export default {
     measures() {
       const size = Number(this.size);
       return {
-        width: `${size}rem`,
-        height: `${size}rem`,
+        'width': `${size}rem`,
+        'height': `${size}rem`,
+        'min-width': `${size}rem`,
+        'min-height': `${size}rem`,
       }
     }
   }

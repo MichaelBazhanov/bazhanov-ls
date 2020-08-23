@@ -73,6 +73,7 @@ export default {
 </style>
 <style lang="postcss" scoped src='./app.pcss'></style>
 <style lang="postcss" scoped>
+@import "../styles/mixins.pcss";
 .app-container {
   display: flex;
   flex-direction: column;
@@ -98,8 +99,22 @@ export default {
   flex-wrap: wrap;
 }
 .item {
-  width: calc(100% / 2 - 30px);
+  width: calc(100% / 4 - 30px);
   margin-right: 30px;
   margin-bottom: 30px;
+
+  @include desktopHd {
+    width: calc(100% / 3 - 30px);
+  }
+  @include desktop {
+    width: calc(100% / 2 - 30px);
+  }
+  @include tablets {
+    margin-right: 0px;
+    width: calc(100% / 1 - 0px);
+  }
+  @include phones {
+  }
 }
+
 </style>
