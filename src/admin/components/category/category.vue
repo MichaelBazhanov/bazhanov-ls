@@ -4,11 +4,14 @@
 			<edit-line
 				slot="title"
 				v-model="categoryTitle"
-				:editModeByDefault="empty"
+				:editModeByDefault="emptyCategory"
 				@remove="$emit('remove', $event)"
+				@approve="$emit('approve', emptyCategory = false)"
+				@blocked="emptyCategory = true"
 			/>
+				<!-- @approve="test()" -->
 			<template slot="content">
-				<ul class="skills" v-if="empty == false">
+				<ul class="skills" v-if="emptyCategory == false">
 					<li class="item" v-for="skill in skills" :key="skill.id">
 						<skill
 							:skill="skill"
@@ -18,7 +21,7 @@
 					</li>
 				</ul>
 				<div class="bottom-line">
-					<skill-add-line :blocked="empty"/>
+					<skill-add-line :blocked="emptyCategory"/>
 				</div>
 			</template>
 		</card>
@@ -52,8 +55,17 @@ export default {
 	data() {
 		return {
 			categoryTitle: this.title,
+			emptyCategory: this.empty,
 		}
 	},
+	methods: {
+		test() {
+			console.log(this.empty)
+			console.log(this.emptyCategory)
+		}
+	}
+	/////////////////////////////////////////////////
+	/////////////////////////////////////////////////
 }
 </script>
 

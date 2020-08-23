@@ -3,7 +3,11 @@
     <div class="title" v-if="editmode === false">
       <div class="text">{{value}}</div>
       <div class="icon">
-        <icon symbol="pencil" grayscale @click="editmode = true"></icon>
+        <icon
+          symbol="pencil"
+          grayscale
+          @click="editmode = true, $emit('blocked')"
+        ></icon>
       </div>
     </div>
     <div v-else class="title">
@@ -12,6 +16,7 @@
           :errorMessage="errorMessage"
           placeholder="Название новой группы"
           :value="value"
+
 
           @input="$emit('input', $event), validValue($event)"
           @keydown.native.enter="onApprove"
@@ -24,7 +29,7 @@
         <div class="button-icon">
           <icon
             symbol="tick"
-            @click="onApprove"
+            @click="$emit('approve'), onApprove()"
             :class="[{blocked : value.trim() == ''}]"
           ></icon>
         </div>

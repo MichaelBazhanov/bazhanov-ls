@@ -12,12 +12,18 @@
 	<div class="skill-component" v-else>
 		<div class="title">
 			<app-input
+				@input="onClick1()"
+				:errorMessage="errorMessageSkill"
+
 				v-model="currentSkill.title"
 				noSidePaddings
 			/>
 		</div>
 		<div class="percent">
 			<app-input
+				@input="onClick2()"
+				:errorMessage="errorMessagePercent"
+
 				v-model="currentSkill.percent"
 				type="number"
 				min="0"
@@ -46,18 +52,51 @@ export default {
 	},
 	data() {
 		return {
+			// skill: currentSkill.title,
+			validSkill: false,
+			errorMessageSkill: '',
+
+			// percent: currentSkill.percent,
+			validPercent: false,
+			errorMessagePercent: '',
+
 			editmode: false,
 			currentSkill: {
 				id:  this.skill.id,
 				title: this.skill.title,
 				percent:  this.skill.percent,
-			}
+			},
 		}
 	},
 	components: {
 		icon,
 		appInput: input,
 
+	},
+	methods: {
+		onClick1() {
+			let s = this.currentSkill.title.trim();
+			if ( s === "") {
+				this.validSkill = false;
+				this.errorMessageSkill = 'Пустая строка';
+			} else {
+				this.validSkill = true;
+				this.errorMessageSkill = '';
+			}
+		},
+		onClick2() {
+			let p = this.currentSkill.percent.trim();
+			if (p === "" ||
+				p > 100  ||
+				p <  0
+				) {
+				this.validPercent = false;
+				this.errorMessagePercent = 'Процент не определен или неверен';
+			} else {
+				this.validPercent = true;
+				this.errorMessagePercent = '';
+			}
+		},
 	}
 }
 </script>
