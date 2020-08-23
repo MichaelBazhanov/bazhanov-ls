@@ -2,7 +2,7 @@
 	<!-- обычное отображение -->
 	<div class="skill-component" v-if="editmode === false">
 		<div class="title">{{skill.title}}</div>
-		<div class="percent">{{skill.percent}}</div>
+		<div class="percent">{{skill.percent}} %</div>
 		<div class="buttons">
 			<icon grayscale symbol="pencil" class="btn" @click="editmode = true"/>
 			<icon grayscale symbol="trash" class="btn" @click="$emit('remove', skill.id)"/>
@@ -22,7 +22,7 @@
 				type="number"
 				min="0"
 				max="100"
-				maxlength="3"
+				maxlength="2"
 			/>
 		</div>
 		<div class="buttons">

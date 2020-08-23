@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
-    <headline
-    title="Панель администрирования">
+    <headline title="Панель администрирования">
       <user></user>
     </headline>
 
@@ -9,7 +8,6 @@
 
     <div class="page-content">
       <div class="container">
-
         <div class="header">
           <div class="title">Блок "Обо мне"</div>
 
@@ -22,29 +20,15 @@
         </div>
 
         <ul class="skills">
-          <li
-            class="item"
-            v-if="emptyCatIsShow"
-          >
-            <category
-              @remove="emptyCatIsShow = false"
-              empty
-            />
+          <li class="item" v-if="emptyCatIsShow">
+            <category @remove="emptyCatIsShow = false" empty />
           </li>
-          <li
-            class="item"
-            v-for="category in categories"
-            :key="category.id"
-          >
-            <category
-            :title="category.category"
-            :skills="category.skills"
-            ></category>
+          <li class="item" v-for="category in categories" :key="category.id">
+            <category :title="category.category" :skills="category.skills"></category>
           </li>
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -56,7 +40,8 @@ import navigation from "./components/navigation/navigation"; //импорт ко
 import button from "./components/button"; //импорт компонента
 import category from "./components/category"; //импорт компонента
 
-export default { //локальная регисрация компонента
+export default {
+  //локальная регисрация компонента
   components: {
     headline,
     user,
@@ -67,17 +52,20 @@ export default { //локальная регисрация компонента
   data() {
     return {
       categories: [],
-      emptyCatIsShow: false
-    }
+      emptyCatIsShow: false,
+    };
   },
   created() {
-    this.categories = require('./data/categories.json');
-  }
-}
+    this.categories = require("./data/categories.json");
+  },
+  methods: {
+
+  },
+};
 </script>
 
 <style lang="postcss">
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
 @import "normalize.css";
 @import "../styles/mixins.pcss";
 @import "../styles/layout/base.pcss";
@@ -86,28 +74,28 @@ export default { //локальная регисрация компонента
 <style lang="postcss" scoped src='./app.pcss'></style>
 <style lang="postcss" scoped>
 .app-container {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .header {
-	display: flex;
-	margin-bottom: 60px;
+  display: flex;
+  margin-bottom: 60px;
 }
 .title {
-	margin-right: 60px;
-	font-size: 21px;
-	font-weight: bold;
-	color: $text-color-5;
+  margin-right: 60px;
+  font-size: 21px;
+  font-weight: bold;
+  color: $text-color-5;
 }
 .page-content {
-	flex: 1;
-	padding: 60px 0 20px 0;
-	background: url('../images/bg/bg-admin.jpg') 50% 50% / cover no-repeat;
+  flex: 1;
+  padding: 60px 0 20px 0;
+  background: url("../images/bg/bg-admin.jpg") 50% 50% / cover no-repeat;
 }
 .skills {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 .item {
   width: calc(100% / 2 - 30px);

@@ -1,8 +1,9 @@
 <template>
+
   <label
     class="input"
     v-if="fieldType === 'input'"
-    :class="[{'input_labeled' : !!title, 'no-side-paddings' : noSidePaddings}, iconClass, {'error' : !!errorMessage}]"
+    :class="[{'percent' : percent},{'input_labeled' : !!title, 'no-side-paddings' : noSidePaddings}, iconClass, {'error' : !!errorMessage}]"
   >
     <div class="title" v-if="title">{{title}}</div>
     <input
@@ -11,10 +12,12 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
+    <span class="percent-title">%</span>
     <div class="input__error-tooltip">
       <tooltip :text="errorMessage"></tooltip>
     </div>
   </label>
+
   <label
     class="textarea"
     v-else-if="fieldType === 'textarea'"
@@ -32,6 +35,7 @@
       <tooltip :text="errorMessage"></tooltip>
     </div>
   </label>
+
 </template>
 
 <script>
@@ -47,6 +51,7 @@ export default {
       default: ""
     },
     noSidePaddings: Boolean,
+    percent: Boolean,
     fieldType: {
       type: String,
       default: "input"
