@@ -2,11 +2,12 @@ extends ./main.layout.pug
 
 block content
   .welcome-sections
-    //- +image4('bg/hero320.jpg', 'bg/hero768.jpg', 'bg/hero1200.jpg', 'bg/hero1800.jpg',  'welcome-sections__bg')
     +image2('bg/hero1200.jpg', 'bg/hero1800.jpg', 'welcome-sections__bg')
 
     section.hero
       +image2('bg/hero320.jpg', 'bg/hero768.jpg', 'hero__bg')
+      #menu-component
+
       .container.hero-container
 
         header.header
