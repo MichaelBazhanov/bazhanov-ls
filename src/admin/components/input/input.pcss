@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.pcss";
+
 .input__error-tooltip {
   display: none;
   position: absolute;
@@ -12,6 +14,22 @@
 .input {
   display: block;
   position: relative;
+
+  &.bold {
+    .input__elem {
+      font-size: 18px;
+      font-weight: 600;
+      @include desktopHd {
+      }
+      @include desktop {
+      }
+      @include tablets {
+        font-size: 16px;
+      }
+      @include phones {
+      }
+    }
+  }
 
   &.percent {
     display: flex;

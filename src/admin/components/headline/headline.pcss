@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.pcss";
+
 .headline-component {
 	background-color: $bg-head-color;
 
@@ -13,12 +15,32 @@
 	line-height: 19px;
 	margin-right: auto;
 	margin-left: 25px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		display: none;
+	}
+	@include phones {
+	}
 }
 .btns {
 	margin-left: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		display: none;
+	}
+	@include phones {
+	}
 }
 .btn {
 	font-size: 16px;
@@ -28,4 +50,14 @@
 	cursor: pointer;
 	background-color: transparent;
 	border: none;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		font-size: 14px;
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }

@@ -1,18 +1,45 @@
+@import "../../../styles/mixins.pcss";
+
 .skill-component {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
+	.title {
+		font-size: 16px;
+		@include desktopHd {
+		}
+		@include desktop {
+		}
+		@include tablets {
+			font-size: 14px;
+		}
+		@include phones {
+		}
+	}
+
 	.percent {
 		margin-left: auto;
-		margin-right: 45px;
+		margin-right: 60px;
+
+		@include desktopHd {
+		}
+		@include desktop {
+			margin-right: 30px;
+		}
+		@include tablets {
+		}
+		@include phones {
+		}
 	}
 
 	.buttons {
 		display: flex;
 
 		.btn {
-			padding: 0 0 0 20px
+			&:first-child {
+				margin-right: 20px
+			}
 		}
 	}
 }

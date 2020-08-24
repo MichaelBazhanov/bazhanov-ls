@@ -16,6 +16,7 @@
             title="Добавить группу"
             v-if="emptyCatIsShow == false"
             @click="emptyCatIsShow = true"
+            class="header-round-btn"
           />
         </div>
 
@@ -81,18 +82,49 @@ export default {
 }
 .header {
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  @include desktopHd {
+  }
+  @include desktop {
+  }
+  @include tablets {
+    flex-direction: column;
+  }
+  @include phones {
+  }
 }
 .title {
   margin-right: 60px;
   font-size: 21px;
   font-weight: bold;
   color: $text-color-5;
+
+  @include desktopHd {
+  }
+  @include desktop {
+  }
+  @include tablets {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  @include phones {
+  }
 }
 .page-content {
   flex: 1;
   padding: 60px 0 20px 0;
   background: url("../images/bg/bg-admin.jpg") 50% 50% / cover no-repeat;
+
+  @include desktopHd {
+  }
+  @include desktop {
+  }
+  @include tablets {
+    padding: 30px 0 40px 0;
+  }
+  @include phones {
+  }
 }
 .skills {
   display: flex;

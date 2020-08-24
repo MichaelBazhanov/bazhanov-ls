@@ -16,6 +16,7 @@
           :errorMessage="errorMessage"
           placeholder="Название новой группы"
           :value="value"
+          bold="bold"
 
 
           @input="$emit('input', $event), validValue($event)"

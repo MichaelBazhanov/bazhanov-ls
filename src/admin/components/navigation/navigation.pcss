@@ -1,12 +1,18 @@
+@import "../../../styles/mixins.pcss";
+
 .navigation-component {
 }
 .list {
 	display: flex;
 }
 .item.active {
+
 	.link {
+		text-shadow: 0 0 1PX $nav-color, 0 0 1PX $nav-color, 0 0 1PX $nav-color;
+		letter-spacing: .07EM;
 		color: $nav-color;
 		position: relative;
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -21,13 +27,24 @@
 	}
 }
 .link {
-	font-weight: 600;
 	font-size: 16px;
 	line-height: 22px;
-	padding: 30px;
+	padding: 25px 30px;
 	text-decoration: none;
 	display: block;
-	transition: color ease .5s;
+	transition: color ease .5s, text-shadow ease .5s;
+	white-space: nowrap;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		padding: 25px 17px;
+		font-size: 14px;
+	}
+	@include phones {
+	}
 
 	&:after {
 		content: '';
@@ -41,6 +58,7 @@
 	}
 
 	&:hover {
+		text-shadow: 0 0 1PX $nav-color, 0 0 1PX $nav-color, 0 0 1PX $nav-color;
 		position: relative;
 		color: $nav-color;
 		&:after {

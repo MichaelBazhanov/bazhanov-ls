@@ -3,7 +3,7 @@
   <label
     class="input"
     v-if="fieldType === 'input'"
-    :class="[{'percent' : percent},{'input_labeled' : !!title, 'no-side-paddings' : noSidePaddings}, iconClass, {'error' : !!errorMessage}]"
+    :class="[{'bold' : bold}, {'percent' : percent},{'input_labeled' : !!title, 'no-side-paddings' : noSidePaddings}, iconClass, {'error' : !!errorMessage}]"
   >
     <div class="title" v-if="title">{{title}}</div>
     <input
@@ -52,6 +52,7 @@ export default {
     },
     noSidePaddings: Boolean,
     percent: Boolean,
+    bold: Boolean,
     fieldType: {
       type: String,
       default: "input"
