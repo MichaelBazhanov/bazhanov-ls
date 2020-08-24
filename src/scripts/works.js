@@ -77,7 +77,7 @@ new Vue({
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
-			console.log(value,'-------------------')
+			// console.log(value,'-------------------')
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -109,7 +109,7 @@ new Vue({
 			}
 		},
 		click(direction) {
-			console.log(direction)
+			// console.log(direction)
 			this.currentIndex = direction;
 			if (this.currentIndex == this.quantityWorks) {
 
@@ -123,7 +123,7 @@ new Vue({
 
 			//ГЛАВНОЕ УСЛОВИЕ
 			if (this.currentIndex == this.quantityWorks) { // 4==4
-				console.log('Я последний next')
+				// console.log('Я последний next')
 				if (this.media(1800)) {
 					thumbs.style.transform = `translate3d(-178px,0px,0px)`;
 				} else {
@@ -136,7 +136,7 @@ new Vue({
 			this.currentIndex--;
 			// //ГЛАВНОЕ УСЛОВИЕ
 			if (this.currentIndex === 0) { //0 == 0
-				console.log('Я последний prev')
+				// console.log('Я последний prev')
 				thumbs.style.transform = `translate3d(0px,0px,0px)`;
 			}
 		},
@@ -145,17 +145,17 @@ new Vue({
 			console.log(this.thumbLink)
 		},
 		activeSlideClick(id) {
-			console.log('В главном компоненте: ',id)
+			// console.log('В главном компоненте: ',id)
 			let idUp = id - 1;
 			this.currentIndex = idUp;
 			this.currentWork = this.works[idUp];
 		},
 		media(px) {
 			if (window.matchMedia(`(min-width: ${px}px)`).matches) { //1800px
-				console.log('после 1800px')
+				// console.log('после 1800px')
 				return true
 			} else {
-				console.log('до 1800px')
+				// console.log('до 1800px')
 				return false
 			}
 		}

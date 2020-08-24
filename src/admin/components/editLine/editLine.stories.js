@@ -21,7 +21,7 @@ export const defaultView = () => ({
   template: `
     <editLine
       @approve="onApprove"
-      @remove="onRemove" 
+      @remove="onRemove"
       v-model="title"
     />
   `,

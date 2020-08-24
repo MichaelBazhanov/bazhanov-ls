@@ -1,0 +1,25 @@
+.skill-add-line-component {
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	&.blocked {
+		filter: grayscale(70%);
+		pointer-events: none;
+		&:after {
+			content: '';
+			position: absolute;
+		}
+	}
+}
+.skill-text {
+	width: 100%;
+	margin-right: 10px;
+}
+.skill-percent {
+	min-width: 75px;
+	padding-right: 30px;
+}
+.skill-btn {
+	flex-shrink: 0;
+}

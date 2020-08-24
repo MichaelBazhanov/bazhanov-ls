@@ -9,7 +9,7 @@ export const defaultView = () => ({
   components: { card },
   template: `
     <card
-      title="Заголовок" 
+      title="Заголовок"
     >
       <h1 slot="content">Содержание</h1>
     </card>
@@ -21,12 +21,12 @@ defaultView.story = {
 }
 
 export const complexView = () => ({
-  components: {card},
+  components: { card },
   template: `
     <card>
-      <h1 slot="title">Заголовок</h1> 
-      <h1 slot="content">Содержимое</h1> 
-    </card> 
+      <h1 slot="title">Заголовок</h1>
+      <h1 slot="content">Содержимое</h1>
+    </card>
   `
 })
 
@@ -39,11 +39,25 @@ export const simpleView = () => ({
   components: { card },
   template: `
     <card simple>
-      <h1>Содержимое</h1> 
+      <h1>Содержимое</h1>
     </card>
   `,
 });
 
 simpleView.story = {
   name: "Упрощенный вид"
+}
+
+export const slimView = () => ({
+  components: { card },
+  template: `
+    <card slim>
+      <h1 slot="title"></h1>
+      <h1 slot="content"></h1>
+    </card>
+  `,
+});
+
+slimView.story = {
+  name: "С маленькими отступами"
 }
