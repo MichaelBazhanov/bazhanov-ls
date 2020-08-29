@@ -7,57 +7,40 @@
     <navigation></navigation>
 
     <div class="page-content">
-      <div class="container">
-        <div class="header">
-          <div class="title">Блок "Обо мне"</div>
 
-          <iconed-button
-            type="iconed"
-            title="Добавить группу"
-            v-if="emptyCatIsShow == false"
-            @click="emptyCatIsShow = true"
-            class="header-round-btn"
-          />
-        </div>
+      <!-- <works/> -->
+      <router-view/>
 
-        <ul class="skills">
-          <li class="item" v-if="emptyCatIsShow">
-            <category @remove="emptyCatIsShow = false" empty />
-          </li>
-          <li class="item" v-for="category in categories" :key="category.id">
-            <category :title="category.category" :skills="category.skills"></category>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+// import works from "./pages/works";
+
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import user from "./components/user/user"; //импорт компонента
 import headline from "./components/headline/headline"; //импорт компонента
 import navigation from "./components/navigation/navigation"; //импорт компонента
-import button from "./components/button"; //импорт компонента
-import category from "./components/category"; //импорт компонента
+// import button from "./components/button"; //импорт компонента
+// import category from "./components/category"; //импорт компонента
 
 export default {
   //локальная регисрация компонента
   components: {
+    // works,
+
     headline,
     user,
     navigation,
-    iconedButton: button,
-    category,
+    // iconedButton: button,
+    // category,
   },
   data() {
     return {
-      categories: [],
-      emptyCatIsShow: false,
     };
   },
   created() {
-    this.categories = require("./data/categories.json");
   },
   methods: {
 
@@ -148,5 +131,4 @@ export default {
   @include phones {
   }
 }
-
 </style>

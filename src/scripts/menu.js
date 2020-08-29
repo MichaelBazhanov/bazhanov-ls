@@ -20,9 +20,9 @@ new Vue({
 		}
 	},
 	created() {
-		console.log('created')
+		// console.log('created')
 	},
 	mounted() {
-		console.log(this.burger)
+		// console.log(this.burger)
 	}
 })
