@@ -23,6 +23,6 @@ new Vue({
 		// console.log('created')
 	},
 	mounted() {
-		// console.log(this.burger)
+		this.burger
 	}
 })
