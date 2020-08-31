@@ -64,18 +64,21 @@ export default {
 		onClick() {
 			console.log('click')
 		},
-		handleSubmit() {
+		async handleSubmit() {
 			this.$validate().then( isValid => {
 				if (isValid == false) return
 
 				this.isSubmitDisabled = true;//блокируем кнопку
 
-				console.log('Валидация прошла успешно! Запрос отправлен!')
+				console.log('Валидация прошла успешно! Запрос отправлен!');
+				const response = await $axios.post("/login", this.user);
+
+				const token = response.data.token;
+				localStorage.setItem('token', token);
+				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+				this.$router.replace('/')
+
 				$axios.post("/login", this.user).then(response => {
-					const token = response.data.token;
-					localStorage.setItem('token', token);
-					$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-					this.$router.replace('/')
 				})
 				.catch(error => { console.dir(error.response.data.error)} )
 				.finally(() => {
