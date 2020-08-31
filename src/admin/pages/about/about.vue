@@ -20,6 +20,7 @@
 					<li class="item" v-if="emptyCatIsShow">
 						<category
 							@remove="emptyCatIsShow = false"
+							@approve="createCategory"
 							empty
 						/>
 					</li>
@@ -38,6 +39,7 @@
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import button from "../../components/button"; //импорт компонента
 import category from "../../components/category"; //импорт компонента
+import { mapActions } from "vuex";
 
 export default {
 	//локальная регисрация компонента
@@ -56,7 +58,12 @@ export default {
 		this.categories = require("../../data/categories.json");
 	},
 	methods: {
-
+		...mapActions({
+			createCategoryAction: "categories/create"
+		}),
+		createCategory(categoryTitle) {
+			this.createCategoryAction(categoryTitle)
+		}
 	},
 };
 </script>

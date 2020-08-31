@@ -66,13 +66,17 @@ export default {
   },
   methods: {
     onApprove() {//наисное событие и клик покнопке
-      if (this.title.trim() === this.value.trim()) { console.log(' onApprove true')
+      if (this.title.trim() === this.value.trim()) {
+        console.log(' onApprove true')
+
         if (this.title.trim() == '') {
           this.errorMessage = 'Пустая строка';
           return false
         }
         this.editmode = false;
-      } else { console.log(' onApprove false')
+      } else {
+        console.log(' onApprove false')
+
         if (this.value.trim() == '') {
           this.errorMessage = 'Пустая строка';
           return false
@@ -80,6 +84,7 @@ export default {
         this.title = this.value;
         this.editmode = false;//снимает редактирование
         this.$emit("approve", this.title.trim());
+        console.log('emit approve editLIne')
       }
     },
     validValue(value) { console.log(' validValue(value)')

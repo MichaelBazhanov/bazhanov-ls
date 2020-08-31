@@ -6,10 +6,10 @@
 				v-model="categoryTitle"
 				:editModeByDefault="emptyCategory"
 				@remove="$emit('remove', $event)"
-				@approve="$emit('approve', emptyCategory = false)"
+				@approve="$emit('approve', $event, emptyCategory = false)"
 				@blocked="emptyCategory = true"
 			/>
-				<!-- @approve="test()" -->
+				<!-- @approve="$emit('approve', onApprove($event))" -->
 			<template slot="content">
 				<ul class="skills" v-if="emptyCategory == false">
 					<li class="item" v-for="skill in skills" :key="skill.id">
@@ -59,9 +59,9 @@ export default {
 		}
 	},
 	methods: {
-		test() {
-			console.log(this.empty)
-			console.log(this.emptyCategory)
+		onApprove(data) {
+			console.log('emit category: ', data)
+			return data
 		}
 	}
 	/////////////////////////////////////////////////
