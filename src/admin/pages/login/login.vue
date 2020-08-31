@@ -21,7 +21,7 @@
 					/>
 				</div>
 				<div class="btn">
-					<appButton class="btn-send" title="Отправить" @click="onClick" />
+					<appButton class="btn-send" title="Отправить" @click="onClick" :disabled="isSubmitDisabled" />
 				</div>
 				<appIcon symbol="cross"  grayscale  class="btn-close"/>
 			</form>
@@ -51,7 +51,8 @@ export default {
 			user: {
 				name: '',
 				password: '',
-			}
+			},
+			isSubmitDisabled: false,
 		}
 	},
 	components: {
@@ -66,12 +67,19 @@ export default {
 		handleSubmit() {
 			this.$validate().then( isValid => {
 				if (isValid == false) return
+
+				this.isSubmitDisabled = true;//блокируем кнопку
+
 				console.log('Валидация прошла успешно! Запрос отправлен!')
 				axios.post("https://webdev-api.loftschool.com" + "/login", this.user).then(response => {
 					const token = response.data.token;
 					localStorage.setItem('token', token);
 					axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 					this.$router.replace('/')
+				})
+				.catch(error => { console.log(error)} )
+				.finally(() => {
+					this.isSubmitDisabled = false;//разблокируем кнопку
 				})
 			})
 		}
