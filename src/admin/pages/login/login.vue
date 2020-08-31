@@ -34,6 +34,7 @@ import appInput from "../../components/input";
 import appButton from "../../components/button";
 import appIcon from "../../components/icon";
 import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+import axios from "axios";
 
 export default {
 	mixins: [ValidatorMixin],
@@ -66,6 +67,12 @@ export default {
 			this.$validate().then( isValid => {
 				if (isValid == false) return
 				console.log('Валидация прошла успешно! Запрос отправлен!')
+				axios.post("https://webdev-api.loftschool.com" + "/login", this.user).then(response => {
+					const token = response.data.token;
+					localStorage.setItem('token', token);
+					axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+					this.$router.replace('/')
+				})
 			})
 		}
 	}
