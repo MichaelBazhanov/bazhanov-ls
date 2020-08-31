@@ -1,19 +1,30 @@
 <template>
 	<div class="login-page-component">
 		<div class="content">
-			<div class="form">
+			<form class="form" @submit.prevent="handleSubmit">
 				<div class="form-title">Авторизация</div>
 				<div class="row">
-					<app-input title="Логин" icon="user" />
+					<app-input
+						title="Логин"
+						icon="user"
+						:errorMessage="validation.firstError('user.name')"
+						v-model="user.name"
+					/>
 				</div>
 				<div class="row">
-					<app-input title="Пароль" icon="key" type="password" />
+					<app-input
+						title="Пароль"
+						icon="key"
+						type="password"
+						:errorMessage="validation.firstError('user.password')"
+						v-model="user.password"
+					/>
 				</div>
 				<div class="btn">
 					<appButton class="btn-send" title="Отправить" @click="onClick" />
 				</div>
 				<appIcon symbol="cross"  grayscale  class="btn-close"/>
-			</div>
+			</form>
 		</div>
 	</div>
 </template>
@@ -22,8 +33,26 @@
 import appInput from "../../components/input";
 import appButton from "../../components/button";
 import appIcon from "../../components/icon";
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"user.name": value => {
+			return Validator.value(value).required('Введите имя пользователя')
+		},
+		"user.password": value => {
+			return Validator.value(value).required('Введите пароль')
+		}
+	},
+	data() {
+		return {
+			user: {
+				name: '',
+				password: '',
+			}
+		}
+	},
 	components: {
 		appInput,
 		appButton,
@@ -32,6 +61,12 @@ export default {
 	methods: {
 		onClick() {
 			console.log('click')
+		},
+		handleSubmit() {
+			this.$validate().then( isValid => {
+				if (isValid == false) return
+				console.log('Валидация прошла успешно! Запрос отправлен!')
+			})
 		}
 	}
 }
