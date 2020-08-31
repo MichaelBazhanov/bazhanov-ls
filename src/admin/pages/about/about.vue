@@ -1,10 +1,8 @@
 <template>
 	<div class="about-page-component">
-		<headline title="Панель администрирования">
-			<user></user>
-		</headline>
 
-		<navigation></navigation>
+			<!-- <header-page/> -->
+
 
 		<div class="page-content">
 
@@ -38,20 +36,16 @@
 
 <script>
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
-import user from "../../components/user/user"; //импорт компонента
-import headline from "../../components/headline/headline"; //импорт компонента
-import navigation from "../../components/navigation/navigation"; //импорт компонента
 import button from "../../components/button"; //импорт компонента
 import category from "../../components/category"; //импорт компонента
+// import header from "../../components/header"; //импорт компонента
 
 export default {
 	//локальная регисрация компонента
 	components: {
-		headline,
-		user,
-		navigation,
 		iconedButton: button,
 		category,
+		// headerPage: header,
 	},
 	data() {
 		return {

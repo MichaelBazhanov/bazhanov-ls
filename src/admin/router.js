@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+import header from "./components/header";
 import about from "./pages/about";
 import login from "./pages/login";
 // import works from "./pages/works.vue";
@@ -12,7 +13,10 @@ import login from "./pages/login";
 const routes = [
 	{
 		path: "/",
-		component: about
+		components: {
+			header: header,
+			default: about,
+		}
 	},
 	{
 		path: "/login",
