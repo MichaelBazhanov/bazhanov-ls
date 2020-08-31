@@ -1,9 +1,6 @@
 <template>
 	<div class="about-page-component">
 
-			<!-- <header-page/> -->
-
-
 		<div class="page-content">
 
 			<div class="container">
@@ -21,10 +18,13 @@
 
 				<ul class="skills">
 					<li class="item" v-if="emptyCatIsShow">
-					<category @remove="emptyCatIsShow = false" empty />
+						<category
+							@remove="emptyCatIsShow = false"
+							empty
+						/>
 					</li>
 					<li class="item" v-for="category in categories" :key="category.id">
-					<category :title="category.category" :skills="category.skills"></category>
+						<category :title="category.category" :skills="category.skills"></category>
 					</li>
 				</ul>
 			</div>
@@ -38,7 +38,6 @@
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import button from "../../components/button"; //импорт компонента
 import category from "../../components/category"; //импорт компонента
-// import header from "../../components/header"; //импорт компонента
 
 export default {
 	//локальная регисрация компонента

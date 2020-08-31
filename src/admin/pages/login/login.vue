@@ -21,7 +21,7 @@
 					/>
 				</div>
 				<div class="btn">
-					<appButton class="btn-send" title="Отправить" @click="onClick" :disabled="isSubmitDisabled" />
+					<appButton class="btn-send" title="Отправить" :disabled="isSubmitDisabled" />
 				</div>
 				<appIcon symbol="cross"  grayscale  class="btn-close"/>
 			</form>
@@ -61,15 +61,11 @@ export default {
 		appIcon,
 	},
 	methods: {
-		onClick() {
-			console.log('click')
-		},
 		async handleSubmit() {
-			this.$validate().then( isValid => {
-				if (isValid == false) return
+			if( await this.$validate() == false) return;
+			this.isSubmitDisabled = true;
 
-				this.isSubmitDisabled = true;//блокируем кнопку
-
+			try {
 				console.log('Валидация прошла успешно! Запрос отправлен!');
 				const response = await $axios.post("/login", this.user);
 
@@ -77,14 +73,11 @@ export default {
 				localStorage.setItem('token', token);
 				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 				this.$router.replace('/')
-
-				$axios.post("/login", this.user).then(response => {
-				})
-				.catch(error => { console.dir(error.response.data.error)} )
-				.finally(() => {
-					this.isSubmitDisabled = false;//разблокируем кнопку
-				})
-			})
+			} catch (error) {
+				console.dir(error.response.data.error)
+			} finally {
+				this.isSubmitDisabled = false;//разблокируем кнопку
+			}
 		}
 	}
 }
