@@ -1,18 +1,17 @@
 <template>
 	<div :class="['skill-add-line-component', {blocked: blocked}]">
 		<defaultInput
-			@input="onClick1()"
-			:errorMessage="errorMessageSkill"
-			v-model="skill"
+			v-model="skill.title"
+			:errorMessage="validation.firstError('skill.title')"
 
 			class="skill-text"
 			placeholder="Новый навык"
 
 		/>
 		<defaultInput
-			@input="onClick2()"
-			:errorMessage="errorMessagePercent"
-			v-model="percent"
+			v-model="skill.percent"
+			:errorMessage="validation.firstError('skill.percent')"
+
 			type="number"
 			min="0"
 			max="100"
@@ -24,7 +23,7 @@
 		/>
 		<roundBtn
 			class="skill-btn"
-			@click="allClick()"
+			@click="handleClick"
 		/>
 	</div>
 </template>
@@ -32,8 +31,21 @@
 <script>
 import roundBtn from "../button/types/roundBtn";
 import input from "../input";
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"skill.title": value => {
+			return Validator.value(value).required("Не может быть пустым")
+		},
+		"skill.percent": value => {
+			return Validator.value(value)
+				.integer("Должен быть числом")
+				.between(0, 100, "Некорректное значение")
+				.required("Не может быть пустым")
+		}
+	},
 	props: {
 		blocked: Boolean
 	},
@@ -43,49 +55,16 @@ export default {
 	},
 	data() {
 		return {
-			skill: '',
-			validSkill: false,
-			errorMessageSkill: '',
-
-			percent: '',
-			validPercent: false,
-			errorMessagePercent: '',
+			skill: {
+				title: '',
+				percent: '',
+			}
 		}
 	},
 	methods: {
-		onClick1() {
-			if (this.skill === "") {
-				this.validSkill = false;
-				this.errorMessageSkill = 'Пустая строка';
-			} else {
-				this.validSkill = true;
-				this.errorMessageSkill = '';
-			}
-		},
-		onClick2() {
-			if (this.percent === "" ||
-				this.percent > 100  ||
-				this.percent < 0
-				) {
-				this.validPercent = false;
-				this.errorMessagePercent = 'Процент не определен или неверен';
-			} else {
-				this.validPercent = true;
-				this.errorMessagePercent = '';
-			}
-		},
-		allClick() {
-			this.onClick1()
-			this.onClick2()
-
-			if ((this.skill != "") && (this.percent != "")) {
-				this.$emit('approve', {
-					title: this.skill,
-					percent: this.percent,
-				});
-				this.skill = '';
-				this.percent = '';
-			}
+		async handleClick() {
+			if( await this.$validate() == false) return
+			this.$emit('approve', this.skill)
 		}
 	}
 }
