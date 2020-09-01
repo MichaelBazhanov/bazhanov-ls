@@ -4,15 +4,17 @@ export default {
 		data: []
 	},
 	mutations: {
-		SET_CATEGORIES: (state, categories) => (state.data = categories )
+		SET_CATEGORIES: (state, categories) => (state.data = categories ),
+		ADD_CATEGORIES: (state, category) => (state.data.unshift(category) )
 	},
 	actions: {
 		async create(store, title) {//создание категории
 			try {
 				const response = await this.$axios.post('/categories', {'title':title})
+				store.commit("ADD_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 				console.log(response)
 			} catch (error) {
-				console.dir(error)
+				throw new Error(error)
 			}
 		},
 		async fetch(store) {//получение всех категорий по id

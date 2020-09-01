@@ -39,7 +39,7 @@
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import button from "../../components/button"; //импорт компонента
 import category from "../../components/category"; //импорт компонента
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
 	//локальная регисрация компонента
@@ -50,21 +50,31 @@ export default {
 	},
 	data() {
 		return {
-			categories: [],
+			// categories: [], //перевод на vuex
 			emptyCatIsShow: false,
 		};
 	},
 	created() {
 		this.fetchCategoryAction();
-		this.categories = require("../../data/categories.json");
+		// this.categories = require("../../data/categories.json");  //перевод на vuex
+	},
+	computed: {
+		...mapState("categories",{
+			categories: state => state.data
+		})
 	},
 	methods: {
 		...mapActions({
 			createCategoryAction: "categories/create",
 			fetchCategoryAction: "categories/fetch"
 		}),
-		createCategory(categoryTitle) {
-			this.createCategoryAction(categoryTitle)
+		async createCategory(categoryTitle) {
+			try {
+				await this.createCategoryAction(categoryTitle);
+				this.emptyCatIsShow = false; //если все успешно то скрываем категорию
+			} catch (error) {
+				console.log(error.message)
+			}
 		}
 	},
 };
