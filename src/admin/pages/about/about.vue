@@ -25,7 +25,13 @@
 						/>
 					</li>
 					<li class="item" v-for="category in categories" :key="category.id">
-						<category :title="category.category" :skills="category.skills"></category>
+						<category
+							:title="category.category"
+							:skills="category.skills"
+							@create-skill="createSkill"
+							@remove-skill="removeSkill"
+							@edit-skill="editSkill"
+						/>
 					</li>
 				</ul>
 			</div>
@@ -68,8 +74,20 @@ export default {
 	methods: {
 		...mapActions({
 			createCategoryAction: "categories/create",
-			fetchCategoryAction: "categories/fetch"
+			fetchCategoryAction: "categories/fetch",
+			addSkillAction: "skills/add",
+			removeSkillAction: "skills/remove",
+			editSkillAction: "skills/edit",
 		}),
+		createSkill() {
+			this.addSkillAction();
+		},
+		removeSkill() {
+			this.removeSkillAction();
+		},
+		editSkill() {
+			this.editSkillAction()
+		},
 		async createCategory(categoryTitle) {
 			try {
 				await this.createCategoryAction(categoryTitle);

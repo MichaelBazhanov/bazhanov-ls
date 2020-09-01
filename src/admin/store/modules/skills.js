@@ -5,9 +5,15 @@ export default {
 	mutations: {
 	},
 	actions: {
-		add(){},
-		remove(){},
-		edit(){},
+		add(){
+			console.log('add');
+		},
+		remove(){
+			console.log('remove');
+		},
+		edit(){
+			console.log('edit');
+		},
 	}
 }
 //РАБОТАЕТ С about.vue

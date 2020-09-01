@@ -79,8 +79,8 @@ export default {
 			this.onClick2()
 
 			if ((this.skill != "") && (this.percent != "")) {
-				this.$emit('newSkill', {
-					skill: this.skill,
+				this.$emit('approve', {
+					title: this.skill,
 					percent: this.percent,
 				});
 				this.skill = '';
