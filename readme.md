@@ -33,4 +33,11 @@ $ yarn имя_скрипта
 name: Bazhanov082020
 password: Bazhanov
 ```
+Создание категории
+	data:
+	category: "111"
+	created_at: "2020-09-01 07:06:05"
+	id: 6977
+	updated_at: "2020-09-01 07:06:05"
+	user_id: 376
 

@@ -4,8 +4,13 @@ export default {
 		data: []
 	},
 	actions: {
-		create(store, title) {
-			console.log(title, '-----')
+		async create(store, title) {
+			try {
+				const response = await this.$axios.post('/categories', {'title':title})
+				console.log(response)
+			} catch (error) {
+				console.dir(error)
+			}
 		}
 	}
 }
