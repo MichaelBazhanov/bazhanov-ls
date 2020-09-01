@@ -11,6 +11,7 @@ export default {
 		async create(store, title) {//создание категории
 			try {
 				const response = await this.$axios.post('/categories', {'title':title})
+				console.log('___________', response)
 				store.commit("ADD_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 				console.log(response)
 			} catch (error) {
@@ -29,3 +30,4 @@ export default {
 		}
 	}
 }
+//РАБОТАЕТ С about.vue

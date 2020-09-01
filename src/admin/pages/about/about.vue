@@ -3,7 +3,7 @@
 
 		<div class="page-content">
 
-			<div class="container">
+			<div class="container" v-if="categories.length">
 
 				<div class="header">
 					<div class="title">Блок "Обо мне"</div>
@@ -29,7 +29,9 @@
 					</li>
 				</ul>
 			</div>
-
+			<div class="container" v-else>
+				loading ...
+			</div>
 		</div>
 	</div>
 </template>
