@@ -55,11 +55,13 @@ export default {
 		};
 	},
 	created() {
+		this.fetchCategoryAction();
 		this.categories = require("../../data/categories.json");
 	},
 	methods: {
 		...mapActions({
-			createCategoryAction: "categories/create"
+			createCategoryAction: "categories/create",
+			fetchCategoryAction: "categories/fetch"
 		}),
 		createCategory(categoryTitle) {
 			this.createCategoryAction(categoryTitle)
