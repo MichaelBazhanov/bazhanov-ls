@@ -8,10 +8,9 @@ export default {
 		// {commit} этот как store.commit (деструктуризация по объекту)
 		// {commit} нужен для последующей мутации
 		async add({commit}, skill){
-			console.log('add');
-			console.log(skill);
 			try {
 				const {data} = await this.$axios.post('/skills', skill);
+				commit("categories/ADD_SKILL", data, {root: true});// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)
 			}

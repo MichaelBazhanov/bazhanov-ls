@@ -15,7 +15,7 @@
 						class="header-round-btn"
 					/>
 				</div>
-
+				<pre>{{categories}}</pre>
 				<ul class="skills">
 					<li class="item" v-if="emptyCatIsShow">
 						<category
@@ -79,12 +79,16 @@ export default {
 			removeSkillAction: "skills/remove",
 			editSkillAction: "skills/edit",
 		}),
-		createSkill(skill, categoryId) {
+		async createSkill(skill, categoryId) {
 			const newSkill = {
 				...skill,
 				category: categoryId
 			}
-			this.addSkillAction(newSkill);
+			await this.addSkillAction(newSkill);
+
+			//сброс данных
+			skill.title = '';
+			skill.percent = '';
 		},
 		removeSkill() {
 			this.removeSkillAction();

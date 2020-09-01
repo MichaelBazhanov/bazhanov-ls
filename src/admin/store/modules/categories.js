@@ -5,7 +5,15 @@ export default {
 	},
 	mutations: {
 		SET_CATEGORIES: (state, categories) => (state.data = categories ),
-		ADD_CATEGORIES: (state, category) => (state.data.unshift(category) )
+		ADD_CATEGORIES: (state, category) => state.data.unshift(category),
+		ADD_SKILL: (state, newSkill) => {
+			state.data = state.data.map(category => {
+				if(category.id == newSkill.category) {//что бы скилл добавлялся в его категорию
+					category.skills.push(newSkill)
+				}
+				return category;
+			})
+		}
 	},
 	actions: {
 		async create(store, title) {//создание категории
