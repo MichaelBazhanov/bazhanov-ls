@@ -28,7 +28,7 @@
 						<category
 							:title="category.category"
 							:skills="category.skills"
-							@create-skill="createSkill"
+							@create-skill="createSkill($event, category.id)"
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
 						/>
@@ -79,8 +79,12 @@ export default {
 			removeSkillAction: "skills/remove",
 			editSkillAction: "skills/edit",
 		}),
-		createSkill() {
-			this.addSkillAction();
+		createSkill(skill, categoryId) {
+			const newSkill = {
+				...skill,
+				category: categoryId
+			}
+			this.addSkillAction(newSkill);
 		},
 		removeSkill() {
 			this.removeSkillAction();
