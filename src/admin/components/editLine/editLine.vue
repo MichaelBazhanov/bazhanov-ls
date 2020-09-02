@@ -7,7 +7,7 @@
           symbol="pencil"
           grayscale
           @click="editmode = true, $emit('blocked')"
-        ></icon>
+        />
       </div>
     </div>
     <div v-else class="title">
@@ -23,8 +23,7 @@
           @keydown.native.enter="onApprove"
           autofocus="autofocus"
           no-side-paddings="no-side-paddings"
-        ></app-input>
-        <!-- :errorText="errorText" -->
+        />
       </div>
       <div class="buttons">
         <div class="button-icon">
@@ -32,10 +31,13 @@
             symbol="tick"
             @click="$emit('approve'), onApprove()"
             :class="[{blocked : value.trim() == ''}]"
-          ></icon>
+          />
         </div>
         <div class="button-icon">
-          <icon symbol="cross" @click="$emit('remove'), valueClick()"></icon>
+          <icon
+            symbol="cross"
+            @click="$emit('remove'), valueClick()"
+          />
         </div>
       </div>
     </div>
@@ -43,7 +45,15 @@
 </template>
 
 <script>
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
+
 export default {
+  mixins: [ValidatorMixin],
+	validators: {
+		"title": value => {
+			return Validator.value(value).required("Не может быть пустым")
+		},
+	},
   props: {
     value: {
       type: String,
@@ -96,16 +106,10 @@ export default {
       }
     },
     valueClick() { console.log(' valueClick()')
-
-      // console.log('this.value ',this.value)
-      // console.log('this.title ',this.title)
       if (this.value.trim() == '') {
         this.errorMessage = 'Пустая строка';
           return false
       }
-      // this.title = '-----------';
-      // this.value = '-----------';
-      // this.editmode = false;
       this.errorMessage = '';
     }
 
