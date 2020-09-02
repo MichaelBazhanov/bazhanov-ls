@@ -2,12 +2,20 @@
   <div class="app-container">
     <router-view name="header"/>
     <router-view />
+    <div class="notify-container">
+      <div class="notification">
+        <notification/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import notification from "./components/notification";
 export default {
-
+  components: {
+    notification
+  }
 }
 </script>
 
