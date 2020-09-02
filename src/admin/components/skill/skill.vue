@@ -1,10 +1,10 @@
 <template>
 	<!-- обычное отображение -->
-	<div class="skill-component" v-if="editmode === false">
+	<div class="skill-component" v-if="currentSkill.editmode === false">
 		<div class="title">{{skill.title}}</div>
 		<div class="percent">{{skill.percent}} %</div>
 		<div class="buttons">
-			<icon grayscale symbol="pencil" class="btn" @click="editmode = true"/>
+			<icon grayscale symbol="pencil" class="btn" @click="currentSkill.editmode = true"/>
 			<icon grayscale symbol="trash" class="btn" @click="$emit('remove', currentSkill)"/>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 		</div>
 		<div class="buttons">
 			<icon symbol="tick" class="btn" @click="$emit('approve', currentSkill )"/>
-			<icon symbol="cross" class="btn" @click="editmode = false"/>
+			<icon symbol="cross" class="btn" @click="currentSkill.editmode = false"/>
 		</div>
 	</div>
 </template>
@@ -60,12 +60,13 @@ export default {
 			validPercent: false,
 			errorMessagePercent: '',
 
-			editmode: false,
+			// editmode: false,
 			currentSkill: {
 				id:  this.skill.id,
 				title: this.skill.title,
 				percent:  this.skill.percent,
 				category:  this.skill.category,
+				editmode: false,
 			},
 		}
 	},

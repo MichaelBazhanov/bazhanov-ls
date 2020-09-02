@@ -92,8 +92,9 @@ export default {
 		removeSkill(skill) {
 			this.removeSkillAction(skill);
 		},
-		editSkill(skill) {
-			this.editSkillAction(skill)
+		async editSkill(skill) {
+			await this.editSkillAction(skill);
+			skill.editmode = false;
 		},
 		async createCategory(categoryTitle) {
 			try {
