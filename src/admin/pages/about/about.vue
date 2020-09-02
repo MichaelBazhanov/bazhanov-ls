@@ -15,7 +15,6 @@
 						class="header-round-btn"
 					/>
 				</div>
-				<pre>{{categories}}</pre>
 				<ul class="skills">
 					<li class="item" v-if="emptyCatIsShow">
 						<category
@@ -90,11 +89,11 @@ export default {
 			skill.title = '';
 			skill.percent = '';
 		},
-		removeSkill() {
-			this.removeSkillAction();
+		removeSkill(skill) {
+			this.removeSkillAction(skill);
 		},
-		editSkill() {
-			this.editSkillAction()
+		editSkill(skill) {
+			this.editSkillAction(skill)
 		},
 		async createCategory(categoryTitle) {
 			try {

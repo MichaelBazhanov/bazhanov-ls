@@ -13,6 +13,38 @@ export default {
 				}
 				return category;
 			})
+		},
+		REMOVE_SKILL: (state, skillToRemove) => {
+			state.data = state.data.map(category => {
+				if(category.id == skillToRemove.category) {//удаляем скилл из его категорию
+					//сравнение категории скила и родителя категории
+					category.skills = category.skills.filter(skill =>
+						skill.id != skillToRemove.id
+					)
+				}
+				return category;
+			})
+		},
+		EDIT_SKILL: (state, skillToEdit) => {
+
+			//в найденной категории мы пройдемся по всем скилам и сгенерируем новый массив
+			const editSkillInCategory = category => {
+				category.skills = category.skills.map( skill => {
+					return skill.id == skillToEdit.id ? skillToEdit : skill
+					//если id скила равен id измененного скила то заменяем
+				})
+			}
+
+			//находим категорию для скила
+			const findCategory = category => {
+				if(category.id == skillToEdit.category) {
+					editSkillInCategory(category)
+				}
+				return category;
+			}
+
+			//снова перебираем data
+			state.data = state.data.map(findCategory)
 		}
 	},
 	actions: {

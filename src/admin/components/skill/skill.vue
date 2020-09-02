@@ -5,7 +5,7 @@
 		<div class="percent">{{skill.percent}} %</div>
 		<div class="buttons">
 			<icon grayscale symbol="pencil" class="btn" @click="editmode = true"/>
-			<icon grayscale symbol="trash" class="btn" @click="$emit('remove', skill.id)"/>
+			<icon grayscale symbol="trash" class="btn" @click="$emit('remove', currentSkill)"/>
 		</div>
 	</div>
 	<!-- отображение при изменение скила -->
@@ -65,6 +65,7 @@ export default {
 				id:  this.skill.id,
 				title: this.skill.title,
 				percent:  this.skill.percent,
+				category:  this.skill.category,
 			},
 		}
 	},

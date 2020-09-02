@@ -15,11 +15,21 @@ export default {
 				throw new Error(error)
 			}
 		},
-		remove(){
-			console.log('remove');
+		async remove({commit}, skillToRemove){
+			try {
+				const {data} = await this.$axios.delete(`/skills/${skillToRemove.id}`); //не передаём внутрь параметры и никакой ответ не получаем
+				commit("categories/REMOVE_SKILL", skillToRemove, {root: true});// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
+			} catch (error) {
+				throw new Error(error)
+			}
 		},
-		edit(){
-			console.log('edit');
+		async edit({commit}, skillToEdit){
+			try {
+				const {data} = await this.$axios.post(`/skills/${skillToEdit.id}`, skillToEdit); //не передаём внутрь параметры и никакой ответ не получаем
+				commit("categories/EDIT_SKILL", data.skill, {root: true});// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
+			} catch (error) {
+				throw new Error(error)
+			}
 		},
 	}
 }
