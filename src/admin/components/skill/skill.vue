@@ -115,7 +115,6 @@ export default {
 		async handleInput() {
 			if( await this.$validate() == false) return
 			this.$emit('approve', this.currentSkill)
-			// @click="$emit('approve', currentSkill )"
 		}
 	}
 }

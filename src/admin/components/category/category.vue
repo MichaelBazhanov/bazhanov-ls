@@ -63,7 +63,6 @@ export default {
 	},
 	methods: {
 		onApprove(data) {
-			console.log('emit category: ', data)
 			return data
 		}
 	}
