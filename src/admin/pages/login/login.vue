@@ -35,6 +35,7 @@ import appButton from "../../components/button";
 import appIcon from "../../components/icon";
 import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
 import $axios from "../../request";
+import { mapActions } from "vuex";
 
 export default {
 	mixins: [ValidatorMixin],
@@ -61,12 +62,15 @@ export default {
 		appIcon,
 	},
 	methods: {
+		...mapActions({
+			showTooltip: "tooltips/show",
+		}),
 		async handleSubmit() {
 			if( await this.$validate() == false) return;
 			this.isSubmitDisabled = true;
 
 			try {
-				console.log('Валидация прошла успешно! Запрос отправлен!');
+				// console.log('Валидация прошла успешно! Запрос отправлен!');
 				const response = await $axios.post("/login", this.user);
 
 				const token = response.data.token;
@@ -74,6 +78,10 @@ export default {
 				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
 				this.$router.replace('/')
 			} catch (error) {
+				this.showTooltip({
+					text: error.response.data.error,
+					type: "error"
+				})
 				console.dir(error.response.data.error)
 			} finally {
 				this.isSubmitDisabled = false;//разблокируем кнопку
