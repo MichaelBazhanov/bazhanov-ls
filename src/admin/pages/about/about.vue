@@ -40,6 +40,9 @@
 			<!-- <div class="container" v-else>
 				loading ...
 			</div> -->
+			<div class="container" v-if="!categories.length && emptyCatIsShow === false">
+				Нет данных
+			</div>
 		</div>
 	</div>
 </template>
