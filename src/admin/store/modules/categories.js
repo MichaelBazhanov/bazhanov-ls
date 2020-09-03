@@ -15,13 +15,22 @@ export default {
 				return category.id == newCategory.id ? newCategory : category
 			})
 		},
-		ADD_SKILL: (state, newSkill) => {
-			state.data = state.data.map(category => {
+		ADD_SKILL: (state, newSkill) => { console.log('newSkill ',newSkill)
+			state.data = state.data.map(category => { console.log('1category ',category)
 				if(category.id == newSkill.category) {//что бы скилл добавлялся в его категорию
-					category.skills.push(newSkill)
+					console.log('2category ',category)
+					// category.skills.push(newSkill)
+					!category.skills ? category.skills = [] : category.skills.push(newSkill);
+					// if (category.skills) { console.log('пушим в скилс', category)
+					// 	category.skills.push(newSkill);
+					// } else { console.log('добавляем массив', category)
+					// 	category.skills = [];
+					// 	category.skills.push(newSkill);
+					// }
 				}
 				return category;
 			})
+			console.log('state.data ', state.data)
 		},
 		REMOVE_SKILL: (state, skillToRemove) => {
 			state.data = state.data.map(category => {
