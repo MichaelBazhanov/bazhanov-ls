@@ -68,7 +68,7 @@ export default {
 		},
 		async fetch(store) {//получение всех категорий по id
 			try {
-				let response = await this.$axios.get('/categories/376' )
+				let response = await this.$axios.get('/categories/377' ) //376
 				console.log(response)
 				store.commit("SET_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 
