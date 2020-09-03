@@ -15,22 +15,13 @@ export default {
 				return category.id == newCategory.id ? newCategory : category
 			})
 		},
-		ADD_SKILL: (state, newSkill) => { console.log('newSkill ',newSkill)
-			state.data = state.data.map(category => { console.log('1category ',category)
+		ADD_SKILL: (state, newSkill) => {
+			state.data = state.data.map(category => {
 				if(category.id == newSkill.category) {//что бы скилл добавлялся в его категорию
-					console.log('2category ',category)
-					// category.skills.push(newSkill)
-					!category.skills ? category.skills = [] : category.skills.push(newSkill);
-					// if (category.skills) { console.log('пушим в скилс', category)
-					// 	category.skills.push(newSkill);
-					// } else { console.log('добавляем массив', category)
-					// 	category.skills = [];
-					// 	category.skills.push(newSkill);
-					// }
+					category.skills.push(newSkill)
 				}
 				return category;
 			})
-			console.log('state.data ', state.data)
 		},
 		REMOVE_SKILL: (state, skillToRemove) => {
 			state.data = state.data.map(category => {
@@ -68,8 +59,8 @@ export default {
 	actions: {
 		async create(store, title) {//создание категории
 			try {
-				const response = await this.$axios.post('/categories', {'title':title})
-				console.log(response)
+				let response = await this.$axios.post('/categories', {'title':title})
+				response.data.skills = []
 				store.commit("ADD_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)
@@ -77,7 +68,7 @@ export default {
 		},
 		async fetch(store) {//получение всех категорий по id
 			try {
-				const response = await this.$axios.get('/categories/376' )
+				let response = await this.$axios.get('/categories/376' )
 				console.log(response)
 				store.commit("SET_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 
