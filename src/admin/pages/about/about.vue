@@ -30,7 +30,7 @@
 							@create-skill="createSkill($event, category.id)"
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
-							@remove-category="removeCategory"
+							@remove-category="removeCategory(category.id)"
 						/>
 					</li>
 				</ul>
@@ -106,14 +106,14 @@ export default {
 				console.log(error.message)
 			}
 		},
-		removeCategory(categoryTitle) {
-			this.removeCategoryAction(categoryTitle);
-			console.log('remove -> about.vue', categoryTitle)
+		removeCategory(categoryId) {
+			this.removeCategoryAction(categoryId);
+			console.log('remove -> about.vue', categoryId)
 		},
-		test(categoryTitle) {
-			console.log(this.categories)
-			console.log('remove -> about.vue', categoryTitle)
-		}
+		// test(categoryTitle) {
+		// 	console.log(this.categories)
+		// 	console.log('remove -> about.vue', categoryTitle)
+		// }
 	},
 };
 </script>
