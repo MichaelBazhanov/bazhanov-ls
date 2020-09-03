@@ -6,7 +6,7 @@
 				v-model="categoryTitle"
 				:editModeByDefault="emptyCategory"
 				@remove="removeCategory()"
-				@approve="$emit('approve', $event, emptyCategory = false)"
+				@approve="onApprove($event)"
 				@blocked="emptyCategory = true"
 			/>
 			<template slot="content">
@@ -61,13 +61,15 @@ export default {
 		}
 	},
 	methods: {
-		onApprove(data) {
-			return data
-		},
 		removeCategory() {
 			console.log('remove -> category.vue')
-			this.$emit('remove-category', this.categoryTitle)
+			this.$emit('remove-category')
 			this.$emit('remove')
+		},
+		onApprove(data) {
+			this.$emit('approve', data)
+			this.emptyCategory = false;
+			this.$emit('edit-category')
 		}
 
 	}
