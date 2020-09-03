@@ -31,6 +31,7 @@
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
 							@remove-category="removeCategory(category.id)"
+							@edit-category="editCategory(category)"
 						/>
 					</li>
 				</ul>
@@ -76,6 +77,7 @@ export default {
 			createCategoryAction: "categories/create",
 			fetchCategoryAction: "categories/fetch",
 			removeCategoryAction: "categories/remove",
+			editCategoryAction: "categories/edit",
 			addSkillAction: "skills/add",
 			removeSkillAction: "skills/remove",
 			editSkillAction: "skills/edit",
@@ -110,6 +112,9 @@ export default {
 			this.removeCategoryAction(categoryId);
 			console.log('remove -> about.vue', categoryId)
 		},
+		editCategory(category) {
+			this.editCategoryAction(category);
+		}
 		// test(categoryTitle) {
 		// 	console.log(this.categories)
 		// 	console.log('remove -> about.vue', categoryTitle)

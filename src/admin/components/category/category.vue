@@ -1,16 +1,14 @@
 <template>
 	<div class="category-component">
 		<card slim>
-				<!-- @remove="$emit('remove', $event)" -->
 			<edit-line
 				slot="title"
 				v-model="categoryTitle"
 				:editModeByDefault="emptyCategory"
-				@remove="$emit('remove'), removeCategory()"
+				@remove="removeCategory()"
 				@approve="$emit('approve', $event, emptyCategory = false)"
 				@blocked="emptyCategory = true"
 			/>
-				<!-- @approve="$emit('approve', onApprove($event))" -->
 			<template slot="content">
 				<ul class="skills" v-if="emptyCategory == false">
 					<li class="item" v-for="skill in skills" :key="skill.id">
@@ -69,11 +67,10 @@ export default {
 		removeCategory() {
 			console.log('remove -> category.vue')
 			this.$emit('remove-category', this.categoryTitle)
+			this.$emit('remove')
 		}
 
 	}
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
 }
 </script>
 

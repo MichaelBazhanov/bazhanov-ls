@@ -10,12 +10,10 @@ export default {
 			state.data = state.data.filter(category => category.id != categoryId)
 			//если имя в категории не равно имени пришедшему то проходит в результирующий массив
 		},
-		EDIT_CATEGORIES: (state, categoryToEdit) => {
-			state.data = state.data.filter(category =>
-				category.skills = category.skills.map( skill => {
-					return skill.id == skillToEdit.id ? skillToEdit : skill
-				})
-			)
+		EDIT_CATEGORIES: (state, categoryTo) => {
+			state.data = state.data.map(category => {
+				return category.id == categoryTo.id ? categoryTo : category
+			})
 		},
 		ADD_SKILL: (state, newSkill) => {
 			state.data = state.data.map(category => {
@@ -79,21 +77,17 @@ export default {
 			}
 		},
 		async remove({commit}, categoryId){
-			let categoryRemove;
-			//получаем все категории и отбираем нужные
-			// try {
-			// 	const response = await this.$axios.get('/categories/376' )
-			// 	//на этой стадии может быть несколько категорий с одинаковым именем (отбираем все одинаковые)
-			// 	categoryRemove = response.data.filter(category => category.category == categoryId );
-			// } catch (error) {
-			// 	console.dir(error)
-			// }
-			//удаляем в цикле категории
 			try {
-				// for (const category of categoryRemove) {
-					const {data} = await this.$axios.delete(`/categories/${categoryId}`); //не передаём внутрь параметры и никакой ответ не получаем
-					commit("REMOVE_CATEGORIES", categoryId);// вызываем мутацию и отдаем туда данные вторым параметром
-				// }
+				const {data} = await this.$axios.delete(`/categories/${categoryId}`); //не передаём внутрь параметры и никакой ответ не получаем
+				commit("REMOVE_CATEGORIES", categoryId);// вызываем мутацию и отдаем туда данные вторым параметром
+			} catch (error) {
+				throw new Error(error)
+			}
+		},
+		async edit({commit}, category){
+			try {
+				const {data} = await this.$axios.post(`/categories/${category.id}`, {title: category.category}); //не передаём внутрь параметры и никакой ответ не получаем
+				commit("EDIT_CATEGORIES", category);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)
 			}
