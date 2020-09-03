@@ -103,7 +103,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Добавлен скилл ${newSkill.title} на ${newSkill.percent}%`,
+					text: `Добавлен навык ${newSkill.title} на ${newSkill.percent}%`,
 					type: "success"
 				})
 
@@ -121,7 +121,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Удален скилл ${skill.title} на ${skill.percent}%`,
+					text: `Удален навык ${skill.title} на ${skill.percent}%`,
 					type: "success"
 				})
 
@@ -140,7 +140,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Переименована скилл ${skill.title} на ${skill.percent}%`,
+					text: `Переименован навык ${skill.title} на ${skill.percent}%`,
 					type: "success"
 				})
 
@@ -159,7 +159,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Добавлена категория ${categoryTitle}`,
+					text: `Добавлена группа ${categoryTitle}`,
 					type: "success"
 				})
 			} catch (error) {
@@ -176,7 +176,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Удалена категория ${category.category}`,
+					text: `Удалена группа ${category.category}`,
 					type: "success"
 				})
 			} catch (error) {
@@ -198,7 +198,7 @@ export default {
 				//-------------------------------------------
 
 				this.showTooltip({
-					text: `Переименована категория ${category.category} в ${categoryTitle}`,
+					text: `Переименована группа ${category.category} в ${categoryTitle}`,
 					type: "success"
 				})
 
