@@ -3,8 +3,8 @@
 
 		<div class="page-content">
 
-			<div class="container" v-if="categories.length">
-
+			<!-- <div class="container" v-if="categories.length"> -->
+			<div class="container">
 				<div class="header">
 					<div class="title">Блок "Обо мне"</div>
 					<iconed-button
@@ -15,6 +15,7 @@
 						class="header-round-btn"
 					/>
 				</div>
+
 				<ul class="skills">
 					<li class="item" v-if="emptyCatIsShow">
 						<category
@@ -36,9 +37,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="container" v-else>
+			<!-- <div class="container" v-else>
 				loading ...
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
