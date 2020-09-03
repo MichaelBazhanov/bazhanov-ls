@@ -1,0 +1,45 @@
+@import "../../../styles/mixins.pcss";
+.user-components {
+	display: flex;
+	align-items: center;
+}
+.username {
+	font-weight: 600;
+	font-size: 18px;
+	color: $text-color;
+
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		font-size: 16px;
+	}
+	@include phones {
+	}
+}
+.content {
+	margin-left: 20px;
+}
+.btns {
+	.btn {
+		cursor: pointer;
+		color: $text-color;
+		padding: 0;
+		margin: 0;
+		font-size: 14px;
+		line-height: 19px;
+		text-decoration-line: underline;
+		display: none;
+
+		@include desktopHd {
+		}
+		@include desktop {
+		}
+		@include tablets {
+			display: block;
+		}
+		@include phones {
+		}
+	}
+}

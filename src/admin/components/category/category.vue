@@ -5,11 +5,10 @@
 				slot="title"
 				v-model="categoryTitle"
 				:editModeByDefault="emptyCategory"
-				@remove="$emit('remove', $event)"
-				@approve="$emit('approve', emptyCategory = false)"
+				@remove="removeCategory()"
+				@approve="onApprove($event)"
 				@blocked="emptyCategory = true"
 			/>
-				<!-- @approve="test()" -->
 			<template slot="content">
 				<ul class="skills" v-if="emptyCategory == false">
 					<li class="item" v-for="skill in skills" :key="skill.id">
@@ -21,7 +20,10 @@
 					</li>
 				</ul>
 				<div class="bottom-line">
-					<skill-add-line :blocked="emptyCategory"/>
+					<skill-add-line
+						:blocked="emptyCategory"
+						@approve="$emit('create-skill', $event)"
+					/>
 				</div>
 			</template>
 		</card>
@@ -59,13 +61,18 @@ export default {
 		}
 	},
 	methods: {
-		test() {
-			console.log(this.empty)
-			console.log(this.emptyCategory)
+		removeCategory() {
+			console.log('remove -> category.vue')
+			this.$emit('remove-category')
+			this.$emit('remove')
+		},
+		onApprove(categoryTitle) {
+			this.$emit('approve', categoryTitle)
+			this.emptyCategory = false;
+			this.$emit('edit-category', categoryTitle)
 		}
+
 	}
-	/////////////////////////////////////////////////
-	/////////////////////////////////////////////////
 }
 </script>
 

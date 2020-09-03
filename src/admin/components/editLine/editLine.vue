@@ -7,34 +7,41 @@
           symbol="pencil"
           grayscale
           @click="editmode = true, $emit('blocked')"
-        ></icon>
+        />
       </div>
     </div>
     <div v-else class="title">
       <div class="input" >
+          <!-- :errorMessage="errorMessage" -->
+          <!-- @input="$emit('input', $event), validValue($event)" -->
         <app-input
-          :errorMessage="errorMessage"
           placeholder="Название новой группы"
           :value="value"
+          bold="bold"
+          :errorMessage="validation.firstError('title')"
 
-
-          @input="$emit('input', $event), validValue($event)"
+          @input="$emit('input', $event)"
           @keydown.native.enter="onApprove"
           autofocus="autofocus"
           no-side-paddings="no-side-paddings"
-        ></app-input>
-        <!-- :errorText="errorText" -->
+        />
       </div>
       <div class="buttons">
         <div class="button-icon">
+            <!-- @click="$emit('approve'), onApprove()" -->
           <icon
-            symbol="tick"
-            @click="$emit('approve'), onApprove()"
             :class="[{blocked : value.trim() == ''}]"
-          ></icon>
+            symbol="tick"
+            @click="onApprove"
+          />
         </div>
         <div class="button-icon">
-          <icon symbol="cross" @click="$emit('remove'), valueClick()"></icon>
+            <!-- @click="$emit('remove'), valueClick()" -->
+            <!-- @click="$emit('remove')" -->
+          <icon
+            symbol="cross"
+            @click="removeCategory"
+          />
         </div>
       </div>
     </div>
@@ -42,7 +49,15 @@
 </template>
 
 <script>
+import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
+
 export default {
+  mixins: [ValidatorMixin],
+	validators: {
+		"title": value => { console.log(value)
+			return Validator.value(value).required("Не может быть пустым")
+		},
+	},
   props: {
     value: {
       type: String,
@@ -59,50 +74,61 @@ export default {
     return {
       editmode: this.editModeByDefailt,
       title: this.value,
-      errorMessage: '',
-      valueInput: ''
+      // errorMessage: '',
+      // valueInput: ''
     };
   },
   methods: {
-    onApprove() {//наисное событие и клик покнопке
-      if (this.title.trim() === this.value.trim()) { console.log(' onApprove true')
-        if (this.title.trim() == '') {
-          this.errorMessage = 'Пустая строка';
-          return false
-        }
-        this.editmode = false;
-      } else { console.log(' onApprove false')
-        if (this.value.trim() == '') {
-          this.errorMessage = 'Пустая строка';
-          return false
-        }
-        this.title = this.value;
-        this.editmode = false;//снимает редактирование
-        this.$emit("approve", this.title.trim());
-      }
-    },
-    validValue(value) { console.log(' validValue(value)')
-      this.valueInput = value;
-      if (value.trim() == '') {
-        this.errorMessage = 'Пустая строка';
-      } else {
-        this.errorMessage = '';
-      }
-    },
-    valueClick() { console.log(' valueClick()')
 
-      // console.log('this.value ',this.value)
-      // console.log('this.title ',this.title)
-      if (this.value.trim() == '') {
-        this.errorMessage = 'Пустая строка';
-          return false
-      }
-      // this.title = '-----------';
-      // this.value = '-----------';
-      // this.editmode = false;
-      this.errorMessage = '';
+    // onApprove() {//наисное событие и клик покнопке
+    //   if (this.title.trim() === this.value.trim()) {
+    //     console.log(' onApprove true')
+
+    //     if (this.title.trim() == '') {
+    //       this.errorMessage = 'Пустая строка';
+    //       return false
+    //     }
+    //     this.editmode = false;
+    //   } else {
+    //     console.log(' onApprove false')
+
+    //     if (this.value.trim() == '') {
+    //       this.errorMessage = 'Пустая строка';
+    //       return false
+    //     }
+    //     this.title = this.value;
+    //     this.editmode = false;//снимает редактирование
+    //     this.$emit("approve", this.title.trim());
+    //     console.log('emit approve editLIne')
+    //   }
+    // },
+    // validValue(value) { console.log(' validValue(value)')
+    //   this.valueInput = value;
+    //   if (value.trim() == '') {
+    //     this.errorMessage = 'Пустая строка';
+    //   } else {
+    //     this.errorMessage = '';
+    //   }
+    // },
+    // valueClick() { console.log(' valueClick()')
+    //   if (this.value.trim() == '') {
+    //     this.errorMessage = 'Пустая строка';
+    //       return false
+    //   }
+    //   this.errorMessage = '';
+    // }
+
+    async onApprove() {
+      this.title = this.value;
+      if( await this.$validate() == false) return
+      this.editmode = false;
+			this.$emit('approve', this.title.trim())
+    },
+    removeCategory() {
+      console.log('remove -> editLine.vue')
+      this.$emit('remove');
+
     }
-
   },
   components: {
     icon: () => import("components/icon"),

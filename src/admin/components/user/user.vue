@@ -1,7 +1,12 @@
 <template>
 	<div class="user-components">
 		<avatar size="2.7" :src="userPic" />
-		<div class="username">Бажанов Михаил</div>
+		<div class="content">
+			<div class="username">Бажанов Михаил</div>
+			<div class="btns">
+				<button type="button" class="btn" @click="$emit('change', 'logout')">Выйти</button>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -19,15 +24,6 @@ export default {
 }
 </script>
 
-<style lang="postcss">
-.user-components {
-	display: flex;
-	align-items: center;
-}
-.username {
-	margin-left: 18px;
-	font-weight: 600;
-	font-size: 18px;
-	color: $text-color;
-}
+<style lang="postcss" scoped src='./user.pcss'>
+
 </style>>

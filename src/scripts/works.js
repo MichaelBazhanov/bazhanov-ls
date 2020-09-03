@@ -142,7 +142,6 @@ new Vue({
 		},
 		thumbs(el) {
 			this.thumbLink = el;
-			console.log(this.thumbLink)
 		},
 		activeSlideClick(id) {
 			// console.log('В главном компоненте: ',id)

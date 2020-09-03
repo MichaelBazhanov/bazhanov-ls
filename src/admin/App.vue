@@ -1,67 +1,40 @@
 <template>
   <div class="app-container">
-    <headline title="Панель администрирования">
-      <user></user>
-    </headline>
-
-    <navigation></navigation>
-
-    <div class="page-content">
-      <div class="container">
-        <div class="header">
-          <div class="title">Блок "Обо мне"</div>
-
-          <iconed-button
-            type="iconed"
-            title="Добавить группу"
-            v-if="emptyCatIsShow == false"
-            @click="emptyCatIsShow = true"
-          />
-        </div>
-
-        <ul class="skills">
-          <li class="item" v-if="emptyCatIsShow">
-            <category @remove="emptyCatIsShow = false" empty />
-          </li>
-          <li class="item" v-for="category in categories" :key="category.id">
-            <category :title="category.category" :skills="category.skills"></category>
-          </li>
-        </ul>
+    <router-view name="header"/>
+    <router-view />
+    <div :class="['notify-container', {active : isTooltipShown}]">
+      <div class="notification">
+        <notification
+          :text="tooltipText"
+          :type="tooltipType"
+          @click="hideTooltip"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
-import user from "./components/user/user"; //импорт компонента
-import headline from "./components/headline/headline"; //импорт компонента
-import navigation from "./components/navigation/navigation"; //импорт компонента
-import button from "./components/button"; //импорт компонента
-import category from "./components/category"; //импорт компонента
+import notification from "./components/notification";
+import { mapState, mapActions } from "vuex";
 
 export default {
-  //локальная регисрация компонента
   components: {
-    headline,
-    user,
-    navigation,
-    iconedButton: button,
-    category,
+    notification
   },
-  data() {
-    return {
-      categories: [],
-      emptyCatIsShow: false,
-    };
-  },
-  created() {
-    this.categories = require("./data/categories.json");
+  computed: {
+    ...mapState("tooltips", {
+      isTooltipShown: state => state.isShown,
+      tooltipText: state => state.text,
+      tooltipType: state => state.type,
+    })
   },
   methods: {
-
-  },
-};
+    ...mapActions({
+      hideTooltip: "tooltips/hide",
+    })
+  }
+}
 </script>
 
 <style lang="postcss">
@@ -79,42 +52,4 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
-.header {
-  display: flex;
-  margin-bottom: 60px;
-}
-.title {
-  margin-right: 60px;
-  font-size: 21px;
-  font-weight: bold;
-  color: $text-color-5;
-}
-.page-content {
-  flex: 1;
-  padding: 60px 0 20px 0;
-  background: url("../images/bg/bg-admin.jpg") 50% 50% / cover no-repeat;
-}
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-}
-.item {
-  width: calc(100% / 4 - 30px);
-  margin-right: 30px;
-  margin-bottom: 30px;
-
-  @include desktopHd {
-    width: calc(100% / 3 - 30px);
-  }
-  @include desktop {
-    width: calc(100% / 2 - 30px);
-  }
-  @include tablets {
-    margin-right: 0px;
-    width: calc(100% / 1 - 0px);
-  }
-  @include phones {
-  }
-}
-
 </style>

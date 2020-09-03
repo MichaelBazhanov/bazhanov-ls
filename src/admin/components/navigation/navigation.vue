@@ -4,9 +4,17 @@
 			<ul class="list">
 				<li
 				v-for="link in links"
-				:class="['item', {active: link.active}]"
-				:key="link.id">
-					<a :href="`/${link.alias}`" :class="['link']">{{link.title}}</a>
+				:class="['item', {active: currentActive == link.alias}]"
+				:key="link.id"
+				@click="activeOn(link.alias)">
+					<!-- <a :href="`/${link.alias}`" :class="['link']">{{link.title}}</a> -->
+					<router-link
+						tag="a"
+						:to="`/${link.alias}`"
+						:class="['link']"
+					>
+						{{ link.title }}
+					</router-link>
 				</li>
 			</ul>
 		</div>
@@ -23,7 +31,13 @@ const links = [
 export default {
 	data() {
 		return {
-			links
+			links,
+			currentActive: "works",
+		}
+	},
+	methods: {
+		activeOn(link) {
+			this.currentActive = link;
 		}
 	}
 };

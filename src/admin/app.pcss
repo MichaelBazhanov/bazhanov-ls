@@ -2,3 +2,18 @@
 body {
 	color: black;
 }
+.notification {
+	transition: transform .3s
+}
+.notify-container{
+	position: fixed;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+
+	&.active {
+		.notification {
+			transform: translateY(-100%);
+		}
+	}
+}

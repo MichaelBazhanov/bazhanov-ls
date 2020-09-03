@@ -1,0 +1,74 @@
+@import "../../../styles/mixins.pcss";
+
+.login-page-component {
+	background: url('../../../images/bg/bg-admin-2.jpg') 50% 50% / cover no-repeat;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: $bg-head-color;
+	position: relative;
+
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		display: block;
+		@include tablets {
+			display: none;
+		}
+	}
+}
+.content {
+	position: relative;
+	width: 565px;
+	height: 520px;
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+		width: 100vw;
+		height: 100vh;
+	}
+	@include phones {
+	}
+}
+.form {
+	width: 100%;
+	height: 100%;
+	padding: 9% 12% 12% 12%;
+	background-color: $text-color;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.form-title {
+	text-align: center;
+	font-weight: 600;
+	font-size: 36px;
+	line-height: 49px;
+}
+.row {
+	margin-top: 35px;
+}
+.btn {
+	text-align: center;
+}
+.btn-send {
+	margin-top: 70px;
+	width: 83%;
+	@include tablets {
+		width: 100%;
+	}
+}
+.btn-close {
+	position: absolute;
+	right: 3%;
+	top: 3%;
+}

@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.pcss";
+
 .category-component {
 	height: 100%;
 }
@@ -5,6 +7,16 @@
 	padding-top: 70px;
 	margin-top: auto;
 	padding-left: 25%;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		padding-left: 0;
+	}
+	@include tablets {
+	}
+	@include phones {
+	}
 }
 .item {
 	margin-bottom: 20px;
