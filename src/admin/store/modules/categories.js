@@ -10,9 +10,9 @@ export default {
 			state.data = state.data.filter(category => category.id != categoryId)
 			//если имя в категории не равно имени пришедшему то проходит в результирующий массив
 		},
-		EDIT_CATEGORIES: (state, categoryTo) => {
+		EDIT_CATEGORIES: (state, newCategory) => {
 			state.data = state.data.map(category => {
-				return category.id == categoryTo.id ? categoryTo : category
+				return category.id == newCategory.id ? newCategory : category
 			})
 		},
 		ADD_SKILL: (state, newSkill) => {
@@ -85,11 +85,8 @@ export default {
 			}
 		},
 		async edit({commit}, category){
-			console.log(category)
-			console.log('Запись на изменение: ',category.category)
 			try {
 				const {data} = await this.$axios.post(`/categories/${category.id}`, {title: category.category}); //не передаём внутрь параметры и никакой ответ не получаем
-				console.log(data)
 				commit("EDIT_CATEGORIES", category);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)

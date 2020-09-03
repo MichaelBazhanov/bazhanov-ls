@@ -66,10 +66,10 @@ export default {
 			this.$emit('remove-category')
 			this.$emit('remove')
 		},
-		onApprove(data) {
-			this.$emit('approve', data)
+		onApprove(categoryTitle) {
+			this.$emit('approve', categoryTitle)
 			this.emptyCategory = false;
-			this.$emit('edit-category')
+			this.$emit('edit-category', categoryTitle)
 		}
 
 	}

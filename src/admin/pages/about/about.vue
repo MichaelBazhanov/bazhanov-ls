@@ -31,7 +31,7 @@
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
 							@remove-category="removeCategory(category.id)"
-							@edit-category="editCategory(category)"
+							@edit-category="editCategory($event, category)"
 						/>
 					</li>
 				</ul>
@@ -112,13 +112,13 @@ export default {
 			this.removeCategoryAction(categoryId);
 			console.log('remove -> about.vue', categoryId)
 		},
-		editCategory(category) {
-			this.editCategoryAction(category);
+		editCategory(categoryTitle, category) {
+			const newCategory = {
+				...category,
+				category: categoryTitle
+			}
+			this.editCategoryAction(newCategory);
 		}
-		// test(categoryTitle) {
-		// 	console.log(this.categories)
-		// 	console.log('remove -> about.vue', categoryTitle)
-		// }
 	},
 };
 </script>
