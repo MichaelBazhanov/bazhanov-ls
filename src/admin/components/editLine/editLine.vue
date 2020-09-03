@@ -74,8 +74,8 @@ export default {
     return {
       editmode: this.editModeByDefailt,
       title: this.value,
-      errorMessage: '',
-      valueInput: ''
+      // errorMessage: '',
+      // valueInput: ''
     };
   },
   methods: {
@@ -125,6 +125,7 @@ export default {
 			this.$emit('approve', this.title.trim())
     },
     removeCategory() {
+      console.log('remove -> editLine.vue')
       this.$emit('remove');
 
     }

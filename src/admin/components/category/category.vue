@@ -1,11 +1,12 @@
 <template>
 	<div class="category-component">
 		<card slim>
+				<!-- @remove="$emit('remove', $event)" -->
 			<edit-line
 				slot="title"
 				v-model="categoryTitle"
 				:editModeByDefault="emptyCategory"
-				@remove="$emit('remove', $event)"
+				@remove="$emit('remove'), removeCategory()"
 				@approve="$emit('approve', $event, emptyCategory = false)"
 				@blocked="emptyCategory = true"
 			/>
@@ -64,7 +65,12 @@ export default {
 	methods: {
 		onApprove(data) {
 			return data
+		},
+		removeCategory() {
+			console.log('remove -> category.vue')
+			this.$emit('remove-category', this.categoryTitle)
 		}
+
 	}
 	/////////////////////////////////////////////////
 	/////////////////////////////////////////////////

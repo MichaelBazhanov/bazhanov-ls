@@ -18,8 +18,8 @@
 				<ul class="skills">
 					<li class="item" v-if="emptyCatIsShow">
 						<category
-							@remove="emptyCatIsShow = false"
 							@approve="createCategory"
+							@remove="emptyCatIsShow = false"
 							empty
 						/>
 					</li>
@@ -30,6 +30,7 @@
 							@create-skill="createSkill($event, category.id)"
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
+							@remove-category="removeCategory"
 						/>
 					</li>
 				</ul>
@@ -74,6 +75,7 @@ export default {
 		...mapActions({
 			createCategoryAction: "categories/create",
 			fetchCategoryAction: "categories/fetch",
+			removeCategoryAction: "categories/remove",
 			addSkillAction: "skills/add",
 			removeSkillAction: "skills/remove",
 			editSkillAction: "skills/edit",
@@ -103,6 +105,14 @@ export default {
 			} catch (error) {
 				console.log(error.message)
 			}
+		},
+		removeCategory(categoryTitle) {
+			this.removeCategoryAction(categoryTitle);
+			console.log('remove -> about.vue', categoryTitle)
+		},
+		test(categoryTitle) {
+			console.log(this.categories)
+			console.log('remove -> about.vue', categoryTitle)
 		}
 	},
 };
