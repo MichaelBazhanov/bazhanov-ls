@@ -31,7 +31,7 @@
 							@create-skill="createSkill($event, category.id)"
 							@remove-skill="removeSkill"
 							@edit-skill="editSkill"
-							@remove-category="removeCategory(category.id)"
+							@remove-category="removeCategory(category)"
 							@edit-category="editCategory($event, category)"
 						/>
 					</li>
@@ -78,6 +78,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			createCategoryAction: "categories/create",
 			fetchCategoryAction: "categories/fetch",
 			removeCategoryAction: "categories/remove",
@@ -87,41 +88,127 @@ export default {
 			editSkillAction: "skills/edit",
 		}),
 		async createSkill(skill, categoryId) {
-			const newSkill = {
-				...skill,
-				category: categoryId
-			}
-			await this.addSkillAction(newSkill);
+			try {
+				//-------------------------------------------
+				const newSkill = {
+					...skill,
+					category: categoryId
+				}
 
-			//сброс данных
-			skill.title = '';
-			skill.percent = '';
+				await this.addSkillAction(newSkill);
+
+				//сброс данных
+				skill.title = '';
+				skill.percent = '';
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Добавлен скилл ${newSkill.title} на ${newSkill.percent}%`,
+					type: "success"
+				})
+
+			} catch (error) {
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
+			}
 		},
 		removeSkill(skill) {
-			this.removeSkillAction(skill);
+			try {
+				//-------------------------------------------
+				this.removeSkillAction(skill);
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Удален скилл ${skill.title} на ${skill.percent}%`,
+					type: "success"
+				})
+
+			} catch (error) {
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
+			}
 		},
 		async editSkill(skill) {
-			await this.editSkillAction(skill);
-			skill.editmode = false;
+			try {
+				//-------------------------------------------
+				await this.editSkillAction(skill);
+				skill.editmode = false;
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Переименована скилл ${skill.title} на ${skill.percent}%`,
+					type: "success"
+				})
+
+			} catch (error) {
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
+			}
 		},
 		async createCategory(categoryTitle) {
 			try {
+				//-------------------------------------------
 				await this.createCategoryAction(categoryTitle);
 				this.emptyCatIsShow = false; //если все успешно то скрываем категорию
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Добавлена категория ${categoryTitle}`,
+					type: "success"
+				})
 			} catch (error) {
-				console.log(error.message)
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
 			}
 		},
-		removeCategory(categoryId) {
-			this.removeCategoryAction(categoryId);
-			console.log('remove -> about.vue', categoryId)
+		removeCategory(category) {
+			try {
+				//-------------------------------------------
+				this.removeCategoryAction(category);
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Удалена категория ${category.category}`,
+					type: "success"
+				})
+			} catch (error) {
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
+			}
+			// console.log('remove -> about.vue', categoryId)
 		},
 		editCategory(categoryTitle, category) {
-			const newCategory = {
-				...category,
-				category: categoryTitle
+			try {
+				//-------------------------------------------
+				const newCategory = {
+					...category,
+					category: categoryTitle
+				}
+				this.editCategoryAction(newCategory);
+				//-------------------------------------------
+
+				this.showTooltip({
+					text: `Переименована категория ${category.category} в ${categoryTitle}`,
+					type: "success"
+				})
+
+			} catch (error) {
+				this.showTooltip({
+					text: error.message,
+					type: "error"
+				})
 			}
-			this.editCategoryAction(newCategory);
+
 		}
 	},
 };
