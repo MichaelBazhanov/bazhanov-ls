@@ -72,7 +72,7 @@ export default {
   },
   data() {
     return {
-      editmode: this.editModeByDefailt,
+      editmode: this.editModeByDefault,
       title: this.value,
       // errorMessage: '',
       // valueInput: ''
