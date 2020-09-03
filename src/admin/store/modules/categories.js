@@ -7,10 +7,8 @@ export default {
 		SET_CATEGORIES: (state, categories) => (state.data = categories ),
 		ADD_CATEGORIES: (state, category) => state.data.unshift(category),
 		REMOVE_CATEGORIES: (state, categoryToRemove) => {
-			state.data = state.data.filter(category => {
-				category.id != categoryToRemove.id
-				//если имя в категории не равно имени пришедшему то проходит в результирующий массив
-			})
+			state.data = state.data.filter(category => category.id != categoryToRemove.id)
+			//если имя в категории не равно имени пришедшему то проходит в результирующий массив
 		},
 		ADD_SKILL: (state, newSkill) => {
 			state.data = state.data.map(category => {
@@ -74,25 +72,21 @@ export default {
 			}
 		},
 		async remove({commit}, categoryTitleToRemove){
-			let categories;
+			let categoryRemove;
 			//получаем все категории и отбираем нужные
 			try {
 				const response = await this.$axios.get('/categories/376' )
 				//на этой стадии может быть несколько категорий с одинаковым именем (отбираем все одинаковые)
-				categories = response.data.filter(category => category.category == categoryTitleToRemove );
+				categoryRemove = response.data.filter(category => category.category == categoryTitleToRemove );
 			} catch (error) {
 				console.dir(error)
 			}
 			//удаляем в цикле категории
 			try {
-				for (const category of categories) {
+				for (const category of categoryRemove) {
 					const {data} = await this.$axios.delete(`/categories/${category.id}`); //не передаём внутрь параметры и никакой ответ не получаем
 					commit("REMOVE_CATEGORIES", category);// вызываем мутацию и отдаем туда данные вторым параметром
 				}
-				// categories.forEach( async (category) => {
-				// 	const {data} = await this.$axios.delete(`/categories/${category.id}`); //не передаём внутрь параметры и никакой ответ не получаем
-				// 	commit("REMOVE_CATEGORIES", category);// вызываем мутацию и отдаем туда данные вторым параметром
-				// });
 			} catch (error) {
 				throw new Error(error)
 			}
