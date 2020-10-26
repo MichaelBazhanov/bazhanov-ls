@@ -9,7 +9,7 @@ if (token) {
 }
 
 //перехватчик на ответ(есть на запрос перехватчик request)
-//этот обработчик выполнится до того как axios получит resolve
+// use() этот обработчик выполнится до того как axios получит resolve
 axios.interceptors.response.use(
 	response => response,
 	async error => {
