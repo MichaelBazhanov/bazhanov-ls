@@ -1,6 +1,6 @@
 @import "../../../styles/mixins.pcss";
 
-.about-page-component {
+.values-page-component {
 	flex: 1;
 	background: url("../../../images/bg/bg-admin.jpg") 50% 50% / cover no-repeat;
 }
@@ -46,6 +46,28 @@
 	}
 	@include tablets {
 	padding: 30px 0 40px 0;
+	}
+	@include phones {
+	}
+}
+.skills {
+	display: flex;
+	flex-wrap: wrap;
+}
+.item {
+	width: calc(100% / 4 - 30px);
+	margin-right: 30px;
+	margin-bottom: 30px;
+
+	@include desktopHd {
+		width: calc(100% / 3 - 30px);
+	}
+	@include desktop {
+		width: calc(100% / 2 - 30px);
+	}
+	@include tablets {
+		margin-right: 0px;
+		width: calc(100% / 1 - 0px);
 	}
 	@include phones {
 	}

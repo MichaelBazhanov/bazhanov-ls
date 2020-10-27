@@ -4,10 +4,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import header from "./components/header";
-import about from "./pages/about";
 import login from "./pages/login";
-// import works from "./pages/works.vue";
-// import reviews from "./pages/reviews.vue";
+import about from "./pages/about";
+import values from "./pages/values";
+import reviews from "./pages/reviews";
+import works from "./pages/works";
 
 
 const routes = [
@@ -16,6 +17,34 @@ const routes = [
 		components: {
 			header: header,
 			default: about,
+		}
+	},
+	{
+		path: "/values",
+		components: {
+			header: header,
+			default: values,
+		}
+	},
+	{
+		path: "/about",
+		components: {
+			header: header,
+			default: about,
+		}
+	},
+	{
+		path: "/reviews",
+		components: {
+			header: header,
+			default: reviews,
+		}
+	},
+	{
+		path: "/works",
+		components: {
+			header: header,
+			default: works,
 		}
 	},
 	{

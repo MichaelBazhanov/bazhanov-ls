@@ -1,12 +1,12 @@
 <template>
-	<div class="about-page-component">
+	<div class="works-page-component">
 
 		<div class="page-content">
 
 			<!-- <div class="container" v-if="categories.length"> -->
 			<div class="container">
 				<div class="header">
-					<div class="title">Блок "Обо мне"</div>
+					<div class="title">Блок "Работы"</div>
 				</div>
 
 			</div>
@@ -38,4 +38,4 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped src="./about.pcss"></style>
+<style lang="postcss" scoped src="./works.pcss"></style>
