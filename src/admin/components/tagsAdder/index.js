@@ -1,1 +1,1 @@
-export {default} from "./template.vue";
+export {default} from "./tagsAdder.vue";

@@ -1,7 +1,7 @@
 <template>
 	<div class="tags-adder-component">
 		<app-input
-			title="добавление тега"
+			title="Добавление тега"
 			v-model="currentTags"
 			@input="$emit('change', currentTags)"
 		/>
