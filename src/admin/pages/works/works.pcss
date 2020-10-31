@@ -51,6 +51,7 @@
 	}
 }
 .work-edit {
+	margin-bottom: 26px;
 }
 .work {
 	display: flex;
@@ -83,8 +84,9 @@
 }
 .work-img-change {
 	margin-bottom: 20px;
-	margin: 0 auto;
-	display: block;
+	width: 100%;
+	/* margin: 0 auto;
+	display: block  !important; */
 }
 .work-text {
 }
@@ -123,10 +125,27 @@
 .item-wrap {
 	padding: 35px 25px;
 }
-.works-item {
+.works-wrap {
 	padding-left: 14px;
 	padding-right: 14px;
 	width: calc(100 /3)%;
+	margin-bottom: 28px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		width: calc(100 /2)%;
+	}
+	@include tablets {
+		width: 100%;
+	}
+	@include phones {
+
+	}
+}
+.works-item {
+	height: 100%;
+	box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.07);
 }
 .item-img {
 	height: 190px;
@@ -141,7 +160,6 @@
 .item-text {
 	margin-top: 12px;
 	width: 100%;
-	/* height: 150px; */
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 30px;
@@ -150,4 +168,11 @@
 }
 .item-link {
 	display: block;
+	margin-top: 26px;
+}
+.item-btns {
+	margin-top: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }

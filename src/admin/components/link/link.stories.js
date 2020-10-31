@@ -1,15 +1,22 @@
-import link from "./link.vue";
+import linkA from "./link.vue";
 
 export default {
-	title: "link",
-	components: { link },
+	title: "linkA",
+	components: { linkA },
 };
 
 export const defaultView = () => ({
-	components: { link },
+	components: { linkA },
 	template: `
-		<link :href="http://loftschool.ru" :target="_blank"/>
+	<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+		http://loftschool.ru
+	</linkA>
 	`,
+	data() {
+		return {
+
+		}
+	}
 });
 
 defaultView.story = {

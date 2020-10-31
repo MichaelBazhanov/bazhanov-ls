@@ -34,25 +34,68 @@
 						</div>
 					</card>
 				</div>
+
 				<div class="works">
-					<div class="works-item">
-						<squareButton
-							type="square"
-							title="Добавить работу"
-							@click="onClick"
-						/>
-					</div>
-					<div class="works-item">
-							<img class="item-img" :src="workPic" alt="pic">
-						<div class="item-wrap">
-							<h2 class="item-title">Сайт школы образования</h2>
-							<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-							<a class="item-link" href="#">http://loftschool.ru</a>
+					<div class="works-wrap">
+						<div class="works-item">
+							<squareButton
+								type="square"
+								title="Добавить работу"
+								@click="onClick"
+							/>
 						</div>
 					</div>
-					<div class="works-item">1</div>
-					<div class="works-item">1</div>
-					<div class="works-item">1</div>
+
+					<div class="works-wrap">
+						<div class="works-item">
+							<img class="item-img" :src="workPic" alt="pic">
+							<div class="item-wrap">
+								<h2 class="item-title">Сайт школы образования</h2>
+								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+									http://loftschool.ru
+								</linkA>
+								<div class="item-btns">
+									<icon title="Править" symbol="pencil" />
+									<icon title="Удалить" symbol="cross" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="works-wrap">
+						<div class="works-item">
+							<img class="item-img" :src="workPic" alt="pic">
+							<div class="item-wrap">
+								<h2 class="item-title">Сайт школы образования</h2>
+								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+									http://loftschool.ru
+								</linkA>
+								<div class="item-btns">
+									<icon title="Править" symbol="pencil" />
+									<icon title="Удалить" symbol="cross" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="works-wrap">
+						<div class="works-item">
+							<img class="item-img" :src="workPic" alt="pic">
+							<div class="item-wrap">
+								<h2 class="item-title">Сайт школы образования</h2>
+								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+									http://loftschool.ru
+								</linkA>
+								<div class="item-btns">
+									<icon title="Править" symbol="pencil" />
+									<icon title="Удалить" symbol="cross" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -72,6 +115,8 @@ import appButton from "../../components/button";
 import squareButton from "../../components/button/types/squareBtn";
 import appInput from "../../components/input";
 import tagsAdder from "../../components/tagsAdder";
+import linkA from "../../components/link";
+import icon from "../../components/icon";
 
 export default {
 	//локальная регисрация компонента
@@ -81,10 +126,13 @@ export default {
 		appInput,
 		tagsAdder,
 		squareButton,
+		linkA,
+		icon,
 	},
 	data() {
 		return {
 			tags: "",
+			edit: true,
 		};
 	},
 	methods: {
