@@ -48,7 +48,15 @@
 
 					<div class="works-wrap">
 						<div class="works-item">
-							<img class="item-img" :src="workPic" alt="pic">
+							<div class="tags-wrap">
+								<img class="item-img" :src="workPic" alt="pic">
+
+								<div class="item-tags">
+									<tag title="HTML" class="tipography-works" />
+									<tag title="CSS" class="tipography-works" />
+									<tag title="JS" class="tipography-works" />
+								</div>
+							</div>
 							<div class="item-wrap">
 								<h2 class="item-title">Сайт школы образования</h2>
 								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
@@ -117,6 +125,7 @@ import appInput from "../../components/input";
 import tagsAdder from "../../components/tagsAdder";
 import linkA from "../../components/link";
 import icon from "../../components/icon";
+import tag from "../../components/tag";
 
 export default {
 	//локальная регисрация компонента
@@ -128,6 +137,7 @@ export default {
 		squareButton,
 		linkA,
 		icon,
+		tag,
 	},
 	data() {
 		return {
