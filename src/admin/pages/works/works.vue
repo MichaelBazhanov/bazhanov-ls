@@ -13,11 +13,16 @@
 					>
 						<div slot="content" class="work">
 							<div class="work-item">
+								<!-- синий экран -->
 								<div class="work-img-load">
-									<div class="img-text">Перетащите или загрузите для загрузки изображения</div>
-									<appButton title="ЗАГРУЗИТЬ" typeAttr="file" @change="onChange" />
+									<img class="img-bg" :src="imgSrc" alt="img-bg" v-if="imgSrc">
+									<template v-else>
+										<div class="img-text">Перетащите или загрузите для загрузки изображения</div>
+										<appButton title="ЗАГРУЗИТЬ" typeAttr="file" @change="onChange"/>
+									</template>
 								</div>
-								<appButton class="work-img-change" title="Изменить превью" plain @click="onClick" />
+								<!-- <appButton class="work-img-change" title="Изменить превью" plain typeAttr="fileWork" @click="onChange" /> -->
+								<appButton class="work-img-change" title="Изменить превью" plain @click="onChange" />
 							</div>
 							<div class="work-item">
 								<div class="work-text">
@@ -143,11 +148,30 @@ export default {
 		return {
 			tags: "",
 			edit: true,
+			imgSrc: '',
 		};
 	},
 	methods: {
-		onChange() {
-			console.log('Сработал метод onChange()')
+		onChange(e) {
+			//проверка на загрузку файла
+			if(e.target.files.length === 0) return
+
+			let f = e.target.files[0]; //берем файл
+			let fr = new FileReader(); //создаем обьект длч чтения этого файла
+
+			//проверка на вес файла, не больше 1.5 мегабайта
+			if(f.size >  1572864) { console.warn('Размер загружаемого файла больше 1.5 mb'); return}
+
+			// В свойсте type mime (что-то типа image/png)
+			if(f.type.indexOf('image') === -1) return //Если загруженный файл не является изображением
+
+			fr.readAsDataURL(f); // Читаем blob выбранного файла
+			fr.onload = e => {
+				this.imgSrc = fr.result;
+			}
+			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
+			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
+			//загруженной картинки.
 		},
 		onClick() {
 			console.log('Сработал метод onClick()')

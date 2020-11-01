@@ -75,27 +75,45 @@
 	@include phones {
 	}
 }
+.work-img-change {
+	margin-bottom: 20px;
+	width: 100%;
+}
+.work-text {
+}
 .work-img-load {
 	display: block;
 	background: #DEE4ED;
 	border: 1px dashed #A1A1A1;
 	box-sizing: border-box;
-	padding: 70px 0px;
-}
-.work-img-change {
-	margin-bottom: 20px;
-	width: 100%;
-	/* margin: 0 auto;
-	display: block  !important; */
-}
-.work-text {
-}
-.work-img-load {
+	/* padding: 70px 0px; */
+
+	position: relative;
 	display: flex;
-	flex-wrap: wrap;
+	/* flex-wrap: wrap; */
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	box-sizing: border-box;
+
+	@include desktopHd {
+		height: 280px;
+	}
+	@include desktop {
+		height: 260px;
+	}
+	@include tablets {
+		height: 160px;
+	}
+	@include phones {
+		height: 160px;
+	}
+}
+.img-bg {
+	width: 100%;
+	height: auto;
+	position: absolute;
+	object-fit: cover;
 }
 .img-text {
 	width: 35%;
