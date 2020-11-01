@@ -14,10 +14,10 @@
   </label>
 
   <label
-    :class="['btn-file-container', { plain }]"
+    :class="['btn-file-container']"
     v-else-if="typeAttr === 'fileWork'"
   >
-    <div class="btn-file-fake btn-decorator">{{ title }}</div>
+    <div :class="['btn-file-fake', 'btn-decorator', { plain }]">{{ title }}</div>
     <input class="btn-file-input" type="file" v-on="$listeners" />
   </label>
 </template>

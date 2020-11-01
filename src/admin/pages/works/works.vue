@@ -14,15 +14,14 @@
 						<div slot="content" class="work">
 							<div class="work-item">
 								<!-- синий экран -->
-								<div class="work-img-load">
+								<div :class="['work-img-load', {'work-img-bottom': !imgSrc} ]">
 									<img class="img-bg" :src="imgSrc" alt="img-bg" v-if="imgSrc">
 									<template v-else>
 										<div class="img-text">Перетащите или загрузите для загрузки изображения</div>
 										<appButton title="ЗАГРУЗИТЬ" typeAttr="file" @change="onChange"/>
 									</template>
 								</div>
-								<!-- <appButton class="work-img-change" title="Изменить превью" plain typeAttr="fileWork" @click="onChange" /> -->
-								<appButton class="work-img-change" title="Изменить превью" plain @click="onChange" />
+								<appButton  v-if="imgSrc" class="work-img-change" title="Изменить превью" plain typeAttr="fileWork" @change="onChange" />
 							</div>
 							<div class="work-item">
 								<div class="work-text">

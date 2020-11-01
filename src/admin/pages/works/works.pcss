@@ -78,6 +78,8 @@
 .work-img-change {
 	margin-bottom: 20px;
 	width: 100%;
+	display: block;
+	text-align: center;
 }
 .work-text {
 }
@@ -109,6 +111,9 @@
 		height: 160px;
 	}
 }
+.work-img-bottom {
+	margin-bottom: 40px;
+}
 .img-bg {
 	width: 100%;
 	height: auto;
@@ -116,9 +121,9 @@
 	object-fit: cover;
 }
 .img-text {
-	width: 35%;
 	margin-bottom: 40px;
-	min-width: 215px;
+	width: 215px;
+
 }
 .work-inp {
 	display: block;
@@ -139,6 +144,16 @@
 	flex-wrap: wrap;
 	margin-left: -14px;
 	margin-right: -14px;
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		margin-left: -38px;
+		margin-right: -38px;
+	}
 }
 .item-wrap {
 	padding: 35px 25px;
