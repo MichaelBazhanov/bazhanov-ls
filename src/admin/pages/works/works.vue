@@ -14,10 +14,11 @@
 						<div slot="content" class="work">
 							<form
 								class="work-item"
-								@dragenter.prevent.stop='dragenter()'
-								@dragover.prevent.stop='dragover()'
-								@dragleave.prevent.stop='dragleave()'
-								@drop.prevent.stop='drop()'>
+								@submit.prevent
+								@dragenter.stop.prevent='dragenter()'
+								@dragover.stop.prevent='dragover()'
+								@dragleave.stop.prevent='dragleave()'
+								@drop.stop.prevent='drop($event)'>
 
 								<!-- синий экран -->
 								<div :class="['work-img-load', {'work-img-bottom': !imgSrc}, {highlight} ]" >
@@ -163,15 +164,18 @@ export default {
 			if(e.target.files.length === 0) return
 
 			let f = e.target.files[0]; //берем файл
-			let fr = new FileReader(); //создаем обьект длч чтения этого файла
 
-			//проверка на вес файла, не больше 1.5 мегабайта
+			//проверка
 			if(f.size >  1572864) { console.warn('Размер загружаемого файла больше 1.5 mb'); return}
 
-			// В свойсте type mime (что-то типа image/png)
-			if(f.type.indexOf('image') === -1) return //Если загруженный файл не является изображением
+			//проверка
+			if(f.type.indexOf('image') === -1) { console.warn('Загруженный файл не является изображением') ; return }
 			// (альтернатива атрибут accept='image/*' на элементе input type='file')
 
+			this.read(f);
+		},
+		read(f) { //метод прото описывает работу с с спец обьектом чтения файла => FileReader
+			let fr = new FileReader(); //создаем обьект длч чтения этого файла
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
 				this.imgSrc = fr.result;
@@ -186,25 +190,41 @@ export default {
 		dragenter(e) {
 			console.log('dragenter')
 			console.log(e)
-			//активируем подсветку
+			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragover(e) {
 			console.log('dragover')
 			console.log(e)
-			//активируем подсветку
+			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragleave(e) {
 			console.log('dragleave')
 			console.log(e)
-			//удаляем подсветку
+			//удаляем подсветку CSS
 			this.highlight = false;
 		},
 		drop(e) {
 			console.log('drop')
-			console.log(e)
-			//удаляем подсветку
+			// console.log(e)
+			// console.log(e.dataTransfer) //Объект DataTransfer используется для хранения данных, перетаскиваемых мышью во время операции drag and drop.
+			let files = e.dataTransfer.files;//тип FileList хранящий файлы
+			files = [...files]; //преобразуем тип FileList в Array (те внутри этого массива хранятся рейльные файлы с DND)
+
+			//проверка
+			if(!files[0]) { console.warn('Вы не загрузили файл'); this.highlight = false; return}
+
+			//проверка
+			if(files[0].size >  1572864) { console.warn('Размер загружаемого файла больше 1.5 mb'); this.highlight = false; return}
+
+			//проверка
+			if(files[0].type.indexOf('image') === -1) { console.warn('Загруженный файл не является изображением') ; this.highlight = false; return }
+			// (альтернатива атрибут accept='image/*' на элементе input type='file')
+
+			this.read(files[0]);
+
+			//удаляем подсветку CSS
 			this.highlight = false;
 		},
 	},
