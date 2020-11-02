@@ -12,17 +12,23 @@
 						title="Редактирование работы"
 					>
 						<div slot="content" class="work">
-							<div class="work-item">
+							<form
+								class="work-item"
+								@dragenter.prevent.stop='dragenter()'
+								@dragover.prevent.stop='dragover()'
+								@dragleave.prevent.stop='dragleave()'
+								@drop.prevent.stop='drop()'>
+
 								<!-- синий экран -->
-								<div :class="['work-img-load', {'work-img-bottom': !imgSrc} ]">
+								<div :class="['work-img-load', {'work-img-bottom': !imgSrc}, {highlight} ]" >
 									<img class="img-bg" :src="imgSrc" alt="img-bg" v-if="imgSrc">
 									<template v-else>
 										<div class="img-text">Перетащите или загрузите для загрузки изображения</div>
-										<appButton title="ЗАГРУЗИТЬ" typeAttr="file" @change="onChange"/>
+										<appButton title="ЗАГРУЗИТЬ" typeAttr="file" @change="onChange" accept/>
 									</template>
 								</div>
-								<appButton  v-if="imgSrc" class="work-img-change" title="Изменить превью" plain typeAttr="fileWork" @change="onChange" />
-							</div>
+								<appButton v-if="imgSrc" class="work-img-change" title="Изменить превью" plain accept typeAttr="fileWork" @change="onChange" />
+							</form>
 							<div class="work-item">
 								<div class="work-text">
 									<app-input title="Название" class="work-inp"/>
@@ -148,6 +154,7 @@ export default {
 			tags: "",
 			edit: true,
 			imgSrc: '',
+			highlight: false,
 		};
 	},
 	methods: {
@@ -163,6 +170,7 @@ export default {
 
 			// В свойсте type mime (что-то типа image/png)
 			if(f.type.indexOf('image') === -1) return //Если загруженный файл не является изображением
+			// (альтернатива атрибут accept='image/*' на элементе input type='file')
 
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
@@ -174,7 +182,31 @@ export default {
 		},
 		onClick() {
 			console.log('Сработал метод onClick()')
-		}
+		},
+		dragenter(e) {
+			console.log('dragenter')
+			console.log(e)
+			//активируем подсветку
+			this.highlight = true;
+		},
+		dragover(e) {
+			console.log('dragover')
+			console.log(e)
+			//активируем подсветку
+			this.highlight = true;
+		},
+		dragleave(e) {
+			console.log('dragleave')
+			console.log(e)
+			//удаляем подсветку
+			this.highlight = false;
+		},
+		drop(e) {
+			console.log('drop')
+			console.log(e)
+			//удаляем подсветку
+			this.highlight = false;
+		},
 	},
 	computed: {
 		workPic() {

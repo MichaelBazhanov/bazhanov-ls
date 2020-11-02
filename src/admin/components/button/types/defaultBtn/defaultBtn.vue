@@ -10,7 +10,8 @@
 
   <label class="btn-file-container" v-else-if="typeAttr === 'file'">
     <div class="btn-file-fake btn-decorator">{{ title }}</div>
-    <input class="btn-file-input" type="file" v-on="$listeners" />
+    <input class="btn-file-input" type="file" v-on="$listeners" v-if="accept"  accept="image/*" />
+    <input class="btn-file-input" type="file" v-on="$listeners" v-else />
   </label>
 
   <label
@@ -18,7 +19,8 @@
     v-else-if="typeAttr === 'fileWork'"
   >
     <div :class="['btn-file-fake', 'btn-decorator', { plain }]">{{ title }}</div>
-    <input class="btn-file-input" type="file" v-on="$listeners" />
+    <input class="btn-file-input" type="file" v-on="$listeners" v-if="accept" accept="image/*" />
+    <input class="btn-file-input" type="file" v-on="$listeners" v-else />
   </label>
 </template>
 <script>
@@ -38,6 +40,7 @@ export default {
       default: "button",
       validator: (value) => ["button", "file", "fileWork"].includes(value),
     },
+    accept: Boolean,
   },
 };
 </script>
