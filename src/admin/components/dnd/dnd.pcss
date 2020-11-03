@@ -1,0 +1,59 @@
+@import "../../../styles/mixins.pcss";
+
+.dnd-component {
+	width: 100%;
+	height: 100%;
+}
+
+.work-img-load {
+	display: block;
+	background: #DEE4ED;
+	border: 1px dashed #A1A1A1;
+	box-sizing: border-box;
+	/* padding: 70px 0px; */
+
+	position: relative;
+	display: flex;
+	/* flex-wrap: wrap; */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+
+	@include desktopHd {
+		height: 280px;
+	}
+	@include desktop {
+		height: 260px;
+	}
+	@include tablets {
+		height: 160px;
+	}
+	@include phones {
+		height: 160px;
+	}
+}
+.work-img-bottom {
+	margin-bottom: 40px;
+}
+.img-text {
+	margin-bottom: 40px;
+	width: 215px;
+}
+.work-img-change {
+	margin-bottom: 20px;
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+.img-bg {
+	height: 100%;
+	position: absolute;
+	object-fit: cover;
+}
+.highlight {
+	border-color: #3f35cb;
+	border-width: 5px;
+	box-sizing: border-box;
+	cursor: move;
+}
