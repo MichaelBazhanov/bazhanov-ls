@@ -175,7 +175,7 @@ export default {
 			this.read(f);
 		},
 		read(f) { //метод прото описывает работу с с спец обьектом чтения файла => FileReader
-			let fr = new FileReader(); //создаем обьект длч чтения этого файла
+			let fr = new FileReader(); //создаем обьект длч чтения этого файла (API браузера)
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
 				this.imgSrc = fr.result;
