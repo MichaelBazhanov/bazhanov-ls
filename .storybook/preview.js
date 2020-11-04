@@ -1,5 +1,5 @@
 import { addParameters } from "@storybook/vue";
-import "./main.pcss";
+import "./main.pcss";// тенем весь css основной разработки в storybook
 
 addParameters({
   backgrounds: [
