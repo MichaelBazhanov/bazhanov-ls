@@ -5,6 +5,7 @@
 		>
 			<img
 				v-bind="$attrs"
+				@click="$emit('change', 'был произведен клик по img !!!')"
 			>
 		</div>
 		<div class="username">

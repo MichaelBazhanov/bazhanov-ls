@@ -1,5 +1,10 @@
 import test from "./test.vue";
-import { text, withKnobs } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";//ловим $emit
+import { text, withKnobs } from "@storybook/addon-knobs";//добавляем динамические поля
+
+const methods = {
+	onChange: action('onChange_up') //onChange_up всплывает с данными из реального Vue компонента
+}
 
 export default {
 	title: 'test',
@@ -19,8 +24,10 @@ export const defaultView = () => ({
 			:title="title"
 			alt="User name"
 			src="https://picsum.photos/300/300"
+			@change="onChange"
 		/>
 	`,
+	methods,
 })
 defaultView.story = {
 	name: "Стандартный вид"
