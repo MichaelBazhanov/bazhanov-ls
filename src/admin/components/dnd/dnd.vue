@@ -53,34 +53,35 @@ export default {
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
 				this.imgSrc = fr.result;
+				this.$emit('loadimg', this.imgSrc); //опракидываем одрес картинки выше
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
 			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
 			//загруженной картинки.
 		},
 		dragenter(e) {
-			console.log('dragenter')
-			console.log(e)
+			// console.log('dragenter')
+			// console.log(e)
 
 			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragover(e) {
-			console.log('dragover')
-			console.log(e)
+			// console.log('dragover')
+			// console.log(e)
 
 			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragleave(e) {
-			console.log('dragleave')
-			console.log(e)
+			// console.log('dragleave')
+			// console.log(e)
 
 			//удаляем подсветку CSS
 			this.highlight = false;
 		},
 		drop(e) {
-			console.log('drop')
+			// console.log('drop')
 			// console.log(e)
 			// console.log(e.dataTransfer) //Объект DataTransfer используется для хранения данных, перетаскиваемых мышью во время операции drag and drop.
 			let files = e.dataTransfer.files;//тип FileList хранящий файлы

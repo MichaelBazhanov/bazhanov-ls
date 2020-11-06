@@ -1,4 +1,9 @@
 import dnd from "./dnd.vue";
+import { action } from "@storybook/addon-actions";//ловим $emit
+
+const methods = {
+	onChange: action('loadimg_up')
+}
 
 export default {
 	title: "dnd",
@@ -8,8 +13,11 @@ export default {
 export const defaultView = () => ({
 	components: { dnd },
 	template: `
-		<dnd />
+		<dnd
+		@loadimg='onChange'
+		/>
 	`,
+	methods
 });
 
 defaultView.story = {
