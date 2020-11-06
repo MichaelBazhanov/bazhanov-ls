@@ -2,7 +2,7 @@ import headline from "./headline.vue";
 import { action } from "@storybook/addon-actions";
 
 const methods = {
-	onChange: action('onChange')
+	onChange: action('onChange_up') //onChange2 всплывает с данными из реального Vue компонента
 }
 
 export default {
