@@ -7,23 +7,24 @@
 				<div class="header">
 					<div class="title">Блок "Работы"</div>
 				</div>
-				<div class="work-edit">
+
+				<div class="work-edit" v-if="edit">
 					<card
 						title="Редактирование работы"
 					>
 						<div slot="content" class="work">
 							<div class="work-item">
-								<dnd />
+								<dnd @onLoadFile='works.photo = $event'/>
 							</div>
 							<div class="work-item">
 								<div class="work-text">
-									<app-input title="Название" class="work-inp"/>
-									<app-input title="Ссылка" class="work-inp"/>
-									<app-input title="Описание" fieldType="textarea" class="work-area"/>
-									<tagsAdder v-model="tags" />
+									<app-input v-model="works.title" title="Название" class="work-inp"/>
+									<app-input v-model="works.link" title="Ссылка" class="work-inp"/>
+									<app-input v-model="works.description" title="Описание" fieldType="textarea" class="work-area"/>
+									<tagsAdder v-model="works.techs"/>
 									<div class="work-btns">
-										<appButton title="Отмена" plain @click="onClick" />
-										<appButton title="СОХРАНИТЬ" @click="onClick" />
+										<appButton title="Отмена" plain @click="onNo" />
+										<appButton title="СОХРАНИТЬ" @click="onYes" />
 									</div>
 								</div>
 							</div>
@@ -37,7 +38,7 @@
 							<squareButton
 								type="square"
 								title="Добавить работу"
-								@click="onClick"
+								@click="edit = true"
 							/>
 						</div>
 					</div>
@@ -139,14 +140,30 @@ export default {
 	},
 	data() {
 		return {
-			tags: "",
-			edit: true,
+			edit: false,
+			works: {
+				photo: [],
+				title: '',
+				link: '',
+				description: '',
+				techs: '',
+			}
 		};
 	},
 	methods: {
 		onClick() {
 			console.log('onClick')
-		}
+		},
+		onYes() {
+			console.log('onYes')
+			console.log(this.works)
+			this.edit = false;
+		},
+		onNo() {
+			console.log('onNo')
+			this.edit = false;
+		},
+
 	},
 	computed: {
 		workPic() {

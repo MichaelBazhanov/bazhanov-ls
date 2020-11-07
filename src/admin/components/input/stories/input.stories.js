@@ -1,4 +1,9 @@
 import appInput from "../input.vue";
+import { action } from "@storybook/addon-actions"
+
+const methods = {
+  onInput: action('onInput_up')
+}
 
 export default {
   title: "input/default",
@@ -13,8 +18,10 @@ export const defaultView = () => ({
     }
   },
   template: `
-    <app-input v-model="title" />
-  `,
+    <app-input v-model="title" @input='onInput'/>
+    `,
+    // @input='onInput' - это не нужно чисто пример как на storybook всплывает v-model
+  methods
 });
 
 defaultView.story = {
@@ -67,7 +74,7 @@ export const typeView = () => ({
       type="number"
       min="0"
       max="100"
-      maxlength="3" 
+      maxlength="3"
     />
   `,
 });

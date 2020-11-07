@@ -53,7 +53,8 @@ export default {
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
 				this.imgSrc = fr.result;
-				this.$emit('loadimg', this.imgSrc); //опракидываем одрес картинки выше
+				// this.$emit('loadimg', this.imgSrc); //опракидываем одрес картинки выше
+				this.$emit('onLoadFile', f); //опракидываем загруженный файл выше в компонет
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
 			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
