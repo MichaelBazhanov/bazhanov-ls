@@ -14,14 +14,14 @@
 					>
 						<div slot="content" class="work">
 							<div class="work-item">
-								<dnd @onLoadFile='works.photo = $event'/>
+								<dnd @onLoadFile='work.photo = $event'/>
 							</div>
 							<div class="work-item">
 								<div class="work-text">
-									<app-input v-model="works.title" title="Название" class="work-inp"/>
-									<app-input v-model="works.link" title="Ссылка" class="work-inp"/>
-									<app-input v-model="works.description" title="Описание" fieldType="textarea" class="work-area"/>
-									<tagsAdder v-model="works.techs"/>
+									<app-input v-model="work.title" title="Название" class="work-inp"/>
+									<app-input v-model="work.link" title="Ссылка" class="work-inp"/>
+									<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"/>
+									<tagsAdder v-model="work.techs"/>
 									<div class="work-btns">
 										<appButton title="Отмена" plain @click="onNo" />
 										<appButton title="СОХРАНИТЬ" @click="onYes" />
@@ -143,45 +143,17 @@ export default {
 	data() {
 		return {
 			edit: false,
-			works: {
-				photo: [],
+			work: {
 				title: '',
+				techs: '',
+				photo: [],
 				link: '',
 				description: '',
-				techs: '',
 			}
 		};
 	},
 	created() {
 		this.fetchWorksAction();
-	},
-	methods: {
-		...mapActions({
-			fetchWorksAction: "works/fetch"
-		}),
-		// ...mapActions({
-		// 	showTooltip: "tooltips/show",
-		// 	createCategoryAction: "categories/create",
-		// 	fetchCategoryAction: "categories/fetch",
-		// 	removeCategoryAction: "categories/remove",
-		// 	editCategoryAction: "categories/edit",
-		// 	addSkillAction: "skills/add",
-		// 	removeSkillAction: "skills/remove",
-		// 	editSkillAction: "skills/edit",
-		// }),
-		onClick() {
-			console.log('onClick')
-		},
-		onYes() {
-			console.log('onYes')
-			console.log(this.works)
-			this.edit = false;
-		},
-		onNo() {
-			console.log('onNo')
-			this.edit = false;
-		},
-
 	},
 	computed: {
 		// ...mapState("works",{
@@ -191,6 +163,27 @@ export default {
 			return require("../../../images/content/slider-0.jpg").default
 		}
 	},
+	methods: {
+		...mapActions({
+			fetchWorksAction: "works/fetch",
+			addWorkAction: "works/add"
+		}),
+		onClick() {
+			console.log('onClick')
+		},
+		onYes() {
+			this.edit = false;
+			console.log('onYes')
+			this.addWorkAction({...this.work});//vuex-action
+
+		},
+		onNo() {
+			console.log('onNo')
+			this.edit = false;
+		},
+
+	},
+
 
 
 };
