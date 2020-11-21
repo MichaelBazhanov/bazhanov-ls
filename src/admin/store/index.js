@@ -5,8 +5,9 @@ Vue.use(Vuex);
 
 import categories from "./modules/categories";
 import skills from "./modules/skills";
+import works from "./modules/works";
 import tooltips from "./modules/tooltips";
 
 export default new Vuex.Store({
-	modules: { categories, skills, tooltips }
+	modules: { categories, skills, works, tooltips }
 })

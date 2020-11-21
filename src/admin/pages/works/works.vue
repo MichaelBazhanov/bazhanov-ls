@@ -125,6 +125,8 @@ import linkA from "../../components/link";
 import icon from "../../components/icon";
 import tag from "../../components/tag";
 
+import { mapActions, mapState } from 'vuex';
+
 export default {
 	//локальная регисрация компонента
 	components: {
@@ -150,7 +152,23 @@ export default {
 			}
 		};
 	},
+	created() {
+		this.fetchWorksAction();
+	},
 	methods: {
+		...mapActions({
+			fetchWorksAction: "works/fetch"
+		}),
+		// ...mapActions({
+		// 	showTooltip: "tooltips/show",
+		// 	createCategoryAction: "categories/create",
+		// 	fetchCategoryAction: "categories/fetch",
+		// 	removeCategoryAction: "categories/remove",
+		// 	editCategoryAction: "categories/edit",
+		// 	addSkillAction: "skills/add",
+		// 	removeSkillAction: "skills/remove",
+		// 	editSkillAction: "skills/edit",
+		// }),
 		onClick() {
 			console.log('onClick')
 		},
@@ -166,10 +184,14 @@ export default {
 
 	},
 	computed: {
+		// ...mapState("works",{
+		// 	works: state => state.works
+		// }),
 		workPic() {
 			return require("../../../images/content/slider-0.jpg").default
 		}
-	}
+	},
+
 
 };
 </script>
