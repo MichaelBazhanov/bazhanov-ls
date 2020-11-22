@@ -32,6 +32,8 @@
 					</card>
 				</div>
 
+				<pre>{{works}}</pre>
+
 				<div class="works">
 					<div class="works-wrap">
 						<div class="works-item">
@@ -43,22 +45,21 @@
 						</div>
 					</div>
 
-					<div class="works-wrap">
+					<div v-for="work in works" :key="work.id" class="works-wrap">
 						<div class="works-item">
 							<div class="tags-wrap">
-								<img class="item-img" :src="workPic" alt="pic">
+								<img class="item-img" :src="baseURLGetter+'/'+work.photo" :alt="work.photo">
+								<!-- <img class="item-img" :src="`${baseURLGetter}/${work.photo}`" :alt="work.photo"> -->
 
 								<div class="item-tags">
-									<tag title="HTML" class="tipography-works" />
-									<tag title="CSS" class="tipography-works" />
-									<tag title="JS" class="tipography-works" />
+									<tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" />
 								</div>
 							</div>
 							<div class="item-wrap">
-								<h2 class="item-title">Сайт школы образования</h2>
-								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-									http://loftschool.ru
+								<h2 class="item-title">{{work.title}}</h2>
+								<p  class="item-text" >{{work.description}}</p>
+								<linkA class="item-link" :href="work.link" target="_blank">
+									{{work.link}}
 								</linkA>
 								<div class="item-btns">
 									<icon title="Править" symbol="pencil" />
@@ -68,35 +69,62 @@
 						</div>
 					</div>
 
-					<div class="works-wrap">
-						<div class="works-item">
-							<img class="item-img" :src="workPic" alt="pic">
-							<div class="item-wrap">
-								<h2 class="item-title">Сайт школы образования</h2>
-								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-									http://loftschool.ru
-								</linkA>
-								<div class="item-btns">
-									<icon title="Править" symbol="pencil" />
-									<icon title="Удалить" symbol="cross" />
+					<div style="display: none;">
+						<div class="works-wrap">
+							<div class="works-item">
+								<div class="tags-wrap">
+									<img class="item-img" :src="workPic" alt="pic">
+
+									<div class="item-tags">
+										<tag title="HTML" class="tipography-works" />
+										<tag title="CSS" class="tipography-works" />
+										<tag title="JS" class="tipography-works" />
+									</div>
+								</div>
+								<div class="item-wrap">
+									<h2 class="item-title">Сайт школы образования</h2>
+									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+										http://loftschool.ru
+									</linkA>
+									<div class="item-btns">
+										<icon title="Править" symbol="pencil" />
+										<icon title="Удалить" symbol="cross" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="works-wrap">
-						<div class="works-item">
-							<img class="item-img" :src="workPic" alt="pic">
-							<div class="item-wrap">
-								<h2 class="item-title">Сайт школы образования</h2>
-								<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-								<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-									http://loftschool.ru
-								</linkA>
-								<div class="item-btns">
-									<icon title="Править" symbol="pencil" />
-									<icon title="Удалить" symbol="cross" />
+						<div class="works-wrap">
+							<div class="works-item">
+								<img class="item-img" :src="workPic" alt="pic">
+								<div class="item-wrap">
+									<h2 class="item-title">Сайт школы образования</h2>
+									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+										http://loftschool.ru
+									</linkA>
+									<div class="item-btns">
+										<icon title="Править" symbol="pencil" />
+										<icon title="Удалить" symbol="cross" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="works-wrap">
+							<div class="works-item">
+								<img class="item-img" :src="workPic" alt="pic">
+								<div class="item-wrap">
+									<h2 class="item-title">Сайт школы образования</h2>
+									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
+									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
+										http://loftschool.ru
+									</linkA>
+									<div class="item-btns">
+										<icon title="Править" symbol="pencil" />
+										<icon title="Удалить" symbol="cross" />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -125,7 +153,7 @@ import linkA from "../../components/link";
 import icon from "../../components/icon";
 import tag from "../../components/tag";
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
 	//локальная регисрация компонента
@@ -156,10 +184,14 @@ export default {
 		this.fetchWorksAction();
 	},
 	computed: {
-		// ...mapState("works",{
-		// 	works: state => state.works
-		// }),
-		workPic() {
+		...mapState("works", {
+			works: state => state.data
+		}),
+		...mapGetters("works",{
+			baseURLGetter: "baseURL",
+		}),
+
+		workPic() {//реальная картинка через JavaScript !!!
 			return require("../../../images/content/slider-0.jpg").default
 		}
 	},
