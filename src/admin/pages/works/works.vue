@@ -14,7 +14,7 @@
 					>
 						<div slot="content" class="work">
 							<div class="work-item">
-								<dnd @onLoadFile='work.photo = $event'/>
+								<dnd @onLoadFile='work.photo = $event' :imgSrc_="work.photo"/>
 							</div>
 							<div class="work-item">
 								<div class="work-text">
@@ -32,7 +32,7 @@
 					</card>
 				</div>
 
-				<pre>{{works}}</pre>
+				<!-- <pre>{{works}}</pre> -->
 
 				<div class="works">
 					<div class="works-wrap">
@@ -48,7 +48,7 @@
 					<div v-for="work in works" :key="work.id" class="works-wrap">
 						<div class="works-item">
 							<div class="tags-wrap">
-								<img class="item-img" :src="baseURLGetter+'/'+work.photo" :alt="work.photo">
+								<img class="item-img" :src="work.photo" :alt="work.photo">
 								<!-- <img class="item-img" :src="`${baseURLGetter}/${work.photo}`" :alt="work.photo"> -->
 
 								<div class="item-tags">
@@ -62,8 +62,8 @@
 									{{work.link}}
 								</linkA>
 								<div class="item-btns">
-									<icon title="Править" symbol="pencil" />
-									<icon title="Удалить" symbol="cross" />
+									<icon @click="editWork(work)" title="Править" symbol="pencil" />
+									<icon @click="deleteWork" title="Удалить" symbol="cross" />
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@ export default {
 			work: {
 				title: '',
 				techs: '',
-				photo: [],
+				photo: '',
 				link: '',
 				description: '',
 			}
@@ -186,9 +186,6 @@ export default {
 	computed: {
 		...mapState("works", {
 			works: state => state.data
-		}),
-		...mapGetters("works",{
-			baseURLGetter: "baseURL",
 		}),
 
 		workPic() {//реальная картинка через JavaScript !!!
@@ -213,6 +210,13 @@ export default {
 			console.log('onNo')
 			this.edit = false;
 		},
+		editWork(work) {//редактирование work
+			this.edit = true;
+			this.work = {
+				...work,
+			}//отображаем как ТЕКУЩИЙ work
+		},
+		deleteWork() {},
 
 	},
 

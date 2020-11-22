@@ -23,3 +23,18 @@ export const defaultView = () => ({
 defaultView.story = {
 	name: "Стандартный вид"
 }
+
+export const viewImgSrc = () => ({
+	components: { dnd },
+	template: `
+		<dnd
+		@onLoadFile='onChange'
+		:imgSrc_="'https://picsum.photos/300/300'"
+		/>
+	`,
+	methods
+});
+
+viewImgSrc.story = {
+	name: "DND first img",
+};

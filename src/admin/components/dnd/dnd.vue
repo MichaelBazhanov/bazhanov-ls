@@ -1,7 +1,6 @@
 <template>
-	<form
+	<div
 		class="dnd-component"
-		@submit.prevent
 		@dragenter.stop.prevent='dragenter()'
 		@dragover.stop.prevent='dragover()'
 		@dragleave.stop.prevent='dragleave()'
@@ -16,7 +15,7 @@
 			</template>
 		</div>
 		<appButton v-if="imgSrc" class="work-img-change" title="Изменить превью" plain accept typeAttr="fileWork" @change="onChange" />
-	</form>
+	</div>
 </template>
 
 <script>
@@ -26,9 +25,15 @@ export default {
 	components: {
 		appButton,
 	},
+	props: {
+		imgSrc_: {
+			type: ['String','Object','Array'],
+			default: ''
+		}
+	},
 	data() {
 		return {
-			imgSrc: '',
+			imgSrc: this.imgSrc_,
 			highlight: false,
 		}
 	},
