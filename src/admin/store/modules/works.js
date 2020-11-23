@@ -63,9 +63,15 @@ export default {
 		},
 		async edit(store, work){
 			try {
-				console.log(work)
-				const {data} = await this.$axios.post(`/works/${work.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
-				console.log(data)
+				console.log('work:', work)
+				let {data} = await this.$axios.post(`/works/${work.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
+				console.log('data:', data)
+
+				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
+				// console.log(work.photo)
+				work.photo = this.$axios.defaults.baseURL+'/'+data.work.photo;
+				console.log('work.photo:', work.photo)
+				console.log('work:', work)
 				store.commit("EDIT_WORK", work);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)

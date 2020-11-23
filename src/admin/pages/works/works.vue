@@ -15,6 +15,7 @@
 						<div slot="content" class="work">
 							<div class="work-item">
 								<dnd @onLoadFile='work.photo = $event' :imgSrc_="work.photo"/>
+								<!-- <dnd @onLoadFile='work.photo = $event' /> -->
 							</div>
 							<div class="work-item">
 								<div class="work-text">
