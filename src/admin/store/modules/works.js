@@ -64,8 +64,8 @@ export default {
 		async edit(store, work){
 			try {
 				console.log(work)
-				// const {data} = await this.$axios.post(`/works/${works.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
-				// console.log(data)
+				const {data} = await this.$axios.post(`/works/${work.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
+				console.log(data)
 				store.commit("EDIT_WORK", work);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)

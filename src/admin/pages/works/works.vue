@@ -112,7 +112,6 @@ export default {
 		return {
 			editNewWork: false,
 			editOldWork: false,
-			// edit: false,
 			work: {
 				title: '',
 				techs: '',
@@ -174,9 +173,9 @@ export default {
 		},
 		editWork(work) {//редактирование work
 			this.editOldWork = true;
-			// this.work = {
-			// 	...work,
-			// }//отображаем как ТЕКУЩИЙ work
+			this.work = {
+				...work,
+			}//отображаем как ТЕКУЩИЙ work
 		},
 		deleteWork() {},
 
