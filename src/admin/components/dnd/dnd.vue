@@ -27,7 +27,7 @@ export default {
 	},
 	props: {
 		imgSrc_: {
-			type: ['String','Object','Array'],
+			type: [String, File],
 			default: ''
 		}
 	},

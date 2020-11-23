@@ -7,7 +7,12 @@ export default {
 	mutations: {
 		SET_WORKS: (state, works) => state.data = works,
 		ADD_WORK: (state, work) => state.data.unshift(work),
-		// EDIT_WORK: (state, work) => {},
+		EDIT_WORK: (state, work) => {
+			state.data = state.data.map(item => {
+				return item.id == work.id ? work : item
+			})
+		},
+
 
 	},
 	actions: {
@@ -54,6 +59,16 @@ export default {
 
 			} catch (error) {
 				console.error(error)
+			}
+		},
+		async edit(store, work){
+			try {
+				console.log(work)
+				// const {data} = await this.$axios.post(`/works/${works.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
+				// console.log(data)
+				store.commit("EDIT_WORK", work);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
+			} catch (error) {
+				throw new Error(error)
 			}
 		},
 	},

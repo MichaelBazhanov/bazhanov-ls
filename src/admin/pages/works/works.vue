@@ -8,7 +8,7 @@
 					<div class="title">Блок "Работы"</div>
 				</div>
 
-				<div class="work-edit" v-if="edit">
+				<div class="work-edit" v-if="editNewWork || editOldWork">
 					<card
 						title="Редактирование работы"
 					>
@@ -23,8 +23,8 @@
 									<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"/>
 									<tagsAdder v-model="work.techs"/>
 									<div class="work-btns">
-										<appButton title="Отмена" plain @click="onNo" />
-										<appButton title="СОХРАНИТЬ" @click="onYes" />
+										<appButton title="Отмена" plain @click="workNo" />
+										<appButton title="СОХРАНИТЬ" @click="workYes" />
 									</div>
 								</div>
 							</div>
@@ -40,8 +40,9 @@
 							<squareButton
 								type="square"
 								title="Добавить работу"
-								@click="edit = true"
+								@click="addWork"
 							/>
+								<!-- @click="edit = true, work = {}" -->
 						</div>
 					</div>
 
@@ -64,67 +65,6 @@
 								<div class="item-btns">
 									<icon @click="editWork(work)" title="Править" symbol="pencil" />
 									<icon @click="deleteWork" title="Удалить" symbol="cross" />
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div style="display: none;">
-						<div class="works-wrap">
-							<div class="works-item">
-								<div class="tags-wrap">
-									<img class="item-img" :src="workPic" alt="pic">
-
-									<div class="item-tags">
-										<tag title="HTML" class="tipography-works" />
-										<tag title="CSS" class="tipography-works" />
-										<tag title="JS" class="tipography-works" />
-									</div>
-								</div>
-								<div class="item-wrap">
-									<h2 class="item-title">Сайт школы образования</h2>
-									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-										http://loftschool.ru
-									</linkA>
-									<div class="item-btns">
-										<icon title="Править" symbol="pencil" />
-										<icon title="Удалить" symbol="cross" />
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="works-wrap">
-							<div class="works-item">
-								<img class="item-img" :src="workPic" alt="pic">
-								<div class="item-wrap">
-									<h2 class="item-title">Сайт школы образования</h2>
-									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-										http://loftschool.ru
-									</linkA>
-									<div class="item-btns">
-										<icon title="Править" symbol="pencil" />
-										<icon title="Удалить" symbol="cross" />
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="works-wrap">
-							<div class="works-item">
-								<img class="item-img" :src="workPic" alt="pic">
-								<div class="item-wrap">
-									<h2 class="item-title">Сайт школы образования</h2>
-									<p  class="item-text" >Этот парень проходил обучение веб-разработке не где-то, а в LoftSchool! 4,5 месяца только самых тяжелых испытаний и бессонных ночей!</p>
-									<linkA class="item-link" href="http://loftschool.ru" target="_blank">
-										http://loftschool.ru
-									</linkA>
-									<div class="item-btns">
-										<icon title="Править" symbol="pencil" />
-										<icon title="Удалить" symbol="cross" />
-									</div>
 								</div>
 							</div>
 						</div>
@@ -170,7 +110,9 @@ export default {
 	},
 	data() {
 		return {
-			edit: false,
+			editNewWork: false,
+			editOldWork: false,
+			// edit: false,
 			work: {
 				title: '',
 				techs: '',
@@ -188,35 +130,56 @@ export default {
 			works: state => state.data
 		}),
 
-		workPic() {//реальная картинка через JavaScript !!!
-			return require("../../../images/content/slider-0.jpg").default
-		}
+		// workPic() {//реальная картинка через JavaScript !!!
+		// 	return require("../../../images/content/slider-0.jpg").default
+		// <img class="item-img" :src="workPic" alt="pic"> в HTML
+		// }
 	},
 	methods: {
 		...mapActions({
 			fetchWorksAction: "works/fetch",
-			addWorkAction: "works/add"
+			addWorkAction: "works/add",
+			editWorkAction: "works/edit",
 		}),
-		onClick() {
-			console.log('onClick')
-		},
-		onYes() {
-			this.edit = false;
-			console.log('onYes')
-			this.addWorkAction({...this.work});//vuex-action
+		workYes() {
+			console.log('workYes')
+			if (this.editNewWork) {
+				this.editNewWork = false;
+				this.addWorkAction(this.work);//vuex-action
+			}
+			if (this.editOldWork) {
+				this.editOldWork = false;
+				this.editWorkAction(this.work);//vuex-action
+			}
 
+			//очищаем work все поля
+			// Object.keys(this.work).forEach(e => this.work[e] = '')
+			// this.work = {}
 		},
-		onNo() {
-			console.log('onNo')
-			this.edit = false;
+		workNo() {
+			console.log('workNo')
+			this.editNewWork = false;
+			this.editOldWork = false;
+
+			//очищаем work все поля
+			// Object.keys(this.work).forEach(e => this.work[e] = '')
+			// this.work = {}
+		},
+		addWork() {
+			this.editNewWork = true;
+
+			//очищаем work все поля
+			// Object.keys(this.work).forEach(e => this.work[e] = '')
+			// this.work = {}
 		},
 		editWork(work) {//редактирование work
-			this.edit = true;
-			this.work = {
-				...work,
-			}//отображаем как ТЕКУЩИЙ work
+			this.editOldWork = true;
+			// this.work = {
+			// 	...work,
+			// }//отображаем как ТЕКУЩИЙ work
 		},
 		deleteWork() {},
+
 
 	},
 
