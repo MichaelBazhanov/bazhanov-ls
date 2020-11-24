@@ -12,6 +12,9 @@ export default {
 				return item.id == work.id ? work : item
 			})
 		},
+		REMOVE_WORK: (state, work) => {
+			state.data = state.data.filter(item => item.id != work.id )
+		},
 
 
 	},
@@ -29,7 +32,7 @@ export default {
 					obj.photo = this.$axios.defaults.baseURL+'/'+obj.photo
 				})
 
-				store.commit("SET_WORKS", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
+				store.commit("SET_WORKS", response.data.reverse());// вызываем мутацию и отдаем туда данные вторым параметром
 
 			} catch (error) {
 				console.error(error)
@@ -51,6 +54,7 @@ export default {
 
 			try {
 				const response = await this.$axios.post('/works', formData)
+				console.log(response)
 
 				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
 				response.data.photo =  this.$axios.defaults.baseURL+'/'+response.data.photo
@@ -62,21 +66,37 @@ export default {
 			}
 		},
 		async edit(store, work){
+			// console.log('work:', work)//давай попробуем урезать обьект
+			// let obj = {//РЕЖИМ ВХОДЯЩИЙ ОБЪЕКТ
+			// 	title: work.title,
+			// 	techs: work.techs,
+			// 	photo: work.photo,
+			// 	link: work.link,
+			// 	description: work.description,
+			// }
+			// console.log('obj :',obj)
 			try {
-				console.log('work:', work)
 				let {data} = await this.$axios.post(`/works/${work.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
-				console.log('data:', data)
+				// console.log('data:', data)
 
-				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
-				// console.log(work.photo)
+				// //данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
+				// // console.log(work.photo)
 				work.photo = this.$axios.defaults.baseURL+'/'+data.work.photo;
-				console.log('work.photo:', work.photo)
-				console.log('work:', work)
+				// console.log('work.photo:', work.photo)
+				// console.log('work:', work)
 				store.commit("EDIT_WORK", work);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)
 			}
 		},
+		async remove(store, work) {
+			try {
+				const {data} = await this.$axios.delete(`/works/${work.id}`) //не передаём внутрь параметры и никакой ответ не получаем
+				store.commit('REMOVE_WORK', work)
+			} catch {
+				throw new Error(error)
+			}
+		}
 	},
 }
 //РАБОТАЕТ С works.vue

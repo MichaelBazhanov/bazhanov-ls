@@ -65,7 +65,7 @@
 								</linkA>
 								<div class="item-btns">
 									<icon @click="editWork(work)" title="Править" symbol="pencil" />
-									<icon @click="deleteWork" title="Удалить" symbol="cross" />
+									<icon @click="deleteWork(work)" title="Удалить" symbol="cross" />
 								</div>
 							</div>
 						</div>
@@ -140,6 +140,7 @@ export default {
 			fetchWorksAction: "works/fetch",
 			addWorkAction: "works/add",
 			editWorkAction: "works/edit",
+			removeWorkAction: "works/remove",
 		}),
 		workYes() {
 			console.log('workYes')
@@ -153,8 +154,7 @@ export default {
 			}
 
 			//очищаем work все поля
-			// Object.keys(this.work).forEach(e => this.work[e] = '')
-			// this.work = {}
+			Object.keys(this.work).forEach(e => this.work[e] = '')
 		},
 		workNo() {
 			console.log('workNo')
@@ -162,8 +162,7 @@ export default {
 			this.editOldWork = false;
 
 			//очищаем work все поля
-			// Object.keys(this.work).forEach(e => this.work[e] = '')
-			// this.work = {}
+			Object.keys(this.work).forEach(e => this.work[e] = '')
 		},
 		addWork() {
 			this.editNewWork = true;
@@ -178,7 +177,15 @@ export default {
 				...work,
 			}//отображаем как ТЕКУЩИЙ work
 		},
-		deleteWork() {},
+		deleteWork(work) {
+			this.editNewWork = false;
+			this.editOldWork = false;
+
+			this.removeWorkAction(work)
+
+			//очищаем work все поля
+			Object.keys(this.work).forEach(e => this.work[e] = '')
+		},
 
 
 	},
