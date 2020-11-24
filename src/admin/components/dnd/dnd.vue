@@ -15,6 +15,10 @@
 			</template>
 		</div>
 		<appButton v-if="imgSrc" class="work-img-change" title="Изменить превью" plain accept typeAttr="fileWork" @change="onChange" />
+		<hr>
+		<pre>{{imgSrc_}}</pre>
+		<pre>{{imgSrc}}</pre>
+		<hr>
 	</div>
 </template>
 
@@ -58,10 +62,10 @@ export default {
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
 				this.imgSrc = fr.result;
-				// this.$emit('loadimg', this.imgSrc); //опракидываем одрес картинки выше
 
-				// console.log('dnd : ',f)
-				// console.log('dnd : ', new File([""], "filename") )
+				console.log('this.imgSrc :',this.imgSrc)
+				console.log('this.imgSrc_ :',this.imgSrc_)
+
 				this.$emit('onLoadFile', f); //опракидываем загруженный файл выше в компонет
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
