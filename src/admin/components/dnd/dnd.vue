@@ -33,7 +33,7 @@ export default {
 	},
 	props: {
 		imgSrc_: {
-			type: [String, File],
+			type: [String],
 			default: ''
 		}
 	},
@@ -43,20 +43,18 @@ export default {
 			highlight: false,
 		}
 	},
-	// mounted() {
-	// 	if (this.imgSrc_) {
-	// 		this.imgSrc = this.imgSrc_;
-	// 		this.$emit('onLoadFile', this.imgSrc_); //опракидываем загруженный файл выше в компонет
-	// 	}
-	// },
-	// watch: {
-	// 	imgSrc_: function (value) {
-	// 		if (value) {
-	// 		this.imgSrc = this.imgSrc_;
-	// 		this.$emit('onLoadFile', this.imgSrc_); //опракидываем загруженный файл выше в компонет
-	// 		}
-	// 	}
-	// },
+	mounted() { console.log('mounted')
+		if (this.imgSrc_) {
+			this.imgSrc = this.imgSrc_;
+			this.$emit('onLoadImg', this.imgSrc_); //опракидываем загруженный файл выше в компонет
+		}
+	},
+	watch: {
+		imgSrc_: function (value) { console.log('watch', value)
+			this.imgSrc = this.imgSrc_;
+			this.$emit('onLoadImg', this.imgSrc_); //опракидываем загруженный файл выше в компонет
+		}
+	},
 	methods: {
 		onChange(e) {
 			//проверка на загрузку файла
@@ -81,6 +79,7 @@ export default {
 
 				this.imgSrc = fr.result;
 				this.$emit('onLoadFile', f); //опракидываем загруженный файл выше в компонет
+				this.$emit('onLoadImg', fr.result); //опракидываем загруженный картинку выше в компонет
 
 
 				// console.log('this.imgSrc :',this.imgSrc)

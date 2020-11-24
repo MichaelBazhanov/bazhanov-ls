@@ -44,7 +44,6 @@ export default {
 				// formData.append(`${el}`,`${work[el]}`)//почему это не работает (${work[el]} странный обьект)
 				// console.log(`${el}`,`${work[el]}`)
 				formData.append(el, work[el])
-				// console.log(el, work[el])
 			})
 
 			// test
@@ -54,7 +53,6 @@ export default {
 
 			try {
 				const response = await this.$axios.post('/works', formData)
-				console.log(response)
 
 				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
 				response.data.photo =  this.$axios.defaults.baseURL+'/'+response.data.photo
@@ -66,24 +64,19 @@ export default {
 			}
 		},
 		async edit(store, work){
-			// console.log('work:', work)//давай попробуем урезать обьект
-			// let obj = {//РЕЖИМ ВХОДЯЩИЙ ОБЪЕКТ
-			// 	title: work.title,
-			// 	techs: work.techs,
-			// 	photo: work.photo,
-			// 	link: work.link,
-			// 	description: work.description,
-			// }
-			// console.log('obj :',obj)
+			const formData = new FormData();
+			Object.keys(work).forEach(el => {
+				// formData.append(`${el}`,`${work[el]}`)//почему это не работает (${work[el]} странный обьект)
+				// console.log(`${el}`,`${work[el]}`)
+				formData.append(el, work[el])
+			})
+
 			try {
-				let {data} = await this.$axios.post(`/works/${work.id}`, work); //не передаём внутрь параметры и никакой ответ не получаем
-				// console.log('data:', data)
+				let {data} = await this.$axios.post(`/works/${work.id}`, formData); //не передаём внутрь параметры и никакой ответ не получаем
 
 				// //данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
-				// // console.log(work.photo)
 				work.photo = this.$axios.defaults.baseURL+'/'+data.work.photo;
-				// console.log('work.photo:', work.photo)
-				// console.log('work:', work)
+
 				store.commit("EDIT_WORK", work);// вызываем мутацию у другого модуля и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)

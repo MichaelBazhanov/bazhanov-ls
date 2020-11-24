@@ -2,7 +2,8 @@ import dnd from "./dnd.vue";
 import { action } from "@storybook/addon-actions";//ловим $emit
 
 const methods = {
-	onChange: action('onLoadFile_up')
+	onChangeFile: action('onLoadFile_up'),
+	onChangeImg: action('onLoadImg_up'),
 }
 
 export default {
@@ -14,7 +15,8 @@ export const defaultView = () => ({
 	components: { dnd },
 	template: `
 		<dnd
-		@onLoadFile='onChange'
+		@onLoadFile='onChangeFile'
+		@onChangeImg='onChangeFile'
 		/>
 	`,
 	methods
@@ -28,7 +30,8 @@ export const viewImgSrc = () => ({
 	components: { dnd },
 	template: `
 		<dnd
-		@onLoadFile='onChange'
+		@onLoadFile='onChangeFile'
+		@onChangeImg='onChangeImg'
 		:imgSrc_="'https://picsum.photos/300/300'"
 		/>
 	`,

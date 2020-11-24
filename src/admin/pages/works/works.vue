@@ -14,7 +14,11 @@
 					>
 						<div slot="content" class="work">
 							<div class="work-item">
-								<dnd @onLoadFile='work.photo = $event' :imgSrc_="work.photo"/>
+								<dnd
+									:imgSrc_="work.photo"
+									@onLoadFile='file = $event'
+									@onLoadImg='work.photo = $event'
+								/>
 								<!-- <dnd @onLoadFile='work.photo = $event' /> -->
 							</div>
 							<div class="work-item">
@@ -54,7 +58,8 @@
 								<!-- <img class="item-img" :src="`${baseURLGetter}/${work.photo}`" :alt="work.photo"> -->
 
 								<div class="item-tags">
-									<tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" />
+									<!-- <tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" /> -->
+									<tag v-for="(item, idx) in currentTechs" :key="idx" :title="item" class="tipography-works" />
 								</div>
 							</div>
 							<div class="item-wrap">
@@ -111,6 +116,7 @@ export default {
 	},
 	data() {
 		return {
+			file: {},
 			editNewWork: false,
 			editOldWork: false,
 			work: {
@@ -123,12 +129,15 @@ export default {
 		};
 	},
 	created() {
-		this.fetchWorksAction();
+		this.fetchWorksAction();//vuex-action
 	},
 	computed: {
 		...mapState("works", {
 			works: state => state.data
 		}),
+		currentTechs() {
+			return this.work.techs.split(', ')
+		}
 
 		// workPic() {//реальная картинка через JavaScript !!!
 		// 	return require("../../../images/content/slider-0.jpg").default
@@ -142,34 +151,41 @@ export default {
 			editWorkAction: "works/edit",
 			removeWorkAction: "works/remove",
 		}),
-		workYes() {
+		async workYes() {
 			console.log('workYes')
+
 			if (this.editNewWork) {
 				this.editNewWork = false;
-				this.addWorkAction(this.work);//vuex-action
-			}
-			if (this.editOldWork) {
-				this.editOldWork = false;
-				this.editWorkAction(this.work);//vuex-action
+				await this.addWorkAction({
+					...this.work,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
 			}
 
-			//очищаем work все поля
-			Object.keys(this.work).forEach(e => this.work[e] = '')
+			if (this.editOldWork) {
+				this.editOldWork = false;
+				await this.editWorkAction({
+					...this.work,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
+			}
+
+			this.claerCurrentWork()//methods
 		},
 		workNo() {
 			console.log('workNo')
 			this.editNewWork = false;
 			this.editOldWork = false;
+			this.file = {}
 
-			//очищаем work все поля
-			Object.keys(this.work).forEach(e => this.work[e] = '')
+			this.claerCurrentWork()//methods
 		},
 		addWork() {
 			this.editNewWork = true;
 
-			//очищаем work все поля
-			// Object.keys(this.work).forEach(e => this.work[e] = '')
-			// this.work = {}
+			this.claerCurrentWork()//methods
 		},
 		editWork(work) {//редактирование work
 			this.editOldWork = true;
@@ -181,12 +197,14 @@ export default {
 			this.editNewWork = false;
 			this.editOldWork = false;
 
-			this.removeWorkAction(work)
+			this.removeWorkAction(work)//vuex-action
 
+			this.claerCurrentWork()//methods
+		},
+		claerCurrentWork() {
 			//очищаем work все поля
 			Object.keys(this.work).forEach(e => this.work[e] = '')
-		},
-
+		}
 
 	},
 
