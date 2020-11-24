@@ -15,10 +15,12 @@
 			</template>
 		</div>
 		<appButton v-if="imgSrc" class="work-img-change" title="Изменить превью" plain accept typeAttr="fileWork" @change="onChange" />
+
 		<hr>
-		<pre>{{imgSrc_}}</pre>
-		<pre>{{imgSrc}}</pre>
+		<pre>{{`imgSrc_ : ${imgSrc_}`}}</pre>
+		<pre>{{`imgSrc  : ${imgSrc}`}}</pre>
 		<hr>
+
 	</div>
 </template>
 
@@ -37,10 +39,24 @@ export default {
 	},
 	data() {
 		return {
-			imgSrc: this.imgSrc_,
+			imgSrc: '',
 			highlight: false,
 		}
 	},
+	// mounted() {
+	// 	if (this.imgSrc_) {
+	// 		this.imgSrc = this.imgSrc_;
+	// 		this.$emit('onLoadFile', this.imgSrc_); //опракидываем загруженный файл выше в компонет
+	// 	}
+	// },
+	// watch: {
+	// 	imgSrc_: function (value) {
+	// 		if (value) {
+	// 		this.imgSrc = this.imgSrc_;
+	// 		this.$emit('onLoadFile', this.imgSrc_); //опракидываем загруженный файл выше в компонет
+	// 		}
+	// 	}
+	// },
 	methods: {
 		onChange(e) {
 			//проверка на загрузку файла
@@ -61,12 +77,15 @@ export default {
 			let fr = new FileReader(); //создаем обьект длч чтения этого файла (API браузера)
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
 			fr.onload = e => {
+
+
 				this.imgSrc = fr.result;
-
-				console.log('this.imgSrc :',this.imgSrc)
-				console.log('this.imgSrc_ :',this.imgSrc_)
-
 				this.$emit('onLoadFile', f); //опракидываем загруженный файл выше в компонет
+
+
+				// console.log('this.imgSrc :',this.imgSrc)
+				// console.log('this.imgSrc_ :',this.imgSrc_)
+
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
 			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
