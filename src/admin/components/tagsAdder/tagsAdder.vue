@@ -31,6 +31,13 @@ export default {
 			currentTags: this.tags
 		}
 	},
+	watch:{
+		//этот вач нужен для того что бы currentTags принимал значение входящих параметров всегда ибо
+		//без него первая отрисовка помпонента сработает хорошо а последующий нет
+		tags(value) {
+			this.currentTags = value
+		}
+	},
 	props: {
 		tags: {
 			type: String,
@@ -47,8 +54,10 @@ export default {
 	},
 	computed: {
 		tagsArray() {//превращаем строку в массив
+			// console.log('this.tags        ',this.tags)
+			// console.log('this.currentTags ',this.currentTags)
 			return this.currentTags.trim().split(', ');
-		}
+		},
 	},
 	methods: {
 		removeTag(tag) {

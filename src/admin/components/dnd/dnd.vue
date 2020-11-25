@@ -16,10 +16,10 @@
 		</div>
 		<appButton v-if="imgSrc" class="work-img-change" title="Изменить превью" plain accept typeAttr="fileWork" @change="onChange" />
 
-		<hr>
+		<!-- <hr>
 		<pre>{{`imgSrc_ : ${imgSrc_}`}}</pre>
 		<pre>{{`imgSrc  : ${imgSrc}`}}</pre>
-		<hr>
+		<hr> -->
 
 	</div>
 </template>
@@ -43,14 +43,14 @@ export default {
 			highlight: false,
 		}
 	},
-	mounted() { console.log('mounted')
+	mounted() {
 		if (this.imgSrc_) {
 			this.imgSrc = this.imgSrc_;
 			this.$emit('onLoadImg', this.imgSrc_); //опракидываем загруженный файл выше в компонет
 		}
 	},
 	watch: {
-		imgSrc_: function (value) { console.log('watch', value)
+		imgSrc_: function (value) {
 			this.imgSrc = this.imgSrc_;
 			this.$emit('onLoadImg', this.imgSrc_); //опракидываем загруженный файл выше в компонет
 		}

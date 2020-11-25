@@ -19,14 +19,13 @@
 									@onLoadFile='file = $event'
 									@onLoadImg='work.photo = $event'
 								/>
-								<!-- <dnd @onLoadFile='work.photo = $event' /> -->
 							</div>
 							<div class="work-item">
 								<div class="work-text">
 									<app-input v-model="work.title" title="Название" class="work-inp"/>
 									<app-input v-model="work.link" title="Ссылка" class="work-inp"/>
 									<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"/>
-									<tagsAdder v-model="work.techs"/>
+									<tagsAdder v-model="work.techs" />
 									<div class="work-btns">
 										<appButton title="Отмена" plain @click="workNo" />
 										<appButton title="СОХРАНИТЬ" @click="workYes" />
@@ -47,7 +46,6 @@
 								title="Добавить работу"
 								@click="addWork"
 							/>
-								<!-- @click="edit = true, work = {}" -->
 						</div>
 					</div>
 
@@ -58,8 +56,7 @@
 								<!-- <img class="item-img" :src="`${baseURLGetter}/${work.photo}`" :alt="work.photo"> -->
 
 								<div class="item-tags">
-									<!-- <tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" /> -->
-									<tag v-for="(item, idx) in currentTechs" :key="idx" :title="item" class="tipography-works" />
+									<tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" />
 								</div>
 							</div>
 							<div class="item-wrap">
@@ -189,6 +186,7 @@ export default {
 		},
 		editWork(work) {//редактирование work
 			this.editOldWork = true;
+			// this.work = work
 			this.work = {
 				...work,
 			}//отображаем как ТЕКУЩИЙ work
