@@ -18,6 +18,7 @@
 									:imgSrc_="work.photo"
 									@onLoadFile='file = $event'
 									@onLoadImg='work.photo = $event'
+									work
 								/>
 							</div>
 							<div class="work-item">
@@ -35,8 +36,6 @@
 						</div>
 					</card>
 				</div>
-
-				<!-- <pre>{{works}}</pre> -->
 
 				<div class="works">
 					<div class="works-wrap">
@@ -76,9 +75,6 @@
 
 			</div>
 
-			<!-- <div class="container" v-if="!categories.length && emptyCatIsShow === false">
-				Нет данных
-			</div> -->
 		</div>
 	</div>
 </template>
@@ -132,10 +128,6 @@ export default {
 		...mapState("works", {
 			works: state => state.data
 		}),
-		currentTechs() {
-			return this.work.techs.split(', ')
-		}
-
 		// workPic() {//реальная картинка через JavaScript !!!
 		// 	return require("../../../images/content/slider-0.jpg").default
 		// <img class="item-img" :src="workPic" alt="pic"> в HTML

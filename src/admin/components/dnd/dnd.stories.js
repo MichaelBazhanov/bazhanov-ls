@@ -17,6 +17,7 @@ export const defaultView = () => ({
 		<dnd
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeFile'
+		work
 		/>
 	`,
 	methods
@@ -33,6 +34,7 @@ export const viewImgSrc = () => ({
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeImg'
 		:imgSrc_="'https://picsum.photos/300/300'"
+		work
 		/>
 	`,
 	methods
@@ -41,3 +43,20 @@ export const viewImgSrc = () => ({
 viewImgSrc.story = {
 	name: "DND first img",
 };
+
+export const dndUserView = () => ({
+	components: { dnd },
+	template: `
+		<dnd
+		@onLoadFile='onChangeFile'
+		@onChangeImg='onChangeFile'
+		:imgSrc_="''"
+		user
+		/>
+	`,
+	methods
+});
+
+dndUserView.story = {
+	name: "DND User not dnd"
+}

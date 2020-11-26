@@ -4,56 +4,84 @@
 	width: 100%;
 	height: 100%;
 }
+.dnd-component_work {
 
-.work-img-load {
-	display: block;
-	background: #DEE4ED;
-	border: 1px dashed #A1A1A1;
-	box-sizing: border-box;
-	/* padding: 70px 0px; */
+	.dnd-img-load {
+		display: block;
+		background: #DEE4ED;
+		border: 1px dashed #A1A1A1;
+		box-sizing: border-box;
+		/* padding: 70px 0px; */
 
-	position: relative;
-	display: flex;
-	/* flex-wrap: wrap; */
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+		position: relative;
+		display: flex;
+		/* flex-wrap: wrap; */
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+
+		@include desktopHd {
+			height: 280px;
+		}
+		@include desktop {
+			height: 260px;
+		}
+		@include tablets {
+			height: 160px;
+		}
+		@include phones {
+			height: 160px;
+		}
+	}
+	.dnd-img-bottom {
+		margin-bottom: 40px;
+	}
+	.dnd-img-text {
+		margin-bottom: 40px;
+		width: 215px;
+	}
+	.dnd-img-change {
+		margin-bottom: 20px;
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	.dnd-img-bg {
+		height: 100%;
+		position: absolute;
+		object-fit: cover;
+	}
+	.highlight {
+		border-color: #3f35cb;
+		border-width: 5px;
+		box-sizing: border-box;
+		cursor: move;
+	}
+}
+
+//////////////////////////////////////////////
+.dnd-component_user {
 	box-sizing: border-box;
 
-	@include desktopHd {
-		height: 280px;
+	.dnd-img-load {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
-	@include desktop {
-		height: 260px;
+
+	.dnd-user {
+		width: 200px;
+		height: 200px;
+		background: #DEE4ED;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		object-fit: cover;
+		overflow: hidden;
 	}
-	@include tablets {
-		height: 160px;
-	}
-	@include phones {
-		height: 160px;
-	}
-}
-.work-img-bottom {
-	margin-bottom: 40px;
-}
-.img-text {
-	margin-bottom: 40px;
-	width: 215px;
-}
-.work-img-change {
-	margin-bottom: 20px;
-	width: 100%;
-	display: block;
-	text-align: center;
-}
-.img-bg {
-	height: 100%;
-	position: absolute;
-	object-fit: cover;
-}
-.highlight {
-	border-color: #3f35cb;
-	border-width: 5px;
-	box-sizing: border-box;
-	cursor: move;
+
 }
