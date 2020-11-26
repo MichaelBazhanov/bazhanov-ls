@@ -3,7 +3,6 @@
 
 		<div class="page-content">
 
-			<!-- <div class="container" v-if="categories.length"> -->
 			<div class="container">
 				<div class="header">
 					<div class="title">Блок "Отзывы"</div>
@@ -14,7 +13,7 @@
 						title="Новый отзыв"
 					>
 						<div slot="content" class="review">
-							<div class="review-item">
+							<div class="review-left review-item">
 								<dnd
 									:imgSrc_="review.photo"
 									@onLoadFile='file = $event'
@@ -22,18 +21,17 @@
 									user
 								/>
 							</div>
-							<!-- <div class="review-item">
-								<div class="review-text">
-									<app-input v-model="work.title" title="Название" class="review-inp"/>
-									<app-input v-model="work.link" title="Ссылка" class="review-inp"/>
-									<app-input v-model="work.description" title="Описание" fieldType="textarea" class="review-area"/>
-									<tagsAdder v-model="work.techs" />
+							<div class="review-right review-item">
+								<div class="review-inp-group">
+									<app-input v-model="review.author" title="Имя автора" class="review-inp"/>
+									<app-input v-model="review.occ" title="Титул автора" class="review-inp"/>
+								</div>
+									<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"/>
 									<div class="review-btns">
 										<appButton title="Отмена" plain @click="reviewNo" />
 										<appButton title="СОХРАНИТЬ" @click="reviewYes" />
 									</div>
-								</div>
-							</div> -->
+							</div>
 						</div>
 					</card>
 				</div>
@@ -52,7 +50,6 @@ import dnd from "../../components/dnd";
 import appButton from "../../components/button";
 import squareButton from "../../components/button/types/squareBtn";
 import appInput from "../../components/input";
-import tagsAdder from "../../components/tagsAdder";
 import linkA from "../../components/link";
 import icon from "../../components/icon";
 import tag from "../../components/tag";
@@ -63,7 +60,6 @@ export default {
 		card,
 		appButton,
 		appInput,
-		tagsAdder,
 		squareButton,
 		linkA,
 		icon,
