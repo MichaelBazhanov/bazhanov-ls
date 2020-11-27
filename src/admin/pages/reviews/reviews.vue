@@ -8,7 +8,7 @@
 					<div class="title">Блок "Отзывы"</div>
 				</div>
 
-				<div class="review-edit" v-if="editNewReviews || editOldReviews">
+				<div class="review-edit" v-if="editNewReview || editOldReview">
 					<card
 						title="Новый отзыв"
 					>
@@ -48,27 +48,29 @@
 					</div>
 
 					<div v-for="review in reviews" :key="review.id" class="reviews-wrap">
-						<div class="reviews-item">
-							<!-- <div class="tags-wrap">
-								<img class="item-img" :src="reviews.photo" :alt="reviews.photo">
 
-								<div class="item-tags">
-									<tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" />
+						<card class="reviews-item">
+
+							<div class="item-user" slot="title">
+								<!-- <avatar :size="3.4" src="https://picsum.photos/300/300" class="item-img"/> -->
+								<avatar :size="'3.4'" :src="review.photo"  class="item-img"/>
+
+								<div class="item-content">
+									<h2 class="item-author">{{review.author}}</h2>
+									<h4 class="item-occ">{{review.occ}}</h4>
 								</div>
-							</div> -->
-							<div class="item-user">
-								<img :src="review.photo" alt="">
-								<h2 class="item-title">{{review.author}}</h2>
-								<h2 class="item-title">{{review.occ}}</h2>
 							</div>
-							<div class="item-wrap">
+
+							<div class="item-wrap" slot="content">
 								<p class="item-text" >{{review.text}}</p>
 								<div class="item-btns">
 									<icon @click="editReview(review)" title="Править" symbol="pencil" />
 									<icon @click="deleteReview(review)" title="Удалить" symbol="cross" />
 								</div>
 							</div>
-						</div>
+
+						</card>
+
 					</div>
 				</div>
 
@@ -87,6 +89,9 @@ import appButton from "../../components/button";
 import squareButton from "../../components/button/types/squareBtn";
 import appInput from "../../components/input";
 import icon from "../../components/icon";
+import avatar from "../../components/avatar";
+
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
 	//локальная регисрация компонента
@@ -97,17 +102,21 @@ export default {
 		squareButton,
 		icon,
 		dnd,
+		avatar,
+	},
+	created() {
+		this.fetchReviewsAction();//vuex-action
 	},
 	computed: {
-		reviews() {
-			return [1,2,3]
-		}
+		...mapState("reviews", {
+			reviews: state => state.data
+		}),
 	},
 	data() {
 		return {
 			file: {},
-			editNewReviews: true,
-			editOldReviews: false,
+			editNewReview: false,
+			editOldReview: false,
 			review: {
 				photo: '',
 				author: '',
@@ -117,17 +126,68 @@ export default {
 		};
 	},
 	methods: {
+		...mapActions({
+			fetchReviewsAction: "reviews/fetch",
+			addReviewAction: "reviews/add",
+			editReviewAction: "reviews/edit",
+			removeReviewAction: "reviews/remove",
+		}),
+		async reviewYes() {
+			console.log('reviewYes');
+
+			if (this.editNewReview) {
+				this.editNewReview = false;
+				await this.addReviewAction({
+					...this.review,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
+			}
+
+			if (this.editOldReview) {
+				this.editOldReview = false;
+				await this.editReviewAction({
+					...this.review,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
+			}
+
+			this.clearCurrentReview()//methods
+		},
 		reviewNo() {
 			console.log('reviewNo');
+			this.editNewReview = false;
+			this.editOldReview = false;
+			this.file = {}
+
+			this.clearCurrentReview()//methods
 		},
-		reviewYes() {
-			console.log('reviewYes');
+		addReview() {
+			this.editNewReview = true;
+
+			this.clearCurrentReview()//methods
+		},
+		editReview(review) {
+			this.editOldReview = true;
+			this.review = {
+				...review,
+			}//отображаем как ТЕКУЩИЙ review
+		},
+		deleteReview(review) {
+			this.editNewReview = false;
+			this.editOldReview = false;
+
+			this.removeReviewAction(review)//vuex-action
+
+			this.clearCurrentReview()//methods
 		},
 		onLoadFile() {},
 		onLoadImg() {},
-		addReview() {},
-		editReview() {},
-		deleteReview() {},
+		clearCurrentReview() {
+			//очищаем review все поля
+			Object.keys(this.review).forEach(e => this.review[e] = '')
+		}
 	}
 
 };
