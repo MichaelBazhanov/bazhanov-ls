@@ -4,74 +4,72 @@
 	width: 100%;
 	height: 100%;
 }
-.dnd-component_work {
 
-	.dnd-img-load {
-		display: block;
-		background: #DEE4ED;
-		border: 1px dashed #A1A1A1;
-		box-sizing: border-box;
-		/* padding: 70px 0px; */
+.dnd-img-load {
+	display: block;
+	background: #DEE4ED;
+	border: 1px dashed #A1A1A1;
+	box-sizing: border-box;
+	/* padding: 70px 0px; */
 
-		position: relative;
-		display: flex;
-		/* flex-wrap: wrap; */
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		box-sizing: border-box;
+	position: relative;
+	display: flex;
+	/* flex-wrap: wrap; */
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
 
-		@include desktopHd {
-			height: 280px;
-		}
-		@include desktop {
-			height: 260px;
-		}
-		@include tablets {
-			height: 160px;
-		}
-		@include phones {
-			height: 160px;
-		}
+	@include desktopHd {
+		height: 280px;
 	}
-	.dnd-img-bottom {
-		margin-bottom: 40px;
+	@include desktop {
+		height: 260px;
 	}
-	.dnd-img-text {
-		margin-bottom: 40px;
-		width: 215px;
+	@include tablets {
+		height: 160px;
 	}
-	.dnd-img-change {
-		margin-bottom: 20px;
-		width: 100%;
-		display: block;
-		text-align: center;
+	@include phones {
+		height: 160px;
 	}
-	.dnd-img-bg {
-		height: 100%;
-		position: absolute;
-		object-fit: cover;
-	}
-	.highlight {
-		border-color: #3f35cb;
-		border-width: 5px;
-		box-sizing: border-box;
-		cursor: move;
-	}
+}
+.dnd-img-bottom {
+	margin-bottom: 40px;
+}
+.dnd-img-text {
+	margin-bottom: 40px;
+	width: 215px;
+}
+.dnd-img-change {
+	margin-bottom: 20px;
+	width: 100%;
+	display: block;
+	text-align: center;
+}
+.dnd-img-bg {
+	height: 100%;
+	position: absolute;
+	object-fit: cover;
+}
+.highlight {
+	border-color: #3f35cb;
+	border-width: 5px;
+	box-sizing: border-box;
+	cursor: move;
 }
 
 //////////////////////////////////////////////
-.dnd-component_user {
+.not_dnd {
 	box-sizing: border-box;
 
-	.dnd-img-load {
+	.img-load {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 
-	.dnd-user {
+	.user {
 		width: 200px;
 		height: 200px;
 		background: #DEE4ED;

@@ -18,7 +18,6 @@
 									:imgSrc_="work.photo"
 									@onLoadFile='file = $event'
 									@onLoadImg='work.photo = $event'
-									work
 								/>
 							</div>
 							<div class="work-item">

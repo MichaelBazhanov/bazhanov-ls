@@ -18,7 +18,7 @@
 									:imgSrc_="review.photo"
 									@onLoadFile='file = $event'
 									@onLoadImg='review.photo = $event'
-									user
+									not_dnd
 								/>
 							</div>
 							<div class="review-right review-item">
@@ -36,6 +36,42 @@
 					</card>
 				</div>
 
+				<div class="reviews">
+					<div class="reviews-wrap">
+						<div class="reviews-item">
+							<squareButton
+								type="square"
+								title="Добавить работу"
+								@click="addReview"
+							/>
+						</div>
+					</div>
+
+					<div v-for="review in reviews" :key="review.id" class="reviews-wrap">
+						<div class="reviews-item">
+							<!-- <div class="tags-wrap">
+								<img class="item-img" :src="reviews.photo" :alt="reviews.photo">
+
+								<div class="item-tags">
+									<tag v-for="(item, idx) in work.techs.split(', ')" :key="idx" :title="item" class="tipography-works" />
+								</div>
+							</div> -->
+							<div class="item-user">
+								<img :src="review.photo" alt="">
+								<h2 class="item-title">{{review.author}}</h2>
+								<h2 class="item-title">{{review.occ}}</h2>
+							</div>
+							<div class="item-wrap">
+								<p class="item-text" >{{review.text}}</p>
+								<div class="item-btns">
+									<icon @click="editReview(review)" title="Править" symbol="pencil" />
+									<icon @click="deleteReview(review)" title="Удалить" symbol="cross" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 
 		</div>
@@ -50,9 +86,7 @@ import dnd from "../../components/dnd";
 import appButton from "../../components/button";
 import squareButton from "../../components/button/types/squareBtn";
 import appInput from "../../components/input";
-import linkA from "../../components/link";
 import icon from "../../components/icon";
-import tag from "../../components/tag";
 
 export default {
 	//локальная регисрация компонента
@@ -61,10 +95,13 @@ export default {
 		appButton,
 		appInput,
 		squareButton,
-		linkA,
 		icon,
-		tag,
 		dnd,
+	},
+	computed: {
+		reviews() {
+			return [1,2,3]
+		}
 	},
 	data() {
 		return {
@@ -88,6 +125,9 @@ export default {
 		},
 		onLoadFile() {},
 		onLoadImg() {},
+		addReview() {},
+		editReview() {},
+		deleteReview() {},
 	}
 
 };

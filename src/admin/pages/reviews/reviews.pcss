@@ -138,3 +138,73 @@
 	margin-top: 20px;
 }
 //////////////////////////////
+.reviews {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -14px;
+	margin-right: -14px;
+	@include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+	}
+	@include phones {
+		margin-left: -38px;
+		margin-right: -38px;
+	}
+}
+.reviews-wrap {
+	padding-left: 14px;
+	padding-right: 14px;
+	width: calc(100 /3)%;
+	margin-bottom: 28px;
+
+	@include desktopHd {
+	}
+	@include desktop {
+		width: calc(100 /2)%;
+	}
+	@include tablets {
+		width: 100%;
+	}
+	@include phones {
+
+	}
+}
+.reviews-item {
+	height: 100%;
+	box-shadow: 4.1px 2.9px 20px 0 rgba(0, 0, 0, 0.07);
+}
+.item-wrap {
+	padding: 35px 25px;
+}
+.item-img {
+	height: 190px;
+	object-fit: cover;
+	width: 100%;
+}
+.item-title {
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 25px;
+}
+.item-text {
+	margin-top: 12px;
+	width: 100%;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 30px;
+	color: rgba(65, 76, 99, 0.5);
+	display: block;
+}
+.item-link {
+	display: block;
+	margin-top: 26px;
+}
+.item-btns {
+	margin-top: 40px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

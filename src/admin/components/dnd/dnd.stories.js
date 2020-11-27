@@ -17,7 +17,6 @@ export const defaultView = () => ({
 		<dnd
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeFile'
-		work
 		/>
 	`,
 	methods
@@ -34,7 +33,6 @@ export const viewImgSrc = () => ({
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeImg'
 		:imgSrc_="'https://picsum.photos/300/300'"
-		work
 		/>
 	`,
 	methods
@@ -51,7 +49,7 @@ export const dndUserView = () => ({
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeFile'
 		:imgSrc_="''"
-		user
+		not_dnd
 		/>
 	`,
 	methods

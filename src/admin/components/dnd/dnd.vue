@@ -1,13 +1,13 @@
 <template>
 	<div
-		v-if="user"
-		:class="['dnd-component', {'dnd-component_user':user}]"
+		v-if="not_dnd"
+		:class="['dnd-component', {not_dnd}]"
 		>
 
 		<!-- cерый экран юзера-->
-		<div :class="['dnd-img-load' ]" >
+		<div :class="['img-load' ]" >
 			<template v-if="!imgSrc">
-				<div class="dnd-user">
+				<div class="user">
 					<svg width="91" height="99" viewBox="0 0 91 99" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g clip-path="url(#clip0)">
 							<path d="M45.1702 53.344C45.2644 53.344 45.3586 53.344 45.4717 53.344C45.5094 53.344 45.5471 53.344 45.5848 53.344C45.6413 53.344 45.7167 53.344 45.7732 53.344C51.2946 53.2415 55.7608 51.1298 59.0586 47.0911C66.3137 38.1936 65.1077 22.9408 64.9757 21.4852C64.5046 10.5581 59.7558 5.3303 55.8362 2.89066C52.9153 1.06606 49.5044 0.0820046 45.6978 0H45.5659C45.5471 0 45.5094 0 45.4905 0H45.3775C43.2857 0 39.1776 0.369021 35.2391 2.80866C31.2818 5.24829 26.4576 10.4761 25.9865 21.4852C25.8546 22.9408 24.6485 38.1936 31.9037 47.0911C35.1826 51.1298 39.6487 53.2415 45.1702 53.344ZM31.018 21.9977C31.018 21.9362 31.0368 21.8747 31.0368 21.8337C31.6587 7.1344 41.2505 5.55581 45.3586 5.55581H45.434C45.4717 5.55581 45.5282 5.55581 45.5848 5.55581C50.6728 5.67882 59.3224 7.93394 59.9066 21.8337C59.9066 21.8952 59.9066 21.9567 59.9254 21.9977C59.9443 22.1412 61.2634 36.082 55.2708 43.4214C52.8964 46.3326 49.7306 47.7677 45.5659 47.8087C45.5282 47.8087 45.5094 47.8087 45.4717 47.8087C45.434 47.8087 45.4152 47.8087 45.3775 47.8087C41.2317 47.7677 38.047 46.3326 35.6914 43.4214C29.7177 36.123 30.9991 22.1207 31.018 21.9977Z" fill="white"/>
@@ -23,7 +23,7 @@
 				<appButton title="Добавить фото" plain accept typeAttr="fileWork" @change="onChange" />
 			</template>
 			<template v-else>
-				<div class="dnd-user">
+				<div class="user">
 					<img :src="imgSrc" alt="pic">
 				</div>
 				<appButton title="Изменить фото" plain accept typeAttr="fileWork" @change="onChange" />
@@ -38,7 +38,7 @@
 	</div>
 	<div
 		v-else
-		:class="['dnd-component', {'dnd-component_work':work}]"
+		:class="['dnd-component']"
 		@dragenter.stop.prevent='dragenter()'
 		@dragover.stop.prevent='dragover()'
 		@dragleave.stop.prevent='dragleave()'
@@ -74,8 +74,7 @@ export default {
 			type: [String],
 			default: ''
 		},
-		work: Boolean,
-		user: Boolean,
+		not_dnd: Boolean,
 	},
 	data() {
 		return {
