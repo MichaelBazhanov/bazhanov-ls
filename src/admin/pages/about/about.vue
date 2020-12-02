@@ -13,27 +13,29 @@
 				<card
 					title="Редактирование данных"
 				>
-					<div slot="content" class="about">
-						<div class="about-left about-item">
-							<dnd
-								:imgSrc_="about.photo"
-								@onLoadFile='file = $event'
-								@onLoadImg='about.photo = $event'
-							/>
-						</div>
-						<div class="about-right about-item">
-								<app-input v-model="about.name" title="Имя и Фамилия" class="about-inp"/>
-								<app-input v-model="about.description" title="Коротко о себе" fieldType="textarea" class="about-area"/>
+					<div v-for="about in abouts" :key="about.id" slot="content" class="about">
 
-								<app-input v-model="about.city" title="Проживаю" class="about-inp"/>
-								<app-input v-model="about.age" title="Возраст" class="about-inp"/>
-								<app-input v-model="about.birthday" title="Родился" class="about-inp"/>
+							<div class="about-left about-item">
+								<dnd
+									:imgSrc_="about.photo"
+									@onLoadFile='file = $event'
+									@onLoadImg='about.photo = $event'
+								/>
+							</div>
+							<div class="about-right about-item">
+									<app-input v-model="about.name" title="Имя и Фамилия" class="about-inp"/>
+									<app-input v-model="about.description" title="Коротко о себе" fieldType="textarea" class="about-area"/>
 
-								<div class="about-btns">
-									<appButton title="Отмена" plain @click="aboutNo" />
-									<appButton title="СОХРАНИТЬ" @click="aboutYes" />
-								</div>
-						</div>
+									<app-input v-model="about.city" title="Проживаю" class="about-inp"/>
+									<app-input v-model="about.age" title="Возраст" class="about-inp"/>
+									<app-input v-model="about.birthday" title="Родился" class="about-inp"/>
+
+									<div class="about-btns">
+										<appButton title="Отмена" plain @click="aboutNo" />
+										<appButton title="СОХРАНИТЬ" @click="aboutYes(about)" />
+									</div>
+							</div>
+
 					</div>
 				</card>
 				</div>
@@ -52,6 +54,8 @@ import dnd from "../../components/dnd";
 import appButton from "../../components/button";
 import appInput from "../../components/input";
 
+import { mapState, mapActions, mapGetters} from 'vuex'
+
 export default {
 	//локальная регисрация компонента
 	components: {
@@ -64,6 +68,7 @@ export default {
 		return {
 			file: {},
 			about: {
+				id: '',
 				photo: '',
 				age: '',
 				city: '',
@@ -74,9 +79,31 @@ export default {
 		};
 	},
 	methods: {
-		aboutNo() {},
-		aboutYes() {},
-	}
+		...mapActions({
+			fetchAboutsAction: "abouts/fetch",
+			edithAboutsAction: "abouts/edit",
+		}),
+		aboutNo() { //это сделагно в учебных целях
+			this.fetchAboutsAction();//vuex-action
+			this.file = {}
+		},
+		aboutYes(about) { //это сделагно в учебных целях
+				this.edithAboutsAction({
+					...this.about,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
+		},
+	},
+	computed: {
+		...mapState('abouts', {
+			abouts: state => state.data
+		}),
+
+	},
+	created() {
+		this.fetchAboutsAction();//vuex-action
+	},
 
 };
 </script>
