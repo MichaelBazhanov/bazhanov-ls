@@ -72,10 +72,17 @@ export default {
 			try {
 				// console.log('Валидация прошла успешно! Запрос отправлен!');
 				const response = await $axios.post("/login", this.user);
-
 				const token = response.data.token;
 				localStorage.setItem('token', token);
 				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+				//сохранить данные пользователя
+				const user = await $axios.get("/user");
+				console.log(user)
+				localStorage.setItem('user_id',  user.data.user.id);
+				localStorage.setItem('user_name', user.data.user.name);
+
+				//и если все хорошо делам рероутинг на стр по умолчанию
 				this.$router.replace('/')
 			} catch (error) {
 				this.showTooltip({

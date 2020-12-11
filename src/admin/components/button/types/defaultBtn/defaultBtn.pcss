@@ -1,3 +1,5 @@
+@import "../../../../../styles/mixins.pcss";
+
 .btn-file-container {
   overflow: hidden;
   position: relative;
@@ -10,7 +12,7 @@
 }
 
 .btn-decorator {
-  padding: 19px 40px;
+  padding: 14px 40px;
   color: #fff;
   text-transform: uppercase;
   background: linear-gradient(to right, #006aed, #3f35cb) center center;
@@ -29,5 +31,15 @@
     text-transform: initial;
     color: $links-color;
     background: transparent;
+    @include desktopHd {
+    }
+    @include desktop {
+    }
+    @include tablets {
+    }
+    @include phones {
+    padding: 14px 20px;
+
+    }
   }
 }

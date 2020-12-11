@@ -24,15 +24,16 @@
 <script>
 //создаем обьект данных для навигации
 const links = [
-	{id: '0', title: 'Обо мне', alias: 'about', active: false, },
-	{id: '1', title: 'Работы', alias: 'works', active: true,},
-	{id: '2', title: 'Отзывы', alias: 'reviews', active: false,},
+	{id: '0', title: 'Обо мне', alias: 'about', active: true, },
+	{id: '1', title: 'Навыки', alias: 'values', active: false,},
+	{id: '2', title: 'Работы', alias: 'works', active: false,},
+	{id: '3', title: 'Отзывы', alias: 'reviews', active: false,},
 ];
 export default {
 	data() {
 		return {
 			links,
-			currentActive: "works",
+			currentActive: "about",
 		}
 	},
 	methods: {

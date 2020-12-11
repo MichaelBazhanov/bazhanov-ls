@@ -3,42 +3,45 @@
 
 		<div class="page-content">
 
-			<div class="container" v-if="categories.length">
-
+			<!-- <div class="container" v-if="categories.length"> -->
+			<div class="container">
 				<div class="header">
 					<div class="title">Блок "Обо мне"</div>
-					<iconed-button
-						type="iconed"
-						title="Добавить группу"
-						v-if="emptyCatIsShow == false"
-						@click="emptyCatIsShow = true"
-						class="header-round-btn"
-					/>
 				</div>
-				<ul class="skills">
-					<li class="item" v-if="emptyCatIsShow">
-						<category
-							@approve="createCategory"
-							@remove="emptyCatIsShow = false"
-							empty
-						/>
-					</li>
-					<li class="item" v-for="category in categories" :key="category.id">
-						<category
-							:title="category.category"
-							:skills="category.skills"
-							@create-skill="createSkill($event, category.id)"
-							@remove-skill="removeSkill"
-							@edit-skill="editSkill"
-							@remove-category="removeCategory(category.id)"
-							@edit-category="editCategory($event, category)"
-						/>
-					</li>
-				</ul>
+
+				<div class="about-edit">
+				<card
+					title="Редактирование данных"
+				>
+					<div v-for="about in abouts" :key="about.id" slot="content" class="about">
+
+							<div class="about-left about-item">
+								<dnd
+									:imgSrc_="about.photo"
+									@onLoadFile='file = $event'
+									@onLoadImg='about.photo = $event'
+								/>
+							</div>
+							<div class="about-right about-item">
+									<app-input v-model="about.name" title="Имя и Фамилия" class="about-inp"/>
+									<app-input v-model="about.description" title="Коротко о себе" fieldType="textarea" class="about-area"/>
+
+									<app-input v-model="about.city" title="Проживаю" class="about-inp"/>
+									<app-input v-model="about.age" title="Возраст" class="about-inp"/>
+									<app-input v-model="about.birthday" title="Родился" class="about-inp"/>
+
+									<div class="about-btns">
+										<appButton title="Отмена" plain @click="aboutNo" />
+										<appButton title="СОХРАНИТЬ" @click="aboutYes(about)" />
+									</div>
+							</div>
+
+					</div>
+				</card>
+				</div>
+
 			</div>
-			<div class="container" v-else>
-				loading ...
-			</div>
+
 		</div>
 	</div>
 </template>
@@ -46,80 +49,62 @@
 
 <script>
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
-import button from "../../components/button"; //импорт компонента
-import category from "../../components/category"; //импорт компонента
-import { mapActions, mapState } from "vuex";
+import card from '../../components/Card';
+import dnd from "../../components/dnd";
+import appButton from "../../components/button";
+import appInput from "../../components/input";
+
+import { mapState, mapActions, mapGetters} from 'vuex'
 
 export default {
 	//локальная регисрация компонента
 	components: {
-		iconedButton: button,
-		category,
-		// headerPage: header,
+		card,
+		dnd,
+		appButton,
+		appInput,
 	},
 	data() {
 		return {
-			// categories: [], //перевод на vuex
-			emptyCatIsShow: false,
+			file: {},
+			about: {
+				id: '',
+				photo: '',
+				age: '',
+				city: '',
+				birthday: '',
+				name: '',
+				description: '',
+			}
 		};
-	},
-	created() {
-		this.fetchCategoryAction();
-		// this.categories = require("../../data/categories.json");  //перевод на vuex
-	},
-	computed: {
-		...mapState("categories",{
-			categories: state => state.data
-		})
 	},
 	methods: {
 		...mapActions({
-			createCategoryAction: "categories/create",
-			fetchCategoryAction: "categories/fetch",
-			removeCategoryAction: "categories/remove",
-			editCategoryAction: "categories/edit",
-			addSkillAction: "skills/add",
-			removeSkillAction: "skills/remove",
-			editSkillAction: "skills/edit",
+			fetchAboutsAction: "abouts/fetch",
+			edithAboutsAction: "abouts/edit",
 		}),
-		async createSkill(skill, categoryId) {
-			const newSkill = {
-				...skill,
-				category: categoryId
-			}
-			await this.addSkillAction(newSkill);
-
-			//сброс данных
-			skill.title = '';
-			skill.percent = '';
+		aboutNo() { //это сделагно в учебных целях
+			this.fetchAboutsAction();//vuex-action
+			this.file = {}
 		},
-		removeSkill(skill) {
-			this.removeSkillAction(skill);
+		aboutYes(about) { //это сделагно в учебных целях
+				this.edithAboutsAction({
+					...this.about,
+					photo: this.file
+				});//vuex-action
+				this.file = {}
 		},
-		async editSkill(skill) {
-			await this.editSkillAction(skill);
-			skill.editmode = false;
-		},
-		async createCategory(categoryTitle) {
-			try {
-				await this.createCategoryAction(categoryTitle);
-				this.emptyCatIsShow = false; //если все успешно то скрываем категорию
-			} catch (error) {
-				console.log(error.message)
-			}
-		},
-		removeCategory(categoryId) {
-			this.removeCategoryAction(categoryId);
-			console.log('remove -> about.vue', categoryId)
-		},
-		editCategory(categoryTitle, category) {
-			const newCategory = {
-				...category,
-				category: categoryTitle
-			}
-			this.editCategoryAction(newCategory);
-		}
 	},
+	computed: {
+		...mapState('abouts', {
+			abouts: state => state.data
+		}),
+
+	},
+	created() {
+		this.fetchAboutsAction();//vuex-action
+	},
+
 };
 </script>
 

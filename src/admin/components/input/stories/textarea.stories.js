@@ -1,4 +1,9 @@
 import appInput from "../input.vue";
+import { action } from "@storybook/addon-actions"
+
+const methods = {
+  onInput: action('onInput_up')
+}
 
 export default {
   title: "input/textarea",
@@ -7,9 +12,16 @@ export default {
 
 export const defaultView = () => ({
   components: { appInput },
+  data() {
+    return {
+      title : "Текст"
+    }
+  },
   template: `
-    <app-input fieldType="textarea" />
-  `,
+    <app-input fieldType="textarea" v-model="title" @input='onInput'/>
+    `,
+    // @input='onInput' - это не нужно чисто пример как на storybook всплывает v-model
+  methods
 });
 
 defaultView.story = {
@@ -30,9 +42,9 @@ labeledView.story = {
 export const errorView = () => ({
   components: { appInput },
   template: `
-    <app-input 
-      errorMessage="Ошибка" 
-      title="Заголовок" 
+    <app-input
+      errorMessage="Ошибка"
+      title="Заголовок"
       fieldType="textarea" />
   `,
 });

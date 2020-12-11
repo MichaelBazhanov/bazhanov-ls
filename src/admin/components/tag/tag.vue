@@ -29,7 +29,7 @@ export default {
       type: String,
       default: ""
     },
-    interactive: Boolean
+    interactive: Boolean,
   },
   components: {
     icon

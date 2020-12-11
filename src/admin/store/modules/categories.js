@@ -6,8 +6,8 @@ export default {
 	mutations: {
 		SET_CATEGORIES: (state, categories) => (state.data = categories ),
 		ADD_CATEGORIES: (state, category) => state.data.unshift(category),
-		REMOVE_CATEGORIES: (state, categoryId) => {
-			state.data = state.data.filter(category => category.id != categoryId)
+		REMOVE_CATEGORIES: (state, categoryTo) => {
+			state.data = state.data.filter(category => category.id != categoryTo.id)
 			//если имя в категории не равно имени пришедшему то проходит в результирующий массив
 		},
 		EDIT_CATEGORIES: (state, newCategory) => {
@@ -68,7 +68,8 @@ export default {
 		},
 		async fetch(store) {//получение всех категорий по id
 			try {
-				let response = await this.$axios.get('/categories/376' )
+				const user_id = localStorage.getItem('user_id');
+				let response = await this.$axios.get(`/categories/${user_id}` ) //376
 				console.log(response)
 				store.commit("SET_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 
@@ -76,10 +77,10 @@ export default {
 				console.dir(error)
 			}
 		},
-		async remove({commit}, categoryId){
+		async remove({commit}, category){
 			try {
-				const {data} = await this.$axios.delete(`/categories/${categoryId}`); //не передаём внутрь параметры и никакой ответ не получаем
-				commit("REMOVE_CATEGORIES", categoryId);// вызываем мутацию и отдаем туда данные вторым параметром
+				const {data} = await this.$axios.delete(`/categories/${category.id}`); //не передаём внутрь параметры и никакой ответ не получаем
+				commit("REMOVE_CATEGORIES", category);// вызываем мутацию и отдаем туда данные вторым параметром
 			} catch (error) {
 				throw new Error(error)
 			}
