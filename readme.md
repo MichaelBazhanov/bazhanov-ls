@@ -34,11 +34,5 @@ name: Bazhanov082020
 password: Bazhanov
 token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjM3NiwiaXNzIjoiaHR0cDovL3dlYmRldi1hcGkubG9mdHNjaG9vbC5jb20vbG9naW4iLCJpYXQiOjE1OTkxNDU0NTEsImV4cCI6MTU5OTE2MzQ1MSwibmJmIjoxNTk5MTQ1NDUxLCJqdGkiOiJ5VnIzd2l0a2pKek80UUZJIn0.OVMBkTxtd-q78s2YSU6oO_qwwS7l3SXgMdM-6gGHGVc
 ```
-Создание категории
-	data:
-	category: "111"
-	created_at: "2020-09-01 07:06:05"
-	id: 6977
-	updated_at: "2020-09-01 07:06:05"
-	user_id: 376
+
 
