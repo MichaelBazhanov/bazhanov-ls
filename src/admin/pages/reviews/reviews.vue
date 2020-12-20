@@ -8,33 +8,35 @@
 					<div class="title">Блок "Отзывы"</div>
 				</div>
 
-				<div class="review-edit" v-if="editNewReview || editOldReview">
-					<card
-						title="Новый отзыв"
-					>
-						<div slot="content" class="review">
-							<div class="review-left review-item">
-								<dnd
-									:imgSrc_="review.photo"
-									@onLoadFile='file = $event'
-									@onLoadImg='review.photo = $event'
-									not_dnd
-								/>
-							</div>
-							<div class="review-right review-item">
-								<div class="review-inp-group">
-									<app-input v-model="review.author" title="Имя автора" class="review-inp"/>
-									<app-input v-model="review.occ" title="Титул автора" class="review-inp"/>
+				<transition name="fade">
+					<div class="review-edit" v-if="editNewReview || editOldReview">
+						<card
+							title="Новый отзыв"
+						>
+							<div slot="content" class="review">
+								<div class="review-left review-item">
+									<dnd
+										:imgSrc_="review.photo"
+										@onLoadFile='file = $event'
+										@onLoadImg='review.photo = $event'
+										not_dnd
+									/>
 								</div>
-									<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"/>
-									<div class="review-btns">
-										<appButton title="Отмена" plain @click="reviewNo" />
-										<appButton title="СОХРАНИТЬ" @click="reviewYes" />
+								<div class="review-right review-item">
+									<div class="review-inp-group">
+										<app-input v-model="review.author" title="Имя автора" class="review-inp"/>
+										<app-input v-model="review.occ" title="Титул автора" class="review-inp"/>
 									</div>
+										<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"/>
+										<div class="review-btns">
+											<appButton title="Отмена" plain @click="reviewNo" />
+											<appButton title="СОХРАНИТЬ" @click="reviewYes" />
+										</div>
+								</div>
 							</div>
-						</div>
-					</card>
-				</div>
+						</card>
+					</div>
+				</transition>
 
 				<div class="reviews">
 					<div class="reviews-wrap">

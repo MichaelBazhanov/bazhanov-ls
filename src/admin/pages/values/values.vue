@@ -17,13 +17,15 @@
 				</div>
 
 				<ul class="skills">
-					<li class="item" v-if="emptyCatIsShow">
-						<category
-							@approve="createCategory"
-							@remove="emptyCatIsShow = false"
-							empty
-						/>
-					</li>
+					<transition name="fade">
+						<li class="item" v-if="emptyCatIsShow">
+								<category
+									@approve="createCategory"
+									@remove="emptyCatIsShow = false"
+									empty
+								/>
+						</li>
+					</transition>
 					<li class="item" v-for="category in categories" :key="category.id">
 						<category
 							:title="category.category"
