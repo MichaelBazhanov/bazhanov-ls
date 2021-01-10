@@ -10,13 +10,16 @@ if (token) {
 
 //перехватчик на ответ(есть на запрос перехватчик request)
 // use() этот обработчик выполнится до того как axios получит resolve
-axios.interceptors.response.use(
-	response => response,
-	async error => {
+axios.interceptors.response.use( //Добавить перехватчик ответа
+	response => response,          //Сделайте что-нибудь с данными ответа
+	async error => {               //Сделайте что-нибудь с ошибкой ответа
 		//сохраняем неудавшийся запрос
 		let originalRequest = error.config;
 
-		if (error.response.status == 401) {
+		// if (error.response.status == 400) { // 400 Bad Request - указывает, что сервер не смог понять запрос из-за недействительного синтаксиса.
+		// 	console.error('Ошибка авторизации пользователя')
+		// }
+		if (error.response.status == 401) { //401 Unauthorized - клиента указывает, что запрос не был применен, поскольку ему не хватает действительных учетных данных для целевого ресурса.
 
 			//получаем обновленный token
 			const response = await axios.post('/refreshToken');
