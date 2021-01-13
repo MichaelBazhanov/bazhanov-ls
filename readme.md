@@ -28,10 +28,15 @@ $ npm run имя_скрипта
 $ yarn имя_скрипта
 ```
 
-##### доступ к панели администрирования:
+#### Чтобы запустить shell скрипт для deploy:
 ```sh
-name: Bazhanov082020
-password: Bazhanov
+$ sh deploy.sh
+```
+
+##### Доступ к панели администрирования:
+```sh
+name: Bazhanov
+password: Bazhanov082020
 ```
 
 
