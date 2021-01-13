@@ -82,8 +82,9 @@ export default {
 				localStorage.setItem('user_id',  user.data.user.id);
 				localStorage.setItem('user_name', user.data.user.name);
 
-				//и если все хорошо делам рероутинг на стр по умолчанию
-				this.$router.replace('/')
+				//и если все хорошо делам рероутинг на страницу по умолчанию
+				this.$router.replace('/about')
+
 			} catch (error) {
 				this.showTooltip({
 					text: error.response.data.error,
