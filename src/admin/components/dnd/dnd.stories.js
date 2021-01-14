@@ -4,6 +4,7 @@ import { action } from "@storybook/addon-actions";//ловим $emit
 const methods = {
 	onChangeFile: action('onLoadFile_up'),
 	onChangeImg: action('onLoadImg_up'),
+	onError: action('onError_up'),
 }
 
 export default {
@@ -16,7 +17,8 @@ export const defaultView = () => ({
 	template: `
 		<dnd
 		@onLoadFile='onChangeFile'
-		@onChangeImg='onChangeFile'
+		@onChangeImg='onChangeImg'
+		@onError='onError'
 		/>
 	`,
 	methods
@@ -30,9 +32,10 @@ export const viewImgSrc = () => ({
 	components: { dnd },
 	template: `
 		<dnd
+		:imgSrc_="'https://picsum.photos/300/300'"
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeImg'
-		:imgSrc_="'https://picsum.photos/300/300'"
+		@onError='onError'
 		/>
 	`,
 	methods
@@ -46,10 +49,11 @@ export const dndUserView = () => ({
 	components: { dnd },
 	template: `
 		<dnd
-		@onLoadFile='onChangeFile'
-		@onChangeImg='onChangeFile'
 		:imgSrc_="''"
 		not_dnd
+		@onLoadFile='onChangeFile'
+		@onChangeImg='onChangeFile'
+		@onError='onError'
 		/>
 	`,
 	methods
