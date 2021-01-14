@@ -20,6 +20,8 @@
 									:imgSrc_="about.photo"
 									@onLoadFile='file = $event'
 									@onLoadImg='about.photo = $event'
+
+									@onError='onError($event)'
 								/>
 							</div>
 							<div class="about-right about-item">
@@ -80,6 +82,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchAboutsAction: "abouts/fetch",
 			edithAboutsAction: "abouts/edit",
 		}),
@@ -94,6 +97,12 @@ export default {
 				});//vuex-action
 				this.file = {}
 		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
+		}
 	},
 	computed: {
 		...mapState('abouts', {

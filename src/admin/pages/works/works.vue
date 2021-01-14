@@ -19,6 +19,8 @@
 										:imgSrc_="work.photo"
 										@onLoadFile='file = $event'
 										@onLoadImg='work.photo = $event'
+
+										@onError='onError($event)'
 									/>
 								</div>
 								<div class="work-item">
@@ -136,13 +138,14 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchWorksAction: "works/fetch",
 			addWorkAction: "works/add",
 			editWorkAction: "works/edit",
 			removeWorkAction: "works/remove",
 		}),
 		async workYes() {
-			console.log('workYes')
+			// console.log('workYes')
 
 			if (this.editNewWork) {
 				this.editNewWork = false;
@@ -165,7 +168,8 @@ export default {
 			this.claerCurrentWork()//methods
 		},
 		workNo() {
-			console.log('workNo')
+			// console.log('workNo')
+
 			this.editNewWork = false;
 			this.editOldWork = false;
 			this.file = {}
@@ -195,6 +199,12 @@ export default {
 		claerCurrentWork() {
 			//очищаем work все поля
 			Object.keys(this.work).forEach(e => this.work[e] = '')
+		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
 		}
 
 	},

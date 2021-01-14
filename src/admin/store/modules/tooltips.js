@@ -3,7 +3,7 @@ export default {
 	state: {
 		isShown: false, //отобразить или нет
 		text: '',
-		type: 'success'
+		type: 'success' // warning or error
 	},
 	mutations: {
 		SET_TOOLTIP: (state, tooltip) => {
@@ -13,7 +13,7 @@ export default {
 		}
 	},
 	actions: {
-		show({commit, dispatch}, tooltip) {
+		show({commit, dispatch}, tooltip) { //первый вызов show меняет isShown: true и туллтип показывается
 			let timeout = null;
 
 			commit("SET_TOOLTIP", {

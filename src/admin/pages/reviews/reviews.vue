@@ -20,6 +20,8 @@
 										@onLoadFile='file = $event'
 										@onLoadImg='review.photo = $event'
 										not_dnd
+
+										@onError='onError($event)'
 									/>
 								</div>
 								<div class="review-right review-item">
@@ -129,6 +131,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchReviewsAction: "reviews/fetch",
 			addReviewAction: "reviews/add",
 			editReviewAction: "reviews/edit",
@@ -189,6 +192,12 @@ export default {
 		clearCurrentReview() {
 			//очищаем review все поля
 			Object.keys(this.review).forEach(e => this.review[e] = '')
+		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
 		}
 	}
 
