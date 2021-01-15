@@ -39,10 +39,9 @@ export default {
 			}
 		},
 		async add(store, work) {
+			// new FormData() по умолчанию это <form enctype='multipart/form-data' >...</form> что бы обработать файл в input. Форма с перезагрузкой страницы.
 			const formData = new FormData();
 			Object.keys(work).forEach(el => {
-				// formData.append(`${el}`,`${work[el]}`)//почему это не работает (${work[el]} странный обьект)
-				// console.log(`${el}`,`${work[el]}`)
 				formData.append(el, work[el])
 			})
 
@@ -89,7 +88,7 @@ export default {
 			} catch {
 				throw new Error(error)
 			}
-		}
+		},
 	},
 }
 //РАБОТАЕТ С works.vue
