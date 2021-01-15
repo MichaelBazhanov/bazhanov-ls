@@ -133,16 +133,12 @@ export default {
 
 			}
 			fr.onerror = e => { //обработчик на ошибку загрузки файла (возникновение когда что то с файлом не так)
-				console.log('Ошибка загрузки файла!')
-				e.preventDefault();
-				e.stopPropagation();
+				// console.log('Ошибка загрузки файла!')
 				this.$emit('onError', {text:'Ошибка загрузки файла !', type:'error'});
 			}
 			fr.onabort = e => { //обработчик на отмену загрузки файла (возникновение когда недождались загрузки первого а загружаем уже второй)
-				console.log('Отмена загрузки файла!')
-				e.preventDefault();
-				e.stopPropagation();
-				this.$emit('onError', {text:'Ошибка загрузки файла !', type:'error'});
+				// console.log('Отмена загрузки файла!')
+				this.$emit('onError', {text:'Отмена загрузки файла !', type:'error'});
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
 			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
