@@ -78,7 +78,6 @@ export default {
 
 				//сохранить данные пользователя
 				const user = await $axios.get("/user");
-				console.log(user)
 				localStorage.setItem('user_id',  user.data.user.id);
 				localStorage.setItem('user_name', user.data.user.name);
 
