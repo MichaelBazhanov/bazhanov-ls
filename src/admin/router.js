@@ -76,7 +76,7 @@ router.beforeEach( async (to, from, next) => { //beforeEach вызывается
 	const isPublicRoute = to.matched.some( record => record.meta.public);//определяем публичный/не публичный путь по свойству meta в объектах routes
 	const isUserLoggedIn = store.getters['user/userIsLoggedIn']; //получаем getter 'из вне' самого store =>из store мы возьмем нужный нам getter
 
-	if(isPublicRoute === false && isUserLoggedIn === false) { //если путь не публичный и пользователь залогинен не был
+	if(isPublicRoute === false && isUserLoggedIn === false) { //если путь не публичный и пользователь залогинен не был (эти переменные были установлены в /login)
 		//здесь проверим является ли у нас текущий token действительным
 		const token = localStorage.getItem('token');//сам token устанавливает компонент login
 

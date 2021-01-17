@@ -21,7 +21,8 @@ export default {
 			commit('SET_USER', user)
 		},
 		logout({commit}) {
-
+			localStorage.removeItem('token'); //что бы выйти удаляем токен
+			location.reload(); //перезагружаем страничку для того что бы выкинуло на /login
 		}
 	},
 }

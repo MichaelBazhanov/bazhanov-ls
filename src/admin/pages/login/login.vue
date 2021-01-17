@@ -64,6 +64,7 @@ export default {
 	methods: {
 		...mapActions({
 			showTooltip: "tooltips/show",
+			login: "user/login"
 		}),
 		async handleSubmit() {
 			if( await this.$validate() == false) return;
@@ -73,8 +74,12 @@ export default {
 				// console.log('Валидация прошла успешно! Запрос отправлен!');
 				const response = await $axios.post("/login", this.user);
 				const token = response.data.token;
-				localStorage.setItem('token', token);
-				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+				localStorage.setItem('token', token); //устанавливает token для последующего его использования в ROUTE.JS
+				$axios.defaults.headers["Authorization"] = `Bearer ${token}`; //обновляем токен в headers => axios
+
+				//перед тем как перенаправлять пользоватея во внутрь занесем его в store
+				const userResponse = await $axios.get("/user"); //получаем пользователя по текущиму token
+				this.login(userResponse.data.user) //устанавливает user во vuex для последующего его использования в ROUTE.JS
 
 				//сохранить данные пользователя
 				const user = await $axios.get("/user");
@@ -89,7 +94,6 @@ export default {
 					text: error.response.data.error,
 					type: "error"
 				})
-				console.dir(error.response.data.error)
 			} finally {
 				this.isSubmitDisabled = false;//разблокируем кнопку
 			}

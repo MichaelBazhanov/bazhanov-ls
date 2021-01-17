@@ -3,7 +3,6 @@ export default {
 	state: {
 		data: [],
 		//тут в ---> data <--- мы будем вписывать ---> work <---
-		path: 'https://webdev-api.loftschool.com/'
 	},
 	mutations: {
 		SET_WORKS: (state, works) => state.data = works,
@@ -18,7 +17,7 @@ export default {
 		},
 		// IMAGE_PATH: (state) => {//переписываем некорректные тупи картинок с сервера
 		// 	//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
-		// 	state.data.forEach(e => e.photo = `${state.path}${e.photo}` )
+		// 	state.data.forEach(e => e.photo = `https://webdev-api.loftschool.com/${e.photo}` )
 		// }
 
 	},
