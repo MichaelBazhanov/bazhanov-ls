@@ -37,7 +37,7 @@ export default {
 				store.commit("SET_ABOUT", data);// вызываем мутацию и отдаем туда данные вторым параметром
 
 			} catch (error) {
-				console.error(error)
+				throw new Error(error)
 			}
 		},
 		async edit(store, about){

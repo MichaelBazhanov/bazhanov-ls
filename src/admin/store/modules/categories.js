@@ -68,13 +68,14 @@ export default {
 		},
 		async fetch(store) {//получение всех категорий по id
 			try {
-				const user_id = localStorage.getItem('user_id');
+				// const user_id = localStorage.getItem('user_id'); //старое
+				const user_id = store.rootGetters['user/userId'];//добавил
+
 				let response = await this.$axios.get(`/categories/${user_id}` ) //376
-				console.log(response)
 				store.commit("SET_CATEGORIES", response.data);// вызываем мутацию и отдаем туда данные вторым параметром
 
 			} catch (error) {
-				console.dir(error)
+				throw new Error(error)
 			}
 		},
 		async remove({commit}, category){

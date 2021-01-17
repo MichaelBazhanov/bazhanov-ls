@@ -14,6 +14,9 @@ export default {
 			//удостоверимся что у этого объекта нет никаких полей И функция которая создала этот объект была базовая функция конструктора Object
 
 			return userObjIsEmpty === false //проверка если объект не пустой то user залогинен
+		},
+		userId: (state, getters) => {
+			return getters.userIsLoggedIn ? state.user.id : 'undefined-123'
 		}
 	},
 	actions: {

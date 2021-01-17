@@ -81,10 +81,10 @@ export default {
 				const userResponse = await $axios.get("/user"); //получаем пользователя по текущиму token
 				this.login(userResponse.data.user) //устанавливает user во vuex для последующего его использования в ROUTE.JS
 
-				//сохранить данные пользователя
-				const user = await $axios.get("/user");
-				localStorage.setItem('user_id',  user.data.user.id);
-				localStorage.setItem('user_name', user.data.user.name);
+				// //сохранить данные пользователя
+				// const user = await $axios.get("/user");
+				// localStorage.setItem('user_id',  user.data.user.id);
+				// localStorage.setItem('user_name', user.data.user.name);
 
 				//и если все хорошо делам рероутинг на страницу по умолчанию
 				this.$router.replace('/about')
