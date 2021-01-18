@@ -16,7 +16,7 @@ export default {
 			return userObjIsEmpty === false //проверка если объект не пустой то user залогинен
 		},
 		userId: (state, getters) => {
-			return getters.userIsLoggedIn ? state.user.id : 'undefined-123'
+			return getters.userIsLoggedIn ? state.user.id : '376'
 		}
 	},
 	actions: {
