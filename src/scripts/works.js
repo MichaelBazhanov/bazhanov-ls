@@ -1,5 +1,11 @@
 import Vue from "vue";
 
+import axios from 'axios';
+import config from '../../env.paths.json'; //файлик со всеми веб путями в проекте
+import store from '../admin/store'
+
+axios.defaults.baseURL = config.BASE_URL;
+
 const thumbs = {
 	props: ['currentWork','works'],
 	template: '#preview-thumbs',
@@ -30,6 +36,21 @@ const display = {
 			const works = [...this.works];
 			return works
 		}
+	},
+	//смотрит этот компонент все прил пропы
+	mounted() {
+		console.log('mounted->display->currentWork: ', this.currentWork )
+		console.log('mounted->display->works: ', this.works )
+		console.log('mounted->display->currentIndex: ', this.currentIndex )
+		console.log('mounted->display->isEnd: ', this.isEnd )
+		console.log('mounted->display->isBegin: ', this.isBegin )
+	},
+	created() {
+		console.log('created->display->currentWork: ', this.currentWork )
+		console.log('created->display->works: ', this.works )
+		console.log('created->display->currentIndex: ', this.currentIndex )
+		console.log('created->display->isEnd: ', this.isEnd )
+		console.log('created->display->isBegin: ', this.isBegin )
 	}
 }
 const tag = {
@@ -42,7 +63,7 @@ const info = {
 	components: {tag},
 	computed: {
 		tagsArray() {
-			return this.currentWork.skills.split(',');
+			return this.currentWork.techs.split(',');
 		}
 	}
 }
@@ -61,6 +82,8 @@ new Vue({
 	computed: {
 		// это свойство внутри компонента определяется как обычное свойство в DATA
 		currentWork() {
+			// console.log('computed : this.works :', this.works)
+			// console.log('computed : currentWork :', this.works[this.currentIndex])
 			return this.works[this.currentIndex]
 			//при изменении currentWork будет пересчитываться works
 		},
@@ -86,14 +109,6 @@ new Vue({
 			const worksNumber = this.works.length - 1; //общее кол-во
 			if (index < 0) this.currentIndex = worksNumber;
 			if (index > worksNumber ) this.currentIndex = 0;
-		},
-		requireImagesToArray(data) {
-			return data.map((item)=> {
-				const requireImage = require(`../images/content/${item.photo}`).default;
-				item.photo = requireImage;
-				return item
-			})
-			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
 
@@ -157,19 +172,38 @@ new Vue({
 				// console.log('до 1800px')
 				return false
 			}
-		}
+		},
+		requireImagesToArray(data) { //здесь мы берем реальную физическую картинку и кешируем её в переменную в JS коде, дабы выставить в SRC
+			return data.map((item)=> {
+				const requireImage = require(`../images/content/${item.photo}`).default;
+				item.photo = requireImage;
+				return item
+			})
+			//по окончанию будит исправленные данные с правильными путями к картинкам
+		},
 	},
-	created() {
-		const data = require('../data/works.json')
-		this.works = this.requireImagesToArray(data);
-		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+	async created() {
+		const data = require('../data/works.json'); //старое
+		console.log('Данные из файла: ',data)
+		// this.works = this.requireImagesToArray(data); //старое
+		//// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+
+		//получаем id пользователя из vuex
+		const user_id = store.getters['user/userId'];
+		const response = await axios.get(`/works/${user_id}`);//загружаем данные с сервера вместо works.json
+
+		//переписываем пути картинок obj.photo
+		response.data.forEach(obj => {
+			obj.photo = config.BASE_URL+'/'+obj.photo
+		})
+
+		console.log('Мой ответ: ', response.data)
+		this.works = response.data;
+		console.log('Мой ответ: this.works ', this.works)
+		// console.log('123this.currentWork:',this.currentWork)
 	},
-	// mounted() {
-	// 	//слежка Window.matchMedia()
-	// 	if (window.matchMedia("(min-width: 768px)").matches) {
-	// 		console.log('после 768')
-	// 	} else {
-	// 		console.log('до 768')
-	// 	}
-	// }
+	mounted() {
+		console.log('Вывод - mounted', this.works)
+	}
+
 })

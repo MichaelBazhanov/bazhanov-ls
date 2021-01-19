@@ -67,7 +67,7 @@ script(type="text/x-template")#preview-info
 		)
 		.works-preview__title {{ currentWork.title }}
 			.works-preview__desc
-				p {{ currentWork.desc }}
+				p {{ currentWork.description }}
 			a(:href="currentWork.link" target="_blank" rel="noopener noreferrer").iconed-link
 				+icon('iconed', 'iconed-class')
 				span Посмотреть сайт

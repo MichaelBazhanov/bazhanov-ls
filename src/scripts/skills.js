@@ -1,7 +1,7 @@
 import Vue from "vue";
+
 import axios from 'axios';
 import config from '../../env.paths.json'; //файлик со всеми веб путями в проекте
-
 import store from '../admin/store'
 
 axios.defaults.baseURL = config.BASE_URL;
