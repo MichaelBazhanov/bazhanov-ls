@@ -179,7 +179,7 @@ new Vue({
 		// const data = require('../data/works.json'); //старое
 		// console.log('Данные из файла: ',data)
 		// this.works = this.requireImagesToArray(data); //старое
-		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+		//// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
 
 		//получаем id пользователя из vuex
 		const user_id = store.getters['user/userId'];
