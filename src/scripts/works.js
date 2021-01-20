@@ -28,29 +28,25 @@ const btns = {
 	template: '#preview-btns',
 }
 const display = {
-	props: ['currentWork','works', 'currentIndex', 'isEnd', 'isBegin'],
+	// props: ['currentWork','works', 'currentIndex', 'isEnd', 'isBegin'],
+	props: {
+		currentWork: { default: () => {}, required: true, type: Object},
+		works: { default: () => {}, required: true, type: Array },
+		currentIndex: { default: '', required: true, type: Number },
+		isEnd: { default: '', required: true, type: Boolean },
+		isBegin: { default: '', required: true, type: Boolean },
+	},
 	template: '#preview-display',
-	components: {thumbs, btns},
+	components: {thumbs, btns}, //отключаем компоненты что бы не было ошибок
+	data() {
+		return {
+		}
+	},
 	computed: {
 		reverseWorks() {
 			const works = [...this.works];
 			return works
 		}
-	},
-	//смотрит этот компонент все прил пропы
-	mounted() {
-		console.log('mounted->display->currentWork: ', this.currentWork )
-		console.log('mounted->display->works: ', this.works )
-		console.log('mounted->display->currentIndex: ', this.currentIndex )
-		console.log('mounted->display->isEnd: ', this.isEnd )
-		console.log('mounted->display->isBegin: ', this.isBegin )
-	},
-	created() {
-		console.log('created->display->currentWork: ', this.currentWork )
-		console.log('created->display->works: ', this.works )
-		console.log('created->display->currentIndex: ', this.currentIndex )
-		console.log('created->display->isEnd: ', this.isEnd )
-		console.log('created->display->isBegin: ', this.isBegin )
 	}
 }
 const tag = {
@@ -82,8 +78,6 @@ new Vue({
 	computed: {
 		// это свойство внутри компонента определяется как обычное свойство в DATA
 		currentWork() {
-			// console.log('computed : this.works :', this.works)
-			// console.log('computed : currentWork :', this.works[this.currentIndex])
 			return this.works[this.currentIndex]
 			//при изменении currentWork будет пересчитываться works
 		},
@@ -100,7 +94,6 @@ new Vue({
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
-			// console.log(value,'-------------------')
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -183,10 +176,10 @@ new Vue({
 		},
 	},
 	async created() {
-		const data = require('../data/works.json'); //старое
-		console.log('Данные из файла: ',data)
+		// const data = require('../data/works.json'); //старое
+		// console.log('Данные из файла: ',data)
 		// this.works = this.requireImagesToArray(data); //старое
-		//// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
 
 		//получаем id пользователя из vuex
 		const user_id = store.getters['user/userId'];
@@ -197,13 +190,7 @@ new Vue({
 			obj.photo = config.BASE_URL+'/'+obj.photo
 		})
 
-		console.log('Мой ответ: ', response.data)
 		this.works = response.data;
-		console.log('Мой ответ: this.works ', this.works)
-		// console.log('123this.currentWork:',this.currentWork)
 	},
-	mounted() {
-		console.log('Вывод - mounted', this.works)
-	}
 
 })

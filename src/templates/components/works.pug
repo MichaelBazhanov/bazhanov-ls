@@ -1,5 +1,5 @@
 script(type="text/x-template")#preview-container
-	.works-preview
+	.works-preview(v-if="works.length")
 		display(
 			:isEnd='isEnd'
 			:isBegin='isBegin'
@@ -15,7 +15,7 @@ script(type="text/x-template")#preview-container
 
 script(type="text/x-template")#preview-display
 	.works-preview__pictures(:data-slide="currentIndex + 1")
-		img(:src="currentWork.photo", alt="currentWork.title").works-preview__img
+		img(v-if="currentWork.photo", :src="currentWork.photo", alt="currentWork.title").works-preview__img
 		.works-preview__thumbs
 			thumbs(
 				:currentWork='currentWork'
