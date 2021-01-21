@@ -53,14 +53,14 @@
 <script>
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import button from "../../components/button"; //импорт компонента
-import category from "../../components/category"; //импорт компонента
+// import category from "../../components/category"; //импорт компонента
 import { mapActions, mapState } from "vuex";
 
 export default {
 	//локальная регисрация компонента
 	components: {
 		iconedButton: button,
-		category,
+		category: () => import("../../components/category") //сделал динамический импорт компонента
 		// headerPage: header,
 	},
 	data() {

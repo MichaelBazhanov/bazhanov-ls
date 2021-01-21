@@ -5,53 +5,53 @@ import store from './store'
 
 Vue.use(VueRouter)
 
-import header from "./components/header";
-import login from "./pages/login";
-import about from "./pages/about";
-import values from "./pages/values";
-import reviews from "./pages/reviews";
-import works from "./pages/works";
+// import header from "./components/header";
+// import login from "./pages/login";
+// import about from "./pages/about";
+// import values from "./pages/values";
+// import reviews from "./pages/reviews";
+// import works from "./pages/works";
 
 
 const routes = [
 	{
 		path: "/values",
 		components: {
-			header: header,
-			default: values,
+			header: () => import("./components/header"), //динамический импорт компонента
+			default: () => import("./pages/values"), //динамический импорт компонента
 		}
 	},
 	{
 		path: "/about",
 		components: {
-			header: header,
-			default: about,
+			header: () => import("./components/header"), //динамический импорт компонента
+			default: () => import("./pages/about"), //динамический импорт компонента
 		}
 	},
 	{
 		path: "/reviews",
 		components: {
-			header: header,
-			default: reviews,
+			header: () => import("./components/header"), //динамический импорт компонента
+			default: () => import("./pages/reviews"), //динамический импорт компонента
 		}
 	},
 	{
 		path: "/works",
 		components: {
-			header: header,
-			default: works,
+			header: () => import("./components/header"), //динамический импорт компонента
+			default: () => import("./pages/works"), //динамический импорт компонента
 		}
 	},
 	{
 		path: "/",
-		component: login,
+		component: () => import("./pages/login"), //динамический импорт компонента
 		meta: {
 			public: true
 		}
 	},
 	{
 		path: "/login",
-		component: login,
+		component: () => import("./pages/login"), //динамический импорт компонента
 		meta: {
 			public: true
 		}
