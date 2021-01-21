@@ -30,7 +30,6 @@ body {
   margin: 0 auto;
   max-width: 1480px;
   width: 95%;
-  // width: 1490px;
 
   @include phones {
     width: 85%;
@@ -88,34 +87,74 @@ img {
   max-height: 100%;
 }
 
-::selection {
-  background-color: $links-color-active;
-}
-::-webkit-scrollbar { /* 1 - скроллбар */
-  width: 5px;
-  height: 5px;
-  background-color: rgba($links-color-active, 1);
+//рудактирую скроллбар
+.admin-scrollbar {
+  ::selection {
+    /* background-color: $links-color-active; */
+    background-color: $text-color;
+  }
+  ::-webkit-scrollbar { /* 1 - скроллбар */
+    width: 5px;
+    height: 5px;
+    /* background-color: rgba($links-color-active, 1); */
+    background-color: rgba($text-color, 1);
+  }
+
+  ::-webkit-scrollbar-button { /* 2 - кнопка */
+
+  }
+
+  ::-webkit-scrollbar-track { /* 3 - трек */
+  }
+
+  ::-webkit-scrollbar-track-piece { /* 4 - видимая часть трека */
+  }
+
+  ::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    border-radius: 2px;
+    /* background-color: $bg-footer-color; */
+    background-color: $bg-head-color;
+  }
+
+  ::-webkit-scrollbar-corner { /* 6 - уголок */
+  }
+
+  ::-webkit-resizer { /* 7 - изменение размеров */
+  }
 }
 
-::-webkit-scrollbar-button { /* 2 - кнопка */
+html {
 
-}
+  ::selection {
+    background-color: $links-color-active;
+  }
+  ::-webkit-scrollbar { /* 1 - скроллбар */
+    width: 5px;
+    height: 5px;
+    background-color: rgba($links-color-active, 1);
+  }
 
-::-webkit-scrollbar-track { /* 3 - трек */
-}
+  ::-webkit-scrollbar-button { /* 2 - кнопка */
 
-::-webkit-scrollbar-track-piece { /* 4 - видимая часть трека */
-}
+  }
 
-::-webkit-scrollbar-thumb { /* 5 - ползунок */
-  border-radius: 2px;
-  background-color: $bg-footer-color;
-}
+  ::-webkit-scrollbar-track { /* 3 - трек */
+  }
 
-::-webkit-scrollbar-corner { /* 6 - уголок */
-}
+  ::-webkit-scrollbar-track-piece { /* 4 - видимая часть трека */
+  }
 
-::-webkit-resizer { /* 7 - изменение размеров */
+  ::-webkit-scrollbar-thumb { /* 5 - ползунок */
+    border-radius: 2px;
+    background-color: $bg-footer-color;
+  }
+
+  ::-webkit-scrollbar-corner { /* 6 - уголок */
+  }
+
+  ::-webkit-resizer { /* 7 - изменение размеров */
+  }
+
 }
 
 .clearfix	{
