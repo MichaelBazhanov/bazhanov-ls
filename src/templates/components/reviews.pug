@@ -16,7 +16,7 @@ script(type="text/x-template")#slider-container
 						.user-display
 							.user-display__avatar
 								.user__avatar-style.user__avatar-style--user-display
-									img(:src="review.pic" :alt="review.name").user__avatar-pic
+									img(:src="review.photo" :alt="review.author").user__avatar-pic
 							.user-display__data
-								.user-display__name {{ review.name }}
+								.user-display__name {{ review.author }}
 								.user-display__occ {{ review.occ }}
