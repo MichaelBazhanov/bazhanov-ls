@@ -42,9 +42,9 @@
 			<!-- <div class="container" v-else>
 				loading ...
 			</div> -->
-			<div class="container" v-if="!categories.length && emptyCatIsShow === false">
+			<!-- <div class="container" v-if="!categories.length && emptyCatIsShow === false">
 				Нет данных
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -55,6 +55,7 @@
 import button from "../../components/button"; //импорт компонента
 // import category from "../../components/category"; //импорт компонента
 import { mapActions, mapState } from "vuex";
+import categories from "../../store/modules/categories"
 
 export default {
 	//локальная регисрация компонента
@@ -70,8 +71,13 @@ export default {
 		};
 	},
 	created() {
+		this.$store.registerModule('categories', categories, {namespaced: true}); //критическая штука, динамический импорт модуля Store (самый последный урок)
+		// console.log(this.$store.hasModule('categories')); //проверка регистрации модуля
 		this.fetchCategoryAction();
 		// this.categories = require("../../data/categories.json");  //перевод на vuex
+	},
+	destroyed() {
+		this.$store.unregisterModule('categories', categories);
 	},
 	computed: {
 		...mapState("categories",{
