@@ -57,6 +57,7 @@ import appButton from "../../components/button";
 import appInput from "../../components/input";
 
 import { mapState, mapActions, mapGetters} from 'vuex'
+import abouts from "../../store/modules/abouts"; //модуль динамически импортируется и ругистрируестя
 
 export default {
 	//локальная регисрация компонента
@@ -111,7 +112,11 @@ export default {
 
 	},
 	created() {
+		this.$store.registerModule('abouts', abouts); //динамически импортируемый модуль ругистрируестя
 		this.fetchAboutsAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('abouts'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 
 };

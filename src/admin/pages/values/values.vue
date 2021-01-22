@@ -55,14 +55,14 @@
 import button from "../../components/button"; //импорт компонента
 // import category from "../../components/category"; //импорт компонента
 import { mapActions, mapState } from "vuex";
-import categories from "../../store/modules/categories"
+import categories from "../../store/modules/categories"; //модуль динамически импортируется и ругистрируестя
+import skills from "../../store/modules/skills"; //модуль динамически импортируется и ругистрируестя
 
 export default {
 	//локальная регисрация компонента
 	components: {
 		iconedButton: button,
 		category: () => import("../../components/category") //сделал динамический импорт компонента
-		// headerPage: header,
 	},
 	data() {
 		return {
@@ -71,13 +71,14 @@ export default {
 		};
 	},
 	created() {
-		this.$store.registerModule('categories', categories); //критическая штука, динамический импорт модуля Store (самый последный урок)
-		// console.log(this.$store.hasModule('categories')); //проверка регистрации модуля
+		this.$store.registerModule('categories', categories); //динамически импортируемый модуль ругистрируестя
+		this.$store.registerModule('skills', skills); //динамически импортируемый модуль ругистрируестя
 		this.fetchCategoryAction();
 		// this.categories = require("../../data/categories.json");  //перевод на vuex
 	},
 	destroyed() {
-		this.$store.unregisterModule('categories');
+		this.$store.unregisterModule('categories'); //модуль динамически импортируемый отменяет ругистрирацию
+		this.$store.unregisterModule('skills'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("categories",{

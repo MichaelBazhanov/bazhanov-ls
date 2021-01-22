@@ -96,6 +96,7 @@ import icon from "../../components/icon";
 import avatar from "../../components/avatar";
 
 import { mapActions, mapState, mapGetters } from 'vuex';
+import reviews from "../../store/modules/reviews"; //модуль динамически импортируется и ругистрируестя
 
 export default {
 	//локальная регисрация компонента
@@ -109,7 +110,11 @@ export default {
 		avatar,
 	},
 	created() {
+		this.$store.registerModule('reviews', reviews); //динамически импортируемый модуль ругистрируестя
 		this.fetchReviewsAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('reviews'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("reviews", {

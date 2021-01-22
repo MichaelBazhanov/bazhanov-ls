@@ -96,6 +96,7 @@ import icon from "../../components/icon";
 import tag from "../../components/tag";
 
 import { mapActions, mapState, mapGetters } from 'vuex';
+import works from "../../store/modules/works"; //модуль динамически импортируется и ругистрируестя
 
 export default {
 	//локальная регисрация компонента
@@ -125,7 +126,11 @@ export default {
 		};
 	},
 	created() {
+		this.$store.registerModule('works', works); //динамически импортируемый модуль ругистрируестя
 		this.fetchWorksAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('works'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("works", {
