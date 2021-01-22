@@ -71,13 +71,13 @@ export default {
 		};
 	},
 	created() {
-		this.$store.registerModule('categories', categories, {namespaced: true}); //критическая штука, динамический импорт модуля Store (самый последный урок)
+		this.$store.registerModule('categories', categories); //критическая штука, динамический импорт модуля Store (самый последный урок)
 		// console.log(this.$store.hasModule('categories')); //проверка регистрации модуля
 		this.fetchCategoryAction();
 		// this.categories = require("../../data/categories.json");  //перевод на vuex
 	},
 	destroyed() {
-		this.$store.unregisterModule('categories', categories);
+		this.$store.unregisterModule('categories');
 	},
 	computed: {
 		...mapState("categories",{
