@@ -55,8 +55,8 @@
 import button from "../../components/button"; //импорт компонента
 // import category from "../../components/category"; //импорт компонента
 import { mapActions, mapState } from "vuex";
-import categories from "../../store/modules/categories"; //модуль динамически импортируется и ругистрируестя
-import skills from "../../store/modules/skills"; //модуль динамически импортируется и ругистрируестя
+import categories from "../../store/modules/categories"; //модуль динамически импортируется и регистрируется
+import skills from "../../store/modules/skills"; //модуль динамически импортируется и регистрируется
 
 export default {
 	//локальная регисрация компонента
@@ -71,8 +71,8 @@ export default {
 		};
 	},
 	created() {
-		this.$store.registerModule('categories', categories); //динамически импортируемый модуль ругистрируестя
-		this.$store.registerModule('skills', skills); //динамически импортируемый модуль ругистрируестя
+		this.$store.registerModule('categories', categories); //динамически импортируемый модуль ругистрируется
+		this.$store.registerModule('skills', skills); //динамически импортируемый модуль ругистрируется
 		this.fetchCategoryAction();
 		// this.categories = require("../../data/categories.json");  //перевод на vuex
 	},

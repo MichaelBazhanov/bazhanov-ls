@@ -56,7 +56,6 @@
 						<card class="reviews-item">
 
 							<div class="item-user" slot="title">
-								<!-- <avatar :size="3.4" src="https://picsum.photos/300/300" class="item-img"/> -->
 								<avatar :size="'3.4'" :src="review.photo"  class="item-img"/>
 
 								<div class="item-content">
@@ -96,7 +95,7 @@ import icon from "../../components/icon";
 import avatar from "../../components/avatar";
 
 import { mapActions, mapState, mapGetters } from 'vuex';
-import reviews from "../../store/modules/reviews"; //модуль динамически импортируется и ругистрируестя
+import reviews from "../../store/modules/reviews"; //модуль динамически импортируется и регистрируется
 
 export default {
 	//локальная регисрация компонента
@@ -110,7 +109,7 @@ export default {
 		avatar,
 	},
 	created() {
-		this.$store.registerModule('reviews', reviews); //динамически импортируемый модуль ругистрируестя
+		this.$store.registerModule('reviews', reviews); //динамически импортируемый модуль ругистрируется
 		this.fetchReviewsAction();//vuex-action
 	},
 	destroyed() {
@@ -143,7 +142,7 @@ export default {
 			removeReviewAction: "reviews/remove",
 		}),
 		async reviewYes() {
-			console.log('reviewYes');
+			// console.log('reviewYes');
 
 			if (this.editNewReview) {
 				this.editNewReview = false;
@@ -152,6 +151,10 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Добавлен новый отзыв от ${this.review.author}`,
+					type: "success"
+				})
 			}
 
 			if (this.editOldReview) {
@@ -161,15 +164,34 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Изменен старый отзыв от ${this.review.author}`,
+					type: "success"
+				})
 			}
 
 			this.clearCurrentReview()//methods
 		},
 		reviewNo() {
-			console.log('reviewNo');
-			this.editNewReview = false;
-			this.editOldReview = false;
-			this.file = {}
+			// console.log('reviewNo');
+
+			if (this.editNewReview) {
+				this.editNewReview = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в новом отзыве`,
+					type: "success"
+				})
+			}
+
+			if (this.editOldReview) {
+				this.editOldReview = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в старом отзыве`,
+					type: "success"
+				})
+			}
 
 			this.clearCurrentReview()//methods
 		},

@@ -25,9 +25,12 @@
 								</div>
 								<div class="work-item">
 									<div class="work-text">
-										<app-input v-model="work.title" title="Название" class="work-inp"/>
-										<app-input v-model="work.link" title="Ссылка" class="work-inp"/>
-										<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"/>
+										<app-input v-model="work.title" title="Название" class="work-inp"
+											:errorMessage="validation.firstError('work.title')"/>
+										<app-input v-model="work.link" title="Ссылка" class="work-inp"
+											:errorMessage="validation.firstError('work.link')"/>
+										<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"
+											:errorMessage="validation.firstError('work.description')"/>
 										<tagsAdder v-model="work.techs" />
 										<div class="work-btns">
 											<appButton title="Отмена" plain @click="workNo" />
@@ -95,10 +98,27 @@ import linkA from "../../components/link";
 import icon from "../../components/icon";
 import tag from "../../components/tag";
 
-import { mapActions, mapState, mapGetters } from 'vuex';
-import works from "../../store/modules/works"; //модуль динамически импортируется и ругистрируестя
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
+import { mapActions, mapState } from 'vuex';
+import works from "../../store/modules/works"; //модуль динамически импортируется и регистрируется
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"work.title": value => {
+			return Validator.value(value).required('Введите навзание работы!')
+		},
+		"work.link": value => {
+			return Validator.value(value).required('Введите ссылку!')
+		},
+		"work.description": value => {
+			return Validator.value(value).required('Введите описание!')
+		},
+		"work.techs": value => {
+			return Validator.value(value).required('Введите теги!')
+		},
+	},
 	//локальная регисрация компонента
 	components: {
 		card,
@@ -126,7 +146,7 @@ export default {
 		};
 	},
 	created() {
-		this.$store.registerModule('works', works); //динамически импортируемый модуль ругистрируестя
+		this.$store.registerModule('works', works); //динамически импортируемый модуль ругистрируется
 		this.fetchWorksAction();//vuex-action
 	},
 	destroyed() {
@@ -151,6 +171,7 @@ export default {
 		}),
 		async workYes() {
 			// console.log('workYes')
+				if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
 
 			if (this.editNewWork) {
 				this.editNewWork = false;
@@ -159,6 +180,10 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Добавлена новая работа ${this.work.title}`,
+					type: "success"
+				})
 			}
 
 			if (this.editOldWork) {
@@ -168,16 +193,35 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Изменена старая работа ${this.work.title}`,
+					type: "success"
+				})
 			}
 
 			this.claerCurrentWork()//methods
 		},
-		workNo() {
+		async workNo() {
 			// console.log('workNo')
+				if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
 
-			this.editNewWork = false;
-			this.editOldWork = false;
-			this.file = {}
+			if (this.editNewWork) {
+				this.editNewWork = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в новой работе ${this.work.title}`,
+					type: "success"
+				})
+			}
+
+			if (this.editOldWork) {
+				this.editOldWork = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в старой работе ${this.work.title}`,
+					type: "success"
+				})
+			}
 
 			this.claerCurrentWork()//methods
 		},

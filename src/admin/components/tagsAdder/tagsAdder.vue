@@ -4,6 +4,7 @@
 			title="Добавление тега"
 			v-model="currentTags"
 			@input="$emit('change', currentTags)"
+			:errorMessage="validation.firstError('currentTags')"
 		/>
 		<ul class="tags">
 			<li class="tag"
@@ -25,7 +26,15 @@
 import appInput from "../input";
 import tag from "../tag";
 
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"currentTags": value => { console.log(currentTags)
+			return Validator.value(value).required('Введите теги!')
+		},
+	},
 	data() {
 		return {
 			currentTags: this.tags
@@ -35,6 +44,7 @@ export default {
 		//этот вач нужен для того что бы currentTags принимал значение входящих параметров всегда ибо
 		//без него первая отрисовка помпонента сработает хорошо а последующий нет
 		tags(value) {
+			console.log(this.tags)
 			this.currentTags = value
 		}
 	},
