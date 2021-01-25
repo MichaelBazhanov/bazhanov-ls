@@ -30,3 +30,20 @@ export const defaultView = () => ({
 defaultView.story = {
 	name: "Стандартный вид"
 }
+export const tagsErrorMessage = () => ({
+	components: { tagsAdder },
+	template: `
+		<tagsAdder v-model="tags" @change="onChange" :errorMessage='String(true)'/>
+	`,
+
+	data() {
+		return {
+			tags: "One, Two, Three, four",
+		}
+	},
+	methods
+});
+
+tagsErrorMessage.story = {
+	name: "add props errorMessage"
+}

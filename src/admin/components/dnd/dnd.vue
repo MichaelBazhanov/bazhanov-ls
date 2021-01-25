@@ -78,11 +78,10 @@ export default {
 			default: ''
 		},
 		not_dnd: Boolean,
-		errorMessage: Boolean,
-		// errorMessage: {
-		// 	type: Boolean,
-		// 	default: false
-		// },
+		errorMessage: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
