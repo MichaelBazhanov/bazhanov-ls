@@ -21,9 +21,10 @@
 										@onLoadImg='work.photo = $event'
 
 										@onError='onError($event)'
-										:errorMessage="validation.firstError('file')"
+										:errorMessage="validation.firstError('file, imgSrc_')"
 									/>
 								</div>
+									<p style="color: blue;font-size: 30px;">@ {{ validation.firstError('file, imgSrc_') }}</p>
 								<div class="work-item">
 									<div class="work-text">
 										<app-input v-model="work.title" title="Название" class="work-inp"
@@ -120,8 +121,23 @@ export default {
 		"work.techs": value => {
 			return Validator.value(value).required('Введите теги!')
 		},
-		file: value => {
-			return Validator.custom(() =>  value instanceof File ?  false : true )
+		"file, work.photo": (value, photo) => {
+			// return Validator.custom(() =>  value instanceof File ?  false : true )
+			console.log('1', value instanceof File)
+			console.log('2', photo.length > 0)
+
+			return Validator.value(value).required('1111111111111111111111111!')
+
+			// return Validator.custom(function () {
+      //     return 'Not an odd number!!!'
+      //   }
+			// )
+
+			// return Validator.custom(() =>  { return 'должно работать!'
+			// 	if(value instanceof File) { return false}//если есть файл
+			// 	if(photo.length > 0) { return false}//если есть photo
+			// 	return true
+			// })
 		}
 	},
 	//локальная регисрация компонента
