@@ -22,14 +22,18 @@
 										not_dnd
 
 										@onError='onError($event)'
+										:errorMessage="validation.firstError('file')"
 									/>
 								</div>
 								<div class="review-right review-item">
 									<div class="review-inp-group">
-										<app-input v-model="review.author" title="Имя автора" class="review-inp"/>
-										<app-input v-model="review.occ" title="Титул автора" class="review-inp"/>
+										<app-input v-model="review.author" title="Имя автора" class="review-inp"
+										:errorMessage="validation.firstError('review.author')"/>
+										<app-input v-model="review.occ" title="Титул автора" class="review-inp"
+										:errorMessage="validation.firstError('review.occ')"/>
 									</div>
-										<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"/>
+										<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"
+										:errorMessage="validation.firstError('review.text')"/>
 										<div class="review-btns">
 											<appButton title="Отмена" plain @click="reviewNo" />
 											<appButton title="СОХРАНИТЬ" @click="reviewYes" />
@@ -94,10 +98,27 @@ import appInput from "../../components/input";
 import icon from "../../components/icon";
 import avatar from "../../components/avatar";
 
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
+import { mapActions, mapState } from 'vuex';
 import reviews from "../../store/modules/reviews"; //модуль динамически импортируется и регистрируется
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"review.author": value => {
+			return Validator.value(value).required('Введите имя автора!')
+		},
+		"review.occ": value => {
+			return Validator.value(value).required('Введите титул автора!')
+		},
+		"review.text": value => {
+			return Validator.value(value).required('Введите отзыв!')
+		},
+		file: value => {
+			return Validator.custom(() =>  value instanceof File ?  false : true )
+		}
+	},
 	//локальная регисрация компонента
 	components: {
 		card,
@@ -143,6 +164,8 @@ export default {
 		}),
 		async reviewYes() {
 			// console.log('reviewYes');
+
+			if( await this.$validate() == false) return; //валидация через валидатор
 
 			if (this.editNewReview) {
 				this.editNewReview = false;

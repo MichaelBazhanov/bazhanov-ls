@@ -27,6 +27,22 @@ export const defaultView = () => ({
 defaultView.story = {
 	name: "Стандартный вид"
 }
+export const defaultError = () => ({
+	components: { dnd },
+	template: `
+		<dnd
+		:errorMessage="Boolean(true)"
+		@onLoadFile='onChangeFile'
+		@onChangeImg='onChangeImg'
+		@onError='onError'
+		/>
+	`,
+	methods
+});
+
+defaultError.story = {
+	name: "DND prop errorMessage"
+}
 
 export const viewImgSrc = () => ({
 	components: { dnd },
@@ -49,8 +65,8 @@ export const dndUserView = () => ({
 	components: { dnd },
 	template: `
 		<dnd
-		:imgSrc_="''"
 		not_dnd
+		:imgSrc_="''"
 		@onLoadFile='onChangeFile'
 		@onChangeImg='onChangeFile'
 		@onError='onError'

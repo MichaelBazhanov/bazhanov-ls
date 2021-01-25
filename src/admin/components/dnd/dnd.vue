@@ -6,6 +6,7 @@
 
 		<!-- cерый экран юзера-->
 		<div :class="['img-load', {errorMessage} ]" >
+
 			<template v-if="!imgSrc">
 				<div class="user">
 					<svg width="91" height="99" viewBox="0 0 91 99" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,12 +23,14 @@
 				</div>
 				<appButton title="Добавить фото" plain accept typeAttr="fileWork" @change="onChange" />
 			</template>
+
 			<template v-else>
 				<div class="user">
 					<img :src="imgSrc" alt="pic">
 				</div>
 				<appButton title="Изменить фото" plain accept typeAttr="fileWork" @change="onChange" />
 			</template>
+
 		</div>
 
 		<!-- <hr>
@@ -75,10 +78,11 @@ export default {
 			default: ''
 		},
 		not_dnd: Boolean,
-		errorMessage: {
-			type: Boolean,
-			default: false
-		},
+		errorMessage: Boolean,
+		// errorMessage: {
+		// 	type: Boolean,
+		// 	default: false
+		// },
 	},
 	data() {
 		return {
