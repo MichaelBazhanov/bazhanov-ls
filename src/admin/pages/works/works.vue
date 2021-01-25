@@ -21,6 +21,7 @@
 										@onLoadImg='work.photo = $event'
 
 										@onError='onError($event)'
+										:errorMessage="validation.firstError('file')"
 									/>
 								</div>
 								<div class="work-item">
@@ -119,6 +120,9 @@ export default {
 		"work.techs": value => {
 			return Validator.value(value).required('Введите теги!')
 		},
+		file: value => {
+			return Validator.custom(() =>  value instanceof File ?  false : true )
+		}
 	},
 	//локальная регисрация компонента
 	components: {
@@ -171,11 +175,10 @@ export default {
 			removeWorkAction: "works/remove",
 		}),
 		async workYes() {
-			console.log('workYes')
-			if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
-			if( !this.file.size) return;///////////////////////////////////////////////////////////////////////////
+			// console.log('workYes')
 
-			console.log('1')
+			if( await this.$validate() == false) return; //валидация через валидатор
+
 			if (this.editNewWork) {
 				this.editNewWork = false;
 				await this.addWorkAction({
@@ -206,7 +209,6 @@ export default {
 		},
 		async workNo() {
 			// console.log('workNo')
-			if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
 
 			if (this.editNewWork) {
 				this.editNewWork = false;

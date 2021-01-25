@@ -5,7 +5,7 @@
 		>
 
 		<!-- cерый экран юзера-->
-		<div :class="['img-load' ]" >
+		<div :class="['img-load', {errorMessage} ]" >
 			<template v-if="!imgSrc">
 				<div class="user">
 					<svg width="91" height="99" viewBox="0 0 91 99" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
 		@drop.stop.prevent='drop($event)'>
 
 		<!-- синий экран -->
-		<div :class="['dnd-img-load', {'dnd-img-bottom': !imgSrc}, {highlight} ]" >
+		<div :class="['dnd-img-load', {'dnd-img-bottom': !imgSrc}, {highlight}, {errorMessage} ]" >
 			<img class="dnd-img-bg" :src="imgSrc" alt="dnd-img-bg" v-if="imgSrc">
 			<template v-else>
 				<div class="dnd-img-text">Перетащите или загрузите для загрузки изображения</div>
@@ -75,6 +75,10 @@ export default {
 			default: ''
 		},
 		not_dnd: Boolean,
+		errorMessage: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
