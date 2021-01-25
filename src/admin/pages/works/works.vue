@@ -242,17 +242,21 @@ export default {
 				...work,
 			}//отображаем как ТЕКУЩИЙ work
 		},
-		deleteWork(work) {
+		async deleteWork(work) {
 			this.editNewWork = false;
 			this.editOldWork = false;
 
-			this.removeWorkAction(work)//vuex-action
+			await this.removeWorkAction(work)//vuex-action
+
+			this.showTooltip({
+					text: `Удаление работы ${work.title}`,
+					type: "success"
+			})
 
 			this.claerCurrentWork()//methods
 		},
 		claerCurrentWork() {
-			//очищаем work все поля
-			Object.keys(this.work).forEach(e => this.work[e] = '')
+			Object.keys(this.work).forEach(e => this.work[e] = ''); //очищаем work все поля
 		},
 		onError(e) {
 			this.showTooltip({ //вызываем туллтип

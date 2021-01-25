@@ -229,19 +229,23 @@ export default {
 				...review,
 			}//отображаем как ТЕКУЩИЙ review
 		},
-		deleteReview(review) {
+		async deleteReview(review) {
 			this.editNewReview = false;
 			this.editOldReview = false;
 
-			this.removeReviewAction(review)//vuex-action
+			await this.removeReviewAction(review)//vuex-action
+
+			this.showTooltip({
+					text: `Удаление отзыва автора ${review.author}`,
+					type: "success"
+			})
 
 			this.clearCurrentReview()//methods
 		},
 		onLoadFile() {},
 		onLoadImg() {},
 		clearCurrentReview() {
-			//очищаем review все поля
-			Object.keys(this.review).forEach(e => this.review[e] = '')
+			Object.keys(this.review).forEach(e => this.review[e] = ''); //очищаем review все поля
 		},
 		onError(e) {
 			this.showTooltip({ //вызываем туллтип
