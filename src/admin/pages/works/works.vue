@@ -31,7 +31,8 @@
 											:errorMessage="validation.firstError('work.link')"/>
 										<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"
 											:errorMessage="validation.firstError('work.description')"/>
-										<tagsAdder v-model="work.techs" />
+										<tagsAdder v-model="work.techs"
+											:errorMessage="validation.firstError('work.techs')" />
 										<div class="work-btns">
 											<appButton title="Отмена" plain @click="workNo" />
 											<appButton title="СОХРАНИТЬ" @click="workYes" />
@@ -170,9 +171,11 @@ export default {
 			removeWorkAction: "works/remove",
 		}),
 		async workYes() {
-			// console.log('workYes')
-				if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
+			console.log('workYes')
+			if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
+			if( !this.file.size) return;///////////////////////////////////////////////////////////////////////////
 
+			console.log('1')
 			if (this.editNewWork) {
 				this.editNewWork = false;
 				await this.addWorkAction({
@@ -203,7 +206,7 @@ export default {
 		},
 		async workNo() {
 			// console.log('workNo')
-				if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
+			if( await this.$validate() == false) return;///////////////////////////////////////////////////////////////////////////
 
 			if (this.editNewWork) {
 				this.editNewWork = false;
