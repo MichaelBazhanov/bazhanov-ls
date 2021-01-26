@@ -4,7 +4,7 @@
 		<div class="content">
 			<div class="username">Бажанов Михаил</div>
 			<div class="btns">
-				<button type="button" class="btn" @click="$emit('change', 'logout')">Выйти</button>
+				<button type="button" class="btn" @click="$emit('logout', 'logout')">Выйти</button>
 			</div>
 		</div>
 	</div>

@@ -2,7 +2,7 @@
 	<div class="header-component">
 
 		<headline title="Панель администрирования" @logout='logout'>
-			<user></user>
+			<user @logout='logout'></user>
 		</headline>
 
 		<navigation/>
