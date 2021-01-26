@@ -22,7 +22,7 @@
 										not_dnd
 
 										@onError='onError($event)'
-										:errorMessage="validation.firstError('file')"
+										:errorMessage="validation.firstError('review.photo')"
 									/>
 								</div>
 								<div class="review-right review-item">
@@ -115,8 +115,8 @@ export default {
 		"review.text": value => {
 			return Validator.value(value).required('Введите отзыв!')
 		},
-		file: value => {
-			return Validator.custom(() =>  value instanceof File ?  false : true )
+		"review.photo": value => {
+			return Validator.custom(() =>  value.length > 0 ?  false : true )
 		}
 	},
 	//локальная регисрация компонента
