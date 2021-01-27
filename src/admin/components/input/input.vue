@@ -3,11 +3,13 @@
   <label
     class="input"
     v-if="fieldType === 'input'"
-    :class="[{'bold' : bold}, {'percent' : percent},{'input_labeled' : !!title, 'no-side-paddings' : noSidePaddings}, iconClass, {'error' : !!errorMessage}]"
+    :class="[{'bold' : bold}, {'percent' : percent},{'input_labeled':!!title, 'no-side-paddings':noSidePaddings},iconClass,
+    {'error':!!errorMessage}]"
   >
     <div class="title" v-if="title">{{title}}</div>
     <input
-      class="input__elem field__elem"
+      ref="inputFocus"
+      :class="['input__elem field__elem']"
       v-bind="$attrs"
       :value="value"
       @input="$emit('input', $event.target.value)"
@@ -53,6 +55,7 @@ export default {
     noSidePaddings: Boolean,
     percent: Boolean,
     bold: Boolean,
+    autofocus: Boolean,
     fieldType: {
       type: String,
       default: "input"
@@ -68,6 +71,11 @@ export default {
     iconClass() {
       const iconName = this.icon;
       return iconName.length ? ` input_iconed input_icon-${iconName}` : "";
+    }
+  },
+  mounted() {
+    if(this.autofocus) {
+      this.$refs.inputFocus.focus()
     }
   },
   components: {
