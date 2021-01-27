@@ -82,8 +82,10 @@ export default {
     }
   },
   components: {
-    icon: () => import("components/icon"),
-    appInput: () => import("components/input")
+    // icon: () => import("components/icon"), //динамический импорт (не рабочий при тесте => папка компонент не видна)
+    // appInput: () => import("components/input") //динамический импорт (не рабочий при тесте => папка компонент не видна)
+    icon: () => import("../icon"), //динамический импорт
+    appInput: () => import("../input") //динамический импорт
   }
 };
 </script>

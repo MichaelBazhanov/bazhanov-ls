@@ -79,7 +79,8 @@ export default {
     }
   },
   components: {
-    tooltip: () => import("components/tooltip")
+    // tooltip: () => import("./components/tooltip") //не работает при тесте
+    tooltip: () => import("../tooltip")
   }
 };
 </script>

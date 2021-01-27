@@ -62,7 +62,6 @@ export default {
 	},
 	methods: {
 		removeCategory() {
-			console.log('remove -> category.vue')
 			this.$emit('remove-category')
 			this.$emit('remove')
 		},
