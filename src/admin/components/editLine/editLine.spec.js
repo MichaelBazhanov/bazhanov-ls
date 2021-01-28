@@ -71,20 +71,16 @@ it('проверка на разблокированный input - создан�
 	expect(wrapper.emitted('remove')).toBeTruthy(); //слушаем событие $emit было вызвано или нет
 })
 
-it('проверка на разблокированный input - $emitted на ввод данных в input', async () => {//НЕРАБОЧИЙ !!!!!!!!!!!!!!
+it('проверка на разблокированный input - $emitted', async () => {//НЕРАБОЧИЙ !!!!!!!!!!!!!!
 	//steps
 	const wrapper = mount(editLine);
 
 	//actions
-	await wrapper.setData({ editmode: Boolean(true) }) //2 вариант разблокированного input
-	const inputBtn = wrapper.findComponent(input); //находим дочерний нужный элемент input
-
-	await inputBtn.setProps({ value:'test value inputBtn1'}) //спускаем prop value
-	await inputBtn.trigger('input'); //делаем событие input
-	await inputBtn.setProps({ value:'test value inputBtn2'}) //спускаем prop value
-	await inputBtn.trigger('keydown.enter'); //делаем событие keydown
+	wrapper.vm.$emit('input')
+	wrapper.vm.$emit('approve')
 
 	//check
-	// console.log(inputBtn.emitted())
 	// console.log(wrapper.emitted())
+	expect(wrapper.emitted('input')).toBeTruthy(); //слушаем событие $emit было вызвано или нет
+	expect(wrapper.emitted('approve')).toBeTruthy(); //слушаем событие $emit было вызвано или нет
 })

@@ -60,7 +60,7 @@ export default {
       type: String,
       default: "input"
     },
-    value: String | Number,
+    value: [String, Number],
     icon: {
       type: String,
       default: "",
