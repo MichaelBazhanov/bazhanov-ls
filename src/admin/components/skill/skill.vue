@@ -1,6 +1,6 @@
 <template>
 	<!-- обычное отображение -->
-	<div class="skill-component" v-if="currentSkill.editmode === false">
+	<div class="skill-component" v-if="currentSkill.editmode === false" ref="skill-closed">
 		<div class="title">{{skill.title}}</div>
 		<div class="percent">{{skill.percent}} %</div>
 		<div class="buttons">
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<!-- отображение при изменение скила -->
-	<div class="skill-component" v-else>
+	<div class="skill-component" v-else ref="skill-open">
 		<div class="title">
 			<app-input
 				:errorMessage="validation.firstError('currentSkill.title')"

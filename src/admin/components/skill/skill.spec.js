@@ -3,7 +3,7 @@ import icon from "../icon"
 import input from "../input"
 import { mount, shallowMount } from "@vue/test-utils"
 
-it('проверка на заблокированный skill ', async () => {
+it('Проверка на заблокированный skill ', async () => {
 	//steps
 	const wrapper = shallowMount(skill, {
 		propsData: { //устанавливаем props, без них компонент не монтируется
@@ -27,11 +27,36 @@ it('проверка на заблокированный skill ', async () => {
 
 	//checked
 	expect(wrapper.vm.$data.currentSkill.editmode).toBe(false)
-	// console.log(wrapper.vm.$data.currentSkill.editmode)
-	// console.log(wrapper.vm.currentSkill.editmode)
+	expect(wrapper.vm.$refs['skill-closed']).toBeDefined(); //блок skill действительно заблокирован
+})
+it('Проверка на разблокированный skill ', async () => {
+	//steps
+	const wrapper = shallowMount(skill, {
+		propsData: { //устанавливаем props, без них компонент не монтируется
+			skill: {
+				id: '1',
+				title: '2',
+				percent: '3',
+				category: '4',
+			}
+		},
+		data() {
+			return {
+				currentSkill: {
+					editmode: true,
+				}
+			}
+		}
+	})
+
+	// //actions
+
+	//checked
+	expect(wrapper.vm.$data.currentSkill.editmode).toBe(true)
+	expect(wrapper.vm.$refs['skill-open']).toBeDefined(); //блок skill действительно заблокирован
 })
 //////////////////////////////////////////////////////////////////////////////////////
-it("заблокированный skill, 1) проверка входа в режим редактирования skill", async () => {
+it("Заблокированный skill, 1) проверка входа в режим редактирования skill", async () => {
 	//steps
 	const wrapper = mount(skill, {
 		propsData: { //устанавливаем props, без них компонент не монтируется
@@ -56,8 +81,7 @@ it("заблокированный skill, 1) проверка входа в ре
 	await btnEdit.trigger('click') //1
 	expect(wrapper.vm.$data.currentSkill.editmode).toBe(true)//1
 })
-
-it("заблокированный skill, 2) проверка $emitted на удаление", async () => {
+it("Заблокированный skill, 2) проверка $emitted на удаление", async () => {
 	//steps
 	const wrapper = mount(skill, {
 		propsData: { //устанавливаем props, без них компонент не монтируется
@@ -83,7 +107,7 @@ it("заблокированный skill, 2) проверка $emitted на уд
 	expect(wrapper.emitted('remove')).toBeTruthy(); //2
 })
 //////////////////////////////////////////////////////////////////////////////////////
-it("разблокированный skill, 1) проверка на создание skill", async () => {
+it("Разблокированный skill, 1) проверка на создание skill", async () => {
 	//steps
 	const wrapper = mount(skill, {
 		propsData: { //устанавливаем props, без них компонент не монтируется
@@ -118,7 +142,7 @@ it("разблокированный skill, 1) проверка на созда�
 	expect(wrapper.emitted('approve')).toBeTruthy();//событие было вызвано
 	expect(wrapper.emitted('approve')[0][0]).toEqual(wrapper.vm.currentSkill);//событие было вызвано с определенными данными
 })
-it("разблокированный skill, 2) проверка входа в режим блокировки skill", async () => {
+it("Разблокированный skill, 2) проверка входа в режим блокировки skill", async () => {
 	//steps
 	const wrapper = mount(skill, {
 		propsData: { //устанавливаем props, без них компонент не монтируется
