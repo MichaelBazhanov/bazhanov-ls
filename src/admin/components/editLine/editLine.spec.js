@@ -64,6 +64,7 @@ it('проверка на разблокированный input - создан�
 	await wrapper.setProps({ value:'test value'}) //спускаем prop value что бы разблокировать кнопку СОЗДАТЬ(btn0)
 	await btn0.trigger('click'); //делаем клик
 	await btn1.trigger('click'); //делаем клик
+	await wrapper.vm.$nextTick(); //ожидаем асинхронного обновления всего
 
 	//check
 	// console.log(wrapper.emitted())
