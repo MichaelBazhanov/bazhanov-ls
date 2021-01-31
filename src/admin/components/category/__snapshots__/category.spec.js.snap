@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category snapshot 1`] = `
+<div
+  class="category-component"
+>
+  <div
+    class="card-component"
+  >
+    <div
+      class="header header_plain"
+    >
+      <div
+        class="text"
+      />
+       
+      <div
+        class="edit-line-component"
+      >
+        <div
+          class="title"
+        >
+          <div
+            class="text"
+          >
+            
+          </div>
+           
+          <div
+            class="icon"
+          >
+            <!---->
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div
+      class="content"
+    >
+      <ul
+        class="skills"
+      />
+       
+      <div
+        class="bottom-line"
+      >
+        <div
+          class="skill-add-line-component"
+        >
+          <label
+            class="input skill-text"
+          >
+            <!---->
+             
+            <input
+              class="input__elem field__elem"
+              placeholder="Новый навык"
+            />
+             
+            <span
+              class="percent-title"
+            >
+              %
+            </span>
+             
+            <div
+              class="input__error-tooltip"
+            >
+              <!---->
+            </div>
+          </label>
+           
+          <label
+            class="input skill-percent percent no-side-paddings"
+          >
+            <!---->
+             
+            <input
+              class="input__elem field__elem"
+              max="100"
+              maxlength="2"
+              min="0"
+              type="number"
+            />
+             
+            <span
+              class="percent-title"
+            >
+              %
+            </span>
+             
+            <div
+              class="input__error-tooltip"
+            >
+              <!---->
+            </div>
+          </label>
+           
+          <!---->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
