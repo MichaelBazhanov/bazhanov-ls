@@ -24,6 +24,7 @@ export default {
 			commit('SET_USER', user)
 		},
 		logout({commit}) {
+			localStorage.removeItem('currentActive'); //обнулим заодно и навигационное выделение что бы с about началось все
 			localStorage.removeItem('token'); //что бы выйти удаляем токен
 			location.reload(); //перезагружаем страничку для того что бы выкинуло на /login
 		}

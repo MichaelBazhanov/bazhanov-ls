@@ -25,9 +25,6 @@ export default {
     ...mapActions({
       logout: "user/logout",
     }),
-		downUp() {
-
-		}
   },
 };
 </script>

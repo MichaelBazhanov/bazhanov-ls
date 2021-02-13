@@ -38,14 +38,8 @@ export default {
 	},
 	methods: {
 		activeOn(link) {
-			// this.currentActive = link; //old
-
-			if(localStorage.getItem('currentActive')) { //есть currentActive
 				localStorage.setItem('currentActive', link)
 				this.currentActive = localStorage.getItem('currentActive');
-			} else { //нет currentActive
-				localStorage.setItem('currentActive', this.currentActive)
-			}
 		}
 	},
 	created() {
@@ -55,14 +49,6 @@ export default {
 		} else { //нет currentActive
 			localStorage.setItem('currentActive', this.currentActive)
 		}
-	},
-	destroyed() {
-		console.log('destroyed')
-		localStorage.removeItem('currentActive');
-	},
-	beforeDestroy() {
-		console.log('beforeDestroy')
-		localStorage.removeItem('currentActive');
 	}
 };
 </script>
