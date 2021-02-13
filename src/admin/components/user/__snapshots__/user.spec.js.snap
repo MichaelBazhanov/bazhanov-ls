@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user snapshot + emitted() 1`] = `
+<div
+  class="user-components"
+>
+  <avatar-stub
+    size="2.7"
+    src="https://picsum.photos/300/300"
+  />
+   
+  <div
+    class="content"
+  >
+    <div
+      class="username"
+    >
+      Бажанов Михаил
+    </div>
+     
+    <div
+      class="btns"
+    >
+      <button
+        class="btn"
+        type="button"
+      >
+        Выйти
+      </button>
+    </div>
+  </div>
+</div>
+`;

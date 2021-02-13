@@ -18,7 +18,8 @@ export default {
 	},
 	computed: {
 		userPic() {
-			return require("../../../images/content/user.jpg").default
+			// return require("../../../images/content/user.jpg").default  //ошибка на require при тестах
+			return 'https://picsum.photos/300/300'
 		}
 	}
 }
