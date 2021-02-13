@@ -20,14 +20,20 @@
 										@onLoadFile='file = $event'
 										@onLoadImg='review.photo = $event'
 										not_dnd
+
+										@onError='onError($event)'
+										:errorMessage="validation.firstError('review.photo')"
 									/>
 								</div>
 								<div class="review-right review-item">
 									<div class="review-inp-group">
-										<app-input v-model="review.author" title="Имя автора" class="review-inp"/>
-										<app-input v-model="review.occ" title="Титул автора" class="review-inp"/>
+										<app-input v-model="review.author" title="Имя автора" class="review-inp"
+										:errorMessage="validation.firstError('review.author')"/>
+										<app-input v-model="review.occ" title="Титул автора" class="review-inp"
+										:errorMessage="validation.firstError('review.occ')"/>
 									</div>
-										<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"/>
+										<app-input v-model="review.text" title="Отзыв" fieldType="textarea" class="review-area"
+										:errorMessage="validation.firstError('review.text')"/>
 										<div class="review-btns">
 											<appButton title="Отмена" plain @click="reviewNo" />
 											<appButton title="СОХРАНИТЬ" @click="reviewYes" />
@@ -54,7 +60,6 @@
 						<card class="reviews-item">
 
 							<div class="item-user" slot="title">
-								<!-- <avatar :size="3.4" src="https://picsum.photos/300/300" class="item-img"/> -->
 								<avatar :size="'3.4'" :src="review.photo"  class="item-img"/>
 
 								<div class="item-content">
@@ -93,9 +98,27 @@ import appInput from "../../components/input";
 import icon from "../../components/icon";
 import avatar from "../../components/avatar";
 
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
+import { mapActions, mapState } from 'vuex';
+import reviews from "../../store/modules/reviews"; //модуль динамически импортируется и регистрируется
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"review.author": value => {
+			return Validator.value(value).required('Введите имя автора!')
+		},
+		"review.occ": value => {
+			return Validator.value(value).required('Введите титул автора!')
+		},
+		"review.text": value => {
+			return Validator.value(value).required('Введите отзыв!')
+		},
+		"review.photo": value => {
+			return Validator.custom(() =>  value.length > 0 ?  false : true )
+		}
+	},
 	//локальная регисрация компонента
 	components: {
 		card,
@@ -107,7 +130,11 @@ export default {
 		avatar,
 	},
 	created() {
+		this.$store.registerModule('reviews', reviews); //динамически импортируемый модуль ругистрируется
 		this.fetchReviewsAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('reviews'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("reviews", {
@@ -129,13 +156,16 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchReviewsAction: "reviews/fetch",
 			addReviewAction: "reviews/add",
 			editReviewAction: "reviews/edit",
 			removeReviewAction: "reviews/remove",
 		}),
 		async reviewYes() {
-			console.log('reviewYes');
+			// console.log('reviewYes');
+
+			if( await this.$validate() == false) return; //валидация через валидатор
 
 			if (this.editNewReview) {
 				this.editNewReview = false;
@@ -144,6 +174,10 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Добавлен новый отзыв от ${this.review.author}`,
+					type: "success"
+				})
 			}
 
 			if (this.editOldReview) {
@@ -153,15 +187,34 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Изменен старый отзыв от ${this.review.author}`,
+					type: "success"
+				})
 			}
 
 			this.clearCurrentReview()//methods
 		},
 		reviewNo() {
-			console.log('reviewNo');
-			this.editNewReview = false;
-			this.editOldReview = false;
-			this.file = {}
+			// console.log('reviewNo');
+
+			if (this.editNewReview) {
+				this.editNewReview = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в новом отзыве`,
+					type: "success"
+				})
+			}
+
+			if (this.editOldReview) {
+				this.editOldReview = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в старом отзыве`,
+					type: "success"
+				})
+			}
 
 			this.clearCurrentReview()//methods
 		},
@@ -176,19 +229,29 @@ export default {
 				...review,
 			}//отображаем как ТЕКУЩИЙ review
 		},
-		deleteReview(review) {
+		async deleteReview(review) {
 			this.editNewReview = false;
 			this.editOldReview = false;
 
-			this.removeReviewAction(review)//vuex-action
+			await this.removeReviewAction(review)//vuex-action
+
+			this.showTooltip({
+					text: `Удаление отзыва автора ${review.author}`,
+					type: "success"
+			})
 
 			this.clearCurrentReview()//methods
 		},
 		onLoadFile() {},
 		onLoadImg() {},
 		clearCurrentReview() {
-			//очищаем review все поля
-			Object.keys(this.review).forEach(e => this.review[e] = '')
+			Object.keys(this.review).forEach(e => this.review[e] = ''); //очищаем review все поля
+		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
 		}
 	}
 

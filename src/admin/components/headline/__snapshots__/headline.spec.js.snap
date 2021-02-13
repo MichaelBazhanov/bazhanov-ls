@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`headline snapshot + emitted() 1`] = `
+<div
+  class="headline-component"
+>
+  <div
+    class="container container-headline"
+  >
+     
+    <div
+      class="title"
+    >
+      
+    </div>
+     
+    <div
+      class="btns"
+    >
+      <button
+        class="btn"
+        type="button"
+      >
+        Выйти
+      </button>
+    </div>
+  </div>
+</div>
+`;

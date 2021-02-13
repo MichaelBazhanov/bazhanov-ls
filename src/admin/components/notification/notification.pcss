@@ -1,3 +1,5 @@
+@import "../../../styles/mixins.pcss";
+
 .inner-tooltip-container {
   padding: 22px;
   background: #4bb133;
@@ -6,6 +8,19 @@
   display: flex;
   justify-content: space-between;
   color: #fff;
+
+  @include desktopHd {
+	}
+	@include desktop {
+	}
+	@include tablets {
+    font-size: 14px;
+    padding: 10px;
+    width: calc(100vw - 40px);
+	}
+	@include phones {
+
+	}
 
   &.warning {
     background: #b18333;

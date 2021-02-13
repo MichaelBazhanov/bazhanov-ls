@@ -1,5 +1,11 @@
 import Vue from "vue";
 
+import axios from 'axios';
+import config from '../../env.paths.json'; //файлик со всеми веб путями в проекте
+import store from '../admin/store'
+
+axios.defaults.baseURL = config.BASE_URL;
+
 const skillsItem = {
 	props: ['skill'],
 	template: '#skills-item',
@@ -42,9 +48,14 @@ new Vue({
 			skills: [],
 		}
 	},
-	created() {
+	async created() {
 		//если не нужен доступ до дом элементов
-		this.skills = require('../data/skills.json'); //json to array
+		// this.skills = require('../data/skills.json'); //json to array
+
+		//получаем id пользователя из vuex
+		const user_id = store.getters['user/userId'];
+		const response = await axios.get(`/categories/${user_id}`);//загружаем данные с сервера вместо skills.json
+		this.skills = response.data;
 	},
 	mounted() {
 		//если нужен доступ до дом элементов

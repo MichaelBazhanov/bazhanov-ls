@@ -2,6 +2,12 @@ import Vue from "vue";
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
 
+import axios from 'axios';
+import config from '../../env.paths.json'; //файлик со всеми веб путями в проекте
+import store from '../admin/store'
+
+axios.defaults.baseURL = config.BASE_URL;
+
 new Vue({
 	el: '#slider-component',
 	template: '#slider-container',
@@ -42,23 +48,12 @@ new Vue({
 		slide(direction) {
 			const slider = this.$refs["slider__content"].$swiper;
 
-
 			switch (direction) {
 				case 'next':
 					slider.slideNext();
-					// if (slider.isEnd) {
-					// 	console.log('isEnd')
-					// } else {
-					// 	slider.slideNext();
-					// }
-					// if (slider.isBeginning) {
-					// 	console.log('isBeginning')
-					// }
-
 					break;
 				case 'prev':
 					slider.slidePrev();
-
 					break;
 			}
 		},
@@ -70,9 +65,20 @@ new Vue({
 			})
 		},
 	},
-	created() {
-		const data = require('../data/reviews.json')
-		this.reviews = this.requireImagesToArray(data);
+	async created() {
+		// const data = require('../data/reviews.json') //старое
+		// this.reviews = this.requireImagesToArray(data); //старое
+
+		//получаем id пользователя из vuex
+		const user_id = store.getters['user/userId'];
+		const response = await axios.get(`/reviews/${user_id}`);//загружаем данные с сервера вместо works.json
+
+		//переписываем пути картинок obj.photo
+		response.data.forEach(obj => {
+			obj.photo = config.BASE_URL+'/'+obj.photo
+		})
+
+		this.reviews = response.data;
 	},
 	mounted() {
 		//Получаем все рефы этого компонента

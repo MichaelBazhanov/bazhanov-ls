@@ -22,6 +22,7 @@
 			percent
 		/>
 		<roundBtn
+			:type="'round'"
 			class="skill-btn"
 			@click="handleClick"
 		/>
@@ -29,7 +30,7 @@
 </template>
 
 <script>
-import roundBtn from "../button/types/roundBtn";
+import roundBtn from "../button";
 import input from "../input";
 import { Validator, mixin as ValidatorMixin } from "simple-vue-validator";
 

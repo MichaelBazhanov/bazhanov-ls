@@ -4,6 +4,7 @@
 			title="Добавление тега"
 			v-model="currentTags"
 			@input="$emit('change', currentTags)"
+			:errorMessage="errorMessage"
 		/>
 		<ul class="tags">
 			<li class="tag"
@@ -25,6 +26,8 @@
 import appInput from "../input";
 import tag from "../tag";
 
+// import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
 export default {
 	data() {
 		return {
@@ -42,7 +45,11 @@ export default {
 		tags: {
 			type: String,
 			default: ""
-		}
+		},
+		errorMessage: {
+			type: String,
+			default: ""
+		},
 	},
 	model: {
 		prop: "tags",

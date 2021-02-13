@@ -5,7 +5,8 @@
 		>
 
 		<!-- cерый экран юзера-->
-		<div :class="['img-load' ]" >
+		<div :class="['img-load', {errorMessage} ]" >
+
 			<template v-if="!imgSrc">
 				<div class="user">
 					<svg width="91" height="99" viewBox="0 0 91 99" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,12 +23,14 @@
 				</div>
 				<appButton title="Добавить фото" plain accept typeAttr="fileWork" @change="onChange" />
 			</template>
+
 			<template v-else>
 				<div class="user">
 					<img :src="imgSrc" alt="pic">
 				</div>
 				<appButton title="Изменить фото" plain accept typeAttr="fileWork" @change="onChange" />
 			</template>
+
 		</div>
 
 		<!-- <hr>
@@ -45,7 +48,7 @@
 		@drop.stop.prevent='drop($event)'>
 
 		<!-- синий экран -->
-		<div :class="['dnd-img-load', {'dnd-img-bottom': !imgSrc}, {highlight} ]" >
+		<div :class="['dnd-img-load', {'dnd-img-bottom': !imgSrc}, {highlight}, {errorMessage} ]" >
 			<img class="dnd-img-bg" :src="imgSrc" alt="dnd-img-bg" v-if="imgSrc">
 			<template v-else>
 				<div class="dnd-img-text">Перетащите или загрузите для загрузки изображения</div>
@@ -75,6 +78,10 @@ export default {
 			default: ''
 		},
 		not_dnd: Boolean,
+		errorMessage: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
@@ -97,75 +104,88 @@ export default {
 	methods: {
 		onChange(e) {
 			//проверка на загрузку файла
-			if(e.target.files.length === 0) return
+			if(e.target.files.length === 0) {
+				this.$emit('onError', {text:'Файл не был загружен !', type:'warning'})
+				return e.target.value = ''; // для того что бы событие onChange срабатывало каждый раз заного для одного и того же файла img
+			}
 
 			let f = e.target.files[0]; //берем файл
 
 			//проверка
-			if(f.size >  1572864) { console.warn('Размер загружаемого файла больше 1.5 mb'); return}
+			if(f.size >  1572864) {
+				this.$emit('onError',  {text:'Размер загружаемого файла больше 1.5 mb !', type:'warning'} )
+				return e.target.value = ''; // для того что бы событие onChange срабатывало каждый раз заного для одного и того же файла img
+			}
 
 			//проверка
-			if(f.type.indexOf('image') === -1) { console.warn('Загруженный файл не является изображением') ; return }
 			// (альтернатива атрибут accept='image/*' на элементе input type='file')
+			if(f.type.indexOf('image') === -1) {
+				this.$emit('onError', {text:'Загруженный файл не является изображением !', type:'warning'} )
+				return e.target.value = ''; // для того что бы событие onChange срабатывало каждый раз заного для одного и того же файла img
+			}
 
 			this.read(f);
 		},
 		read(f) { //метод прото описывает работу с с спец обьектом чтения файла => FileReader
 			let fr = new FileReader(); //создаем обьект длч чтения этого файла (API браузера)
 			fr.readAsDataURL(f); // Читаем blob выбранного файла
-			fr.onload = e => {
-
+			fr.onload = e => { //обработчик на загрузку файла
 
 				this.imgSrc = fr.result;
 				this.$emit('onLoadFile', f); //опракидываем загруженный файл выше в компонет
 				this.$emit('onLoadImg', fr.result); //опракидываем загруженный картинку выше в компонет
 
-
 				// console.log('this.imgSrc :',this.imgSrc)
 				// console.log('this.imgSrc_ :',this.imgSrc_)
 
+			}
+			fr.onerror = e => { //обработчик на ошибку загрузки файла (возникновение когда что то с файлом не так)
+				// console.log('Ошибка загрузки файла!')
+				this.$emit('onError', {text:'Ошибка загрузки файла !', type:'error'});
+			}
+			fr.onabort = e => { //обработчик на отмену загрузки файла (возникновение когда недождались загрузки первого а загружаем уже второй)
+				// console.log('Отмена загрузки файла!')
+				this.$emit('onError', {text:'Отмена загрузки файла !', type:'error'});
 			}
 			//После того как создали новый FileReader() и через метод readAsDataURL() загрузили в него данные из inputa
 			//у FileReader появляется множество свойст от этом файле и одно из них result в ктором содержется base64
 			//загруженной картинки.
 		},
 		dragenter(e) {
-			// console.log('dragenter')
-			// console.log(e)
-
 			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragover(e) {
-			// console.log('dragover')
-			// console.log(e)
-
 			//активируем подсветку CSS
 			this.highlight = true;
 		},
 		dragleave(e) {
-			// console.log('dragleave')
-			// console.log(e)
-
 			//удаляем подсветку CSS
 			this.highlight = false;
 		},
 		drop(e) {
-			// console.log('drop')
-			// console.log(e)
 			// console.log(e.dataTransfer) //Объект DataTransfer используется для хранения данных, перетаскиваемых мышью во время операции drag and drop.
 			let files = e.dataTransfer.files;//тип FileList хранящий файлы
 			files = [...files]; //преобразуем тип FileList в Array (те внутри этого массива хранятся рейльные файлы с DND)
 
 			//проверка
-			if(!files[0]) { console.warn('Вы не загрузили файл'); this.highlight = false; return}
+			if(!files[0]) {
+				this.$emit('onError', {text:'Файл не был загружен !', type:'warning'});
+				return this.highlight = false;
+			}
 
 			//проверка
-			if(files[0].size >  1572864) { console.warn('Размер загружаемого файла больше 1.5 mb'); this.highlight = false; return}
+			if(files[0].size >  1572864) {
+				this.$emit('onError', {text:'Размер загружаемого файла больше 1.5 mb !', type:'warning'});
+				return this.highlight = false;
+			}
 
 			//проверка
-			if(files[0].type.indexOf('image') === -1) { console.warn('Загруженный файл не является изображением') ; this.highlight = false; return }
 			// (альтернатива атрибут accept='image/*' на элементе input type='file')
+			if(files[0].type.indexOf('image') === -1) {
+				this.$emit('onError', {text:'Загруженный файл не является изображением !', type:'warning'});
+				return this.highlight = false;
+			}
 
 			this.read(files[0]);
 

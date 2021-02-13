@@ -19,14 +19,21 @@
 										:imgSrc_="work.photo"
 										@onLoadFile='file = $event'
 										@onLoadImg='work.photo = $event'
+
+										@onError='onError($event)'
+										:errorMessage="validation.firstError('work.photo')"
 									/>
 								</div>
 								<div class="work-item">
 									<div class="work-text">
-										<app-input v-model="work.title" title="Название" class="work-inp"/>
-										<app-input v-model="work.link" title="Ссылка" class="work-inp"/>
-										<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"/>
-										<tagsAdder v-model="work.techs" />
+										<app-input v-model="work.title" title="Название" class="work-inp"
+											:errorMessage="validation.firstError('work.title')"/>
+										<app-input v-model="work.link" title="Ссылка" class="work-inp"
+											:errorMessage="validation.firstError('work.link')"/>
+										<app-input v-model="work.description" title="Описание" fieldType="textarea" class="work-area"
+											:errorMessage="validation.firstError('work.description')"/>
+										<tagsAdder v-model="work.techs"
+											:errorMessage="validation.firstError('work.techs')" />
 										<div class="work-btns">
 											<appButton title="Отмена" plain @click="workNo" />
 											<appButton title="СОХРАНИТЬ" @click="workYes" />
@@ -93,9 +100,40 @@ import linkA from "../../components/link";
 import icon from "../../components/icon";
 import tag from "../../components/tag";
 
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { Validator, mixin as ValidatorMixin } from 'simple-vue-validator';
+
+import { mapActions, mapState } from 'vuex';
+import works from "../../store/modules/works"; //модуль динамически импортируется и регистрируется
 
 export default {
+	mixins: [ValidatorMixin],
+	validators: {
+		"work.title": value => {
+			return Validator.value(value).required('Введите навзание работы!')
+		},
+		"work.link": value => {
+			return Validator.value(value).required('Введите ссылку!')
+		},
+		"work.description": value => {
+			return Validator.value(value).required('Введите описание!')
+		},
+		"work.techs": value => {
+			return Validator.value(value).required('Введите теги!')
+		},
+		"work.photo": value => {
+			return Validator.custom(() =>  value.length > 0 ?  false : true )
+		},
+		// file: value => {
+		// 	return Validator.custom(() =>  value instanceof File ?  false : true )
+		// },
+		// "file, work.photo": (file, photo) => { //НЕРАБОТАЕТ!!! с двумя параметрами
+		// 	return Validator.custom(() =>  {
+		// 		if(value instanceof File) { return false}//если есть файл
+		// 		if(photo.length > 0) { return false}//если есть photo
+		// 		return true
+		// 	})
+		// }
+	},
 	//локальная регисрация компонента
 	components: {
 		card,
@@ -123,7 +161,11 @@ export default {
 		};
 	},
 	created() {
+		this.$store.registerModule('works', works); //динамически импортируемый модуль ругистрируется
 		this.fetchWorksAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('works'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("works", {
@@ -136,13 +178,16 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchWorksAction: "works/fetch",
 			addWorkAction: "works/add",
 			editWorkAction: "works/edit",
 			removeWorkAction: "works/remove",
 		}),
 		async workYes() {
-			console.log('workYes')
+			// console.log('workYes')
+
+			if( await this.$validate() == false) return; //валидация через валидатор
 
 			if (this.editNewWork) {
 				this.editNewWork = false;
@@ -151,6 +196,10 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Добавлена новая работа ${this.work.title}`,
+					type: "success"
+				})
 			}
 
 			if (this.editOldWork) {
@@ -160,15 +209,34 @@ export default {
 					photo: this.file
 				});//vuex-action
 				this.file = {}
+				this.showTooltip({
+					text: `Изменена старая работа ${this.work.title}`,
+					type: "success"
+				})
 			}
 
 			this.claerCurrentWork()//methods
 		},
-		workNo() {
-			console.log('workNo')
-			this.editNewWork = false;
-			this.editOldWork = false;
-			this.file = {}
+		async workNo() {
+			// console.log('workNo')
+
+			if (this.editNewWork) {
+				this.editNewWork = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в новой работе ${this.work.title}`,
+					type: "success"
+				})
+			}
+
+			if (this.editOldWork) {
+				this.editOldWork = false;
+				this.file = {}
+				this.showTooltip({
+					text: `Отменено сохранение изменений в старой работе ${this.work.title}`,
+					type: "success"
+				})
+			}
 
 			this.claerCurrentWork()//methods
 		},
@@ -184,17 +252,27 @@ export default {
 				...work,
 			}//отображаем как ТЕКУЩИЙ work
 		},
-		deleteWork(work) {
+		async deleteWork(work) {
 			this.editNewWork = false;
 			this.editOldWork = false;
 
-			this.removeWorkAction(work)//vuex-action
+			await this.removeWorkAction(work)//vuex-action
+
+			this.showTooltip({
+					text: `Удаление работы ${work.title}`,
+					type: "success"
+			})
 
 			this.claerCurrentWork()//methods
 		},
 		claerCurrentWork() {
-			//очищаем work все поля
-			Object.keys(this.work).forEach(e => this.work[e] = '')
+			Object.keys(this.work).forEach(e => this.work[e] = ''); //очищаем work все поля
+		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
 		}
 
 	},

@@ -42,9 +42,9 @@
 			<!-- <div class="container" v-else>
 				loading ...
 			</div> -->
-			<div class="container" v-if="!categories.length && emptyCatIsShow === false">
+			<!-- <div class="container" v-if="!categories.length && emptyCatIsShow === false">
 				Нет данных
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -53,15 +53,16 @@
 <script>
 // import "../styles/main.pcss"; //такой вариант подключения стилей возможен(подключается все, но все не нужно)
 import button from "../../components/button"; //импорт компонента
-import category from "../../components/category"; //импорт компонента
+// import category from "../../components/category"; //импорт компонента
 import { mapActions, mapState } from "vuex";
+import categories from "../../store/modules/categories"; //модуль динамически импортируется и регистрируется
+import skills from "../../store/modules/skills"; //модуль динамически импортируется и регистрируется
 
 export default {
 	//локальная регисрация компонента
 	components: {
 		iconedButton: button,
-		category,
-		// headerPage: header,
+		category: () => import("../../components/category") //сделал динамический импорт компонента
 	},
 	data() {
 		return {
@@ -70,8 +71,14 @@ export default {
 		};
 	},
 	created() {
+		this.$store.registerModule('categories', categories); //динамически импортируемый модуль ругистрируется
+		this.$store.registerModule('skills', skills); //динамически импортируемый модуль ругистрируется
 		this.fetchCategoryAction();
 		// this.categories = require("../../data/categories.json");  //перевод на vuex
+	},
+	destroyed() {
+		this.$store.unregisterModule('categories'); //модуль динамически импортируемый отменяет ругистрирацию
+		this.$store.unregisterModule('skills'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 	computed: {
 		...mapState("categories",{

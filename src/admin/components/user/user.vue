@@ -4,7 +4,7 @@
 		<div class="content">
 			<div class="username">Бажанов Михаил</div>
 			<div class="btns">
-				<button type="button" class="btn" @click="$emit('change', 'logout')">Выйти</button>
+				<button type="button" class="btn" @click="$emit('logout', 'logout')">Выйти</button>
 			</div>
 		</div>
 	</div>
@@ -18,7 +18,8 @@ export default {
 	},
 	computed: {
 		userPic() {
-			return require("../../../images/content/user.jpg").default
+			// return require("../../../images/content/user.jpg").default  //ошибка на require при тестах
+			return 'https://picsum.photos/300/300'
 		}
 	}
 }

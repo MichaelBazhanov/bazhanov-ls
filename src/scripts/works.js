@@ -1,5 +1,11 @@
 import Vue from "vue";
 
+import axios from 'axios';
+import config from '../../env.paths.json'; //файлик со всеми веб путями в проекте
+import store from '../admin/store'
+
+axios.defaults.baseURL = config.BASE_URL;
+
 const thumbs = {
 	props: ['currentWork','works'],
 	template: '#preview-thumbs',
@@ -22,9 +28,20 @@ const btns = {
 	template: '#preview-btns',
 }
 const display = {
-	props: ['currentWork','works', 'currentIndex', 'isEnd', 'isBegin'],
+	// props: ['currentWork','works', 'currentIndex', 'isEnd', 'isBegin'],
+	props: {
+		currentWork: { default: () => {}, required: true, type: Object},
+		works: { default: () => {}, required: true, type: Array },
+		currentIndex: { default: '', required: true, type: Number },
+		isEnd: { default: '', required: true, type: Boolean },
+		isBegin: { default: '', required: true, type: Boolean },
+	},
 	template: '#preview-display',
-	components: {thumbs, btns},
+	components: {thumbs, btns}, //отключаем компоненты что бы не было ошибок
+	data() {
+		return {
+		}
+	},
 	computed: {
 		reverseWorks() {
 			const works = [...this.works];
@@ -42,7 +59,7 @@ const info = {
 	components: {tag},
 	computed: {
 		tagsArray() {
-			return this.currentWork.skills.split(',');
+			return this.currentWork.techs.split(',');
 		}
 	}
 }
@@ -77,7 +94,6 @@ new Vue({
 	watch: {
 		//шпионаж за currentIndex в DATA
 		currentIndex(value) {
-			// console.log(value,'-------------------')
 			this.makeInfiniteLoopFofNdx(value)
 		}
 	},
@@ -86,14 +102,6 @@ new Vue({
 			const worksNumber = this.works.length - 1; //общее кол-во
 			if (index < 0) this.currentIndex = worksNumber;
 			if (index > worksNumber ) this.currentIndex = 0;
-		},
-		requireImagesToArray(data) {
-			return data.map((item)=> {
-				const requireImage = require(`../images/content/${item.photo}`).default;
-				item.photo = requireImage;
-				return item
-			})
-			//по окончанию будит исправленные данные с правильными путями к картинкам
 		},
 		slide(direction) {
 
@@ -157,19 +165,32 @@ new Vue({
 				// console.log('до 1800px')
 				return false
 			}
-		}
+		},
+		requireImagesToArray(data) { //здесь мы берем реальную физическую картинку и кешируем её в переменную в JS коде, дабы выставить в SRC
+			return data.map((item)=> {
+				const requireImage = require(`../images/content/${item.photo}`).default;
+				item.photo = requireImage;
+				return item
+			})
+			//по окончанию будит исправленные данные с правильными путями к картинкам
+		},
 	},
-	created() {
-		const data = require('../data/works.json')
-		this.works = this.requireImagesToArray(data);
-		// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+	async created() {
+		// const data = require('../data/works.json'); //старое
+		// console.log('Данные из файла: ',data)
+		// this.works = this.requireImagesToArray(data); //старое
+		//// this.currentWork = this.works[this.currentIndex];//ЗАМЕНИЛИ
+
+		//получаем id пользователя из vuex
+		const user_id = store.getters['user/userId'];
+		const response = await axios.get(`/works/${user_id}`);//загружаем данные с сервера вместо works.json
+
+		//переписываем пути картинок obj.photo
+		response.data.forEach(obj => {
+			obj.photo = config.BASE_URL+'/'+obj.photo
+		})
+
+		this.works = response.data;
 	},
-	// mounted() {
-	// 	//слежка Window.matchMedia()
-	// 	if (window.matchMedia("(min-width: 768px)").matches) {
-	// 		console.log('после 768')
-	// 	} else {
-	// 		console.log('до 768')
-	// 	}
-	// }
+
 })

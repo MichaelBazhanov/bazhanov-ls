@@ -20,6 +20,8 @@
 									:imgSrc_="about.photo"
 									@onLoadFile='file = $event'
 									@onLoadImg='about.photo = $event'
+
+									@onError='onError($event)'
 								/>
 							</div>
 							<div class="about-right about-item">
@@ -55,6 +57,7 @@ import appButton from "../../components/button";
 import appInput from "../../components/input";
 
 import { mapState, mapActions, mapGetters} from 'vuex'
+import abouts from "../../store/modules/abouts"; //модуль динамически импортируется и регистрируется
 
 export default {
 	//локальная регисрация компонента
@@ -80,6 +83,7 @@ export default {
 	},
 	methods: {
 		...mapActions({
+			showTooltip: "tooltips/show",
 			fetchAboutsAction: "abouts/fetch",
 			edithAboutsAction: "abouts/edit",
 		}),
@@ -94,6 +98,12 @@ export default {
 				});//vuex-action
 				this.file = {}
 		},
+		onError(e) {
+			this.showTooltip({ //вызываем туллтип
+				text: `${e.text}`,
+				type: `${e.type}`
+			})
+		}
 	},
 	computed: {
 		...mapState('abouts', {
@@ -102,7 +112,11 @@ export default {
 
 	},
 	created() {
+		this.$store.registerModule('abouts', abouts); //динамически импортируемый модуль ругистрируется
 		this.fetchAboutsAction();//vuex-action
+	},
+	destroyed() {
+		this.$store.unregisterModule('abouts'); //модуль динамически импортируемый отменяет ругистрирацию
 	},
 
 };

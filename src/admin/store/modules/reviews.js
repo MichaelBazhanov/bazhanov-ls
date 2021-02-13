@@ -22,7 +22,9 @@ export default {
 			// console.log(store)//ссылается на State
 			// console.log(this)//ссылается на Store
 			try {
-				const user_id = localStorage.getItem('user_id');
+				// const user_id = localStorage.getItem('user_id'); //старое
+				const user_id = store.rootGetters['user/userId'];//добавил
+
 				const response = await this.$axios.get(`/reviews/${user_id}`);
 
 				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!

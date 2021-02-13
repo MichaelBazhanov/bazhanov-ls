@@ -64,6 +64,7 @@ export default {
 	methods: {
 		...mapActions({
 			showTooltip: "tooltips/show",
+			login: "user/login"
 		}),
 		async handleSubmit() {
 			if( await this.$validate() == false) return;
@@ -73,14 +74,17 @@ export default {
 				// console.log('Валидация прошла успешно! Запрос отправлен!');
 				const response = await $axios.post("/login", this.user);
 				const token = response.data.token;
-				localStorage.setItem('token', token);
-				$axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+				localStorage.setItem('token', token); //устанавливает token для последующего его использования в ROUTE.JS
+				$axios.defaults.headers["Authorization"] = `Bearer ${token}`; //обновляем токен в headers => axios
 
-				//сохранить данные пользователя
-				const user = await $axios.get("/user");
-				console.log(user)
-				localStorage.setItem('user_id',  user.data.user.id);
-				localStorage.setItem('user_name', user.data.user.name);
+				//перед тем как перенаправлять пользоватея во внутрь занесем его в store
+				const userResponse = await $axios.get("/user"); //получаем пользователя по текущиму token
+				this.login(userResponse.data.user) //устанавливает user во vuex для последующего его использования в ROUTE.JS
+
+				// //сохранить данные пользователя
+				// const user = await $axios.get("/user");
+				// localStorage.setItem('user_id',  user.data.user.id);
+				// localStorage.setItem('user_name', user.data.user.name);
 
 				//и если все хорошо делам рероутинг на страницу по умолчанию
 				this.$router.replace('/about')
@@ -90,7 +94,6 @@ export default {
 					text: error.response.data.error,
 					type: "error"
 				})
-				console.dir(error.response.data.error)
 			} finally {
 				this.isSubmitDisabled = false;//разблокируем кнопку
 			}

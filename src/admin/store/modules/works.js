@@ -15,7 +15,10 @@ export default {
 		REMOVE_WORK: (state, work) => {
 			state.data = state.data.filter(item => item.id != work.id )
 		},
-
+		// IMAGE_PATH: (state) => {//переписываем некорректные тупи картинок с сервера
+		// 	//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
+		// 	state.data.forEach(e => e.photo = `https://webdev-api.loftschool.com/${e.photo}` )
+		// }
 
 	},
 	actions: {
@@ -24,7 +27,9 @@ export default {
 			// console.log(store)//ссылается на State
 			// console.log(this)//ссылается на Store
 			try {
-				const user_id = localStorage.getItem('user_id');
+				// const user_id = localStorage.getItem('user_id'); //старое
+				const user_id = store.rootGetters['user/userId'];//добавил
+
 				const response = await this.$axios.get(`/works/${user_id}`);
 
 				//данный перебор должен быть на сервере т.е. пути на фото должны уже приходить нормальные !!!
@@ -39,10 +44,9 @@ export default {
 			}
 		},
 		async add(store, work) {
+			// new FormData() по умолчанию это <form enctype='multipart/form-data' >...</form> что бы обработать файл в input. Форма с перезагрузкой страницы.
 			const formData = new FormData();
 			Object.keys(work).forEach(el => {
-				// formData.append(`${el}`,`${work[el]}`)//почему это не работает (${work[el]} странный обьект)
-				// console.log(`${el}`,`${work[el]}`)
 				formData.append(el, work[el])
 			})
 
@@ -89,7 +93,7 @@ export default {
 			} catch {
 				throw new Error(error)
 			}
-		}
+		},
 	},
 }
 //РАБОТАЕТ С works.vue
