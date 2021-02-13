@@ -1,12 +1,11 @@
 <template>
-	<div class="header-component">
+  <div class="header-component">
+    <headline title="Панель администрирования" @logout="logout">
+      <user @logout="logout"></user>
+    </headline>
 
-		<headline title="Панель администрирования" @logout='logout'>
-			<user @logout='logout'></user>
-		</headline>
-
-		<navigation/>
-	</div>
+    <navigation />
+  </div>
 </template>
 
 <script>
@@ -14,20 +13,23 @@ import user from "../../components/user/user"; //импорт компонент
 import headline from "../../components/headline/headline"; //импорт компонента
 import navigation from "../../components/navigation/navigation"; //импорт компонента
 
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
-	components: {
-		headline,
-		user,
-		navigation,
-	},
-	methods: {
-		...mapActions({
-			logout: 'user/logout'
-		}),
-	}
-}
+  components: {
+    headline,
+    user,
+    navigation,
+  },
+  methods: {
+    ...mapActions({
+      logout: "user/logout",
+    }),
+		downUp() {
+
+		}
+  },
+};
 </script>
 
 <style lang="postcss" scoped src="./header.pcss">

@@ -22,12 +22,12 @@
 </template>
 
 <script>
-//создаем обьект данных для навигации
+//создаем обьект данных для навигации в последствии который и распечатываем в цикле
 const links = [
-	{id: '0', title: 'Обо мне', alias: 'about', active: true, },
-	{id: '1', title: 'Навыки', alias: 'values', active: false,},
-	{id: '2', title: 'Работы', alias: 'works', active: false,},
-	{id: '3', title: 'Отзывы', alias: 'reviews', active: false,},
+	{id: '0', title: 'Обо мне', alias: 'about', active: true },
+	{id: '1', title: 'Навыки', alias: 'values', active: false },
+	{id: '2', title: 'Работы', alias: 'works', active: false },
+	{id: '3', title: 'Отзывы', alias: 'reviews', active: false },
 ];
 export default {
 	data() {
@@ -38,8 +38,31 @@ export default {
 	},
 	methods: {
 		activeOn(link) {
-			this.currentActive = link;
+			// this.currentActive = link; //old
+
+			if(localStorage.getItem('currentActive')) { //есть currentActive
+				localStorage.setItem('currentActive', link)
+				this.currentActive = localStorage.getItem('currentActive');
+			} else { //нет currentActive
+				localStorage.setItem('currentActive', this.currentActive)
+			}
 		}
+	},
+	created() {
+		if(localStorage.getItem('currentActive')) { //есть currentActive
+			this.currentActive = localStorage.getItem('currentActive');
+
+		} else { //нет currentActive
+			localStorage.setItem('currentActive', this.currentActive)
+		}
+	},
+	destroyed() {
+		console.log('destroyed')
+		localStorage.removeItem('currentActive');
+	},
+	beforeDestroy() {
+		console.log('beforeDestroy')
+		localStorage.removeItem('currentActive');
 	}
 };
 </script>
